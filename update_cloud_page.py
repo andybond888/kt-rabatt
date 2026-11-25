@@ -524,7 +524,6 @@ def build_html(payload: Dict[str, Any]) -> str:
         <div id="addrSuggest" class="addr-list"></div>
       </div>
       <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna</button>
-      <button class="cfg-btn" onclick="promptApiKey()" title="Ange/ändra Google Maps API-nyckel">🔑</button>
     </div>
     <div id="liveTimeStatus" style="font-size:12px;color:#0369a1;display:none"></div>
 
@@ -792,16 +791,6 @@ document.addEventListener('click', (e) => {{
 
 let liveTimesCache = {{}};
 try {{ liveTimesCache = JSON.parse(localStorage.getItem('kt_live_times') || '{{}}'); }} catch(e) {{}}
-
-function promptApiKey() {{
-  let cur = '';
-  try {{ cur = localStorage.getItem('kt_gmaps_key') || ''; }} catch(e) {{}}
-  const k = prompt('Klistra in din Google Maps API-nyckel (sparas bara lokalt i din webbläsare):', cur);
-  if (k !== null) {{
-    try {{ localStorage.setItem('kt_gmaps_key', k.trim()); }} catch(e) {{}}
-  }}
-  return (k || '').trim();
-}}
 
 const PLACE_COORDS = {{
   "Huddinge": [17.9819, 59.2367],
