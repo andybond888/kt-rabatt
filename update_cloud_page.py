@@ -679,7 +679,7 @@ function renderAll() {{
       : '';
     const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
     const descShort = c.description ? (c.description.length > 78 ? c.description.slice(0, 75) + '…' : c.description) : '';
-    const qtyNote = (c.norm_qty && Math.abs(c.norm_qty - 1) > 0.01) ? ` (för ${{Number(c.norm_qty.toFixed(2))}} ${{c.norm_unit}})` : '';
+    const qtyNote = ` (${{Number((c.norm_qty || 1).toFixed(2))}} ${{c.norm_unit}})`;
     const hist = c.history || [];
     const isH = !!openHist[key];
     const histBtnHtml = hist.length
