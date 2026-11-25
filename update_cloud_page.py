@@ -527,7 +527,7 @@ def build_html(payload: Dict[str, Any]) -> str:
       </label>
       <label class="toggle-lbl">
         <input id="onlyNear" type="checkbox" checked onchange="renderAll()">
-        📍 Bara nära butiker (max ~12 min med bil)
+        📍 Bara nära (Huddinge &amp; längs vägen från Skanstull)
       </label>
     </div>
 
