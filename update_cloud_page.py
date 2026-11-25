@@ -609,27 +609,27 @@ function togglePick(key) {{
 }}
 
 const STORE_LOCATIONS = {{
-  "City Gross": "Länna / Kungens Kurva",
-  "Coop": "Huddinge / Skanstull",
-  "Costco": "Arninge (Täby)",
-  "Din Mat": "Skärholmen / Alby",
-  "DollarStore": "Länna / Kungens Kurva",
-  "Hemköp": "Huddinge / Skanstull",
-  "ICA Kvantum": "Farsta / Skanstull",
-  "ICA Maxi Stormarknad": "Flemingsberg / Haninge",
-  "ICA Nära": "Huddinge / Söderort",
-  "ICA Supermarket": "Huddinge / Skanstull",
-  "Lidl": "Rågsved / Huddinge / Medis",
-  "Matcenter": "Alby / Botkyrka",
-  "Matdax": "Högdalen / Hökarängen",
-  "Matvärlden": "Kungens Kurva",
-  "Nya Pulsen": "Flemingsberg",
-  "Rusta": "Länna / Kungens Kurva",
-  "Stora Coop": "Huddinge / Västberga",
-  "Supergrossen": "Skärholmen / Vårby",
-  "Willys": "Länna / Flemingsberg / Sköndal",
-  "Willys Hemma": "Huddinge / Hornstull",
-  "ÖoB": "Skärholmen / Haninge"
+  "City Gross": "Länna / Kungens Kurva (~11 min)",
+  "Coop": "Huddinge / Stuvsta (~6 min)",
+  "Costco": "Arninge, Täby (~35 min)",
+  "Din Mat": "Skärholmen / Alby (~14 min)",
+  "DollarStore": "Länna / Kungens Kurva (~11 min)",
+  "Hemköp": "Huddinge / Stuvsta (~6 min)",
+  "ICA Kvantum": "Farsta / Skanstull (~11 min)",
+  "ICA Maxi Stormarknad": "Flemingsberg (~9 min)",
+  "ICA Nära": "Huddinge / Segeltorp (~6 min)",
+  "ICA Supermarket": "Huddinge / Stuvsta (~5 min)",
+  "Lidl": "Rågsved / Huddinge (~7 min)",
+  "Matcenter": "Alby / Botkyrka (~15 min)",
+  "Matdax": "Högdalen / Hökarängen (~9 min)",
+  "Matvärlden": "Kungens Kurva (~13 min)",
+  "Nya Pulsen": "Flemingsberg (~9 min)",
+  "Rusta": "Länna / Kungens Kurva (~11 min)",
+  "Stora Coop": "Huddinge / Västberga (~8 min)",
+  "Supergrossen": "Skärholmen / Vårby (~14 min)",
+  "Willys": "Länna / Flemingsberg (~10 min)",
+  "Willys Hemma": "Huddinge / Älvsjö (~8 min)",
+  "ÖoB": "Skärholmen / Haninge (~16 min)"
 }};
 
 const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen", "ÖoB"]);
@@ -691,7 +691,7 @@ function renderAll() {{
     const b = document.createElement('button');
     b.className = 'chip' + (st === activeStore ? ' active' : '');
     const loc = storeLoc(st);
-    const shortLoc = loc ? loc.split('/')[0].trim() : '';
+    const shortLoc = loc ? loc.replace(/\s*\([^)]*\)/g, '').split('/')[0].trim() : '';
     b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
     b.onclick = () => {{ activeStore = st; renderAll(); }};
     chipBox.appendChild(b);
@@ -747,7 +747,8 @@ function renderAll() {{
         `</div>`
       : '';
     const loc = storeLoc(c.store_name);
-    const mapsUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Arrendatorsvägen 1, 141 62 Huddinge')}}&destination=${{encodeURIComponent(c.store_name + ' ' + loc.split('/')[0].trim())}}` : '';
+    const cleanDest = loc ? loc.replace(/\s*\([^)]*\)/g, '').split('/')[0].trim() : '';
+    const mapsUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Arrendatorsvägen 1, 141 62 Huddinge')}}&destination=${{encodeURIComponent(c.store_name + ' ' + cleanDest)}}` : '';
     const locHtml = loc ? `<a class="loc-tag" href="${{mapsUrl}}" target="_blank" rel="noopener">📍 ${{loc}}</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
