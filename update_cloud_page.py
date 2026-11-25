@@ -471,6 +471,8 @@ def build_html(payload: Dict[str, Any]) -> str:
   .store-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
   .loc-tag {{ display:inline-block; background:#fef3c7; color:#92400e; font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; margin-left:4px; text-decoration:none; }}
   .loc-tag:hover {{ background:#fde68a; }}
+  .route-tag {{ display:inline-block; background:#ede9fe; color:#5b21b6; font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; margin-left:4px; text-decoration:none; }}
+  .route-tag:hover {{ background:#ddd6fe; }}
   .cat-tag {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; }}
   .save-tag {{ display:inline-block; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; background:#dcfce7; color:#14532d; }}
   .title {{ font-weight:700; font-size:15px; margin:4px 0 2px; }}
@@ -747,9 +749,12 @@ function renderAll() {{
         `</div>`
       : '';
     const loc = storeLoc(c.store_name);
-    const cleanDest = loc ? loc.replace(/\s*\([^)]*\)/g, '').split('/')[0].trim() : '';
-    const mapsUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Arrendatorsvägen 1, 141 62 Huddinge')}}&destination=${{encodeURIComponent(c.store_name + ' ' + cleanDest)}}` : '';
-    const locHtml = loc ? `<a class="loc-tag" href="${{mapsUrl}}" target="_blank" rel="noopener">📍 ${{loc}}</a>` : '';
+    const cleanDest = loc ? loc.replace(/\\s*\\([^)]*\\)/g, '').split('/')[0].trim() : '';
+    const storeQuery = c.store_name + (cleanDest ? ' ' + cleanDest : '');
+    const homeAddr = 'Arrendatorsvägen 1, 141 62 Huddinge';
+    const mapsUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(storeQuery)}}` : '';
+    const hemvagUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Skanstull, Stockholm')}}&waypoints=${{encodeURIComponent(storeQuery)}}&destination=${{encodeURIComponent(homeAddr)}}` : '';
+    const locHtml = loc ? `<a class="loc-tag" href="${{mapsUrl}}" target="_blank" rel="noopener">📍 ${{loc}}</a><a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Hemväg</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
