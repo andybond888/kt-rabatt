@@ -650,7 +650,7 @@ function renderAll() {{
   const areaBox = document.getElementById('areaChips');
   const areaOpts = [
     ['near', '📍 Nära Arrendatorsvägen'],
-    ['route', '🚗 Skanstull → Hem'],
+    ['route', '🚗 Skanstull → Jobbet'],
     ['all', '🗺️ Alla butiker']
   ];
   areaBox.innerHTML = '';
@@ -780,7 +780,7 @@ function renderAll() {{
     const firstClean = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     const firstQuery = c.store_name + (firstClean ? ' ' + firstClean : '');
     const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Skanstull, Stockholm')}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(homeAddr)}}` : '';
-    const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Hemväg</a>` : '';
+    const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
