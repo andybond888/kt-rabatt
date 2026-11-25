@@ -737,7 +737,7 @@ function renderAll() {{
         `</div>`
       : '';
     const loc = storeLoc(c.store_name);
-    const mapsUrl = loc ? `https://www.google.com/maps/search/${{encodeURIComponent(c.store_name + ' ' + loc.split('/')[0].trim())}}` : '';
+    const mapsUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Arrendatorsvägen 1, 141 62 Huddinge')}}&destination=${{encodeURIComponent(c.store_name + ' ' + loc.split('/')[0].trim())}}` : '';
     const locHtml = loc ? `<a class="loc-tag" href="${{mapsUrl}}" target="_blank" rel="noopener">📍 ${{loc}}</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
