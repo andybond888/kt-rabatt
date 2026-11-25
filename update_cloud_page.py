@@ -518,10 +518,16 @@ def build_html(payload: Dict[str, Any]) -> str:
       <option value="Alla">Alla valda varor</option>
     </select>
 
-    <label class="toggle-lbl">
-      <input id="onlyGreen" type="checkbox" checked onchange="renderAll()">
-      Visa bara klipp som slår våra priser
-    </label>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <label class="toggle-lbl">
+        <input id="onlyGreen" type="checkbox" checked onchange="renderAll()">
+        Visa bara klipp som slår våra priser
+      </label>
+      <label class="toggle-lbl">
+        <input id="onlyNear" type="checkbox" checked onchange="renderAll()">
+        📍 Bara nära butiker (Huddinge–Skanstull)
+      </label>
+    </div>
 
     <div class="sec-lbl">Kategori</div>
     <div class="chips" id="catChips"></div>
@@ -626,6 +632,8 @@ const STORE_LOCATIONS = {{
   "ÖoB": "Kungens Kurva / Länna"
 }};
 
+const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen"]);
+
 function storeLoc(name) {{
   return STORE_LOCATIONS[name] || '';
 }}
@@ -633,10 +641,12 @@ function storeLoc(name) {{
 function renderAll() {{
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
   const onlyG = document.getElementById('onlyGreen').checked;
+  const onlyN = document.getElementById('onlyNear').checked;
 
   const visibleBase = (DATA.campaigns || []).filter(c => {{
     if (hiddenProds[c.canonical_name]) return false;
     if (onlyG && c.verdict_code !== 'GREEN') return false;
+    if (onlyN && FAR_STORES.has(c.store_name)) return false;
     const loc = storeLoc(c.store_name).toLowerCase();
     if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || (c.category || '').toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q) || loc.includes(q))) return false;
     return true;
