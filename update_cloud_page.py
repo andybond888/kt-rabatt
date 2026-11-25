@@ -195,7 +195,7 @@ def normalize_offer(
             norm_qty = max(1.0, pieces_from)
         norm_unit = "st"
         unit_price_net = price_net / norm_qty
-    elif slug in ("engangshandskar", "avfallspasar_sopsackar", "plastpasar_matfilm", "maskindiskmedel") and re.search(
+    elif slug in ("engangshandskar", "avfallspasar_sopsackar", "sopsackar_stora", "plastpasar_matfilm", "maskindiskmedel") and re.search(
         r"\b(\d{2,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I
     ):
         m_hp = re.search(r"\b(\d{2,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I)
@@ -256,7 +256,9 @@ def normalize_offer(
         "category": b_info.get("category") or "Övrigt",
         "store_name": store_name,
         "heading": heading,
+        "description": re.sub(r"\s+", " ", desc),
         "price_gross_sek": round(price_gross, 2),
+        "norm_qty": round(norm_qty, 3),
         "norm_unit": norm_unit,
         "unit_price_net_sek": round(unit_price_net, 2),
         "max_limit_note": max_note,
@@ -371,9 +373,11 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 "id": item["id"],
                 "store_name": item["store_name"],
                 "heading": item["heading"],
+                "description": item.get("description") or "",
                 "canonical_name": item["canonical_name"],
                 "category": cat_name,
                 "price_gross_sek": float(item["price_gross_sek"]),
+                "norm_qty": float(item.get("norm_qty") or 1.0),
                 "norm_unit": canon_unit,
                 "unit_price_net_sek": round(u_net, 2),
                 "our_best_price": our_best,
@@ -623,13 +627,16 @@ function renderAll() {{
       ? `Vårt ordinarie pris: ${{c.our_best_price.toFixed(2)}} kr/${{c.norm_unit}} exkl. moms`
       : '';
     const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
+    const descShort = c.description ? (c.description.length > 78 ? c.description.slice(0, 75) + '…' : c.description) : '';
+    const qtyNote = (c.norm_qty && Math.abs(c.norm_qty - 1) > 0.01) ? ` (för ${{Number(c.norm_qty.toFixed(2))}} ${{c.norm_unit}})` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
         <div><span class="store-tag">${{c.store_name}}</span><span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
         <div class="title">${{c.heading}}</div>
+        ${{descShort ? `<div class="sub" style="color:#334155">${{descShort}}</div>` : ''}}
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
-        <div class="price-line">Butikspris: ${{c.price_gross_sek.toFixed(2)}} kr  →  ${{c.unit_price_net_sek.toFixed(2)}} kr/${{c.norm_unit}} exkl. moms</div>
+        <div class="price-line">Annonspris: ${{c.price_gross_sek.toFixed(2)}} kr${{qtyNote}}  →  ${{c.unit_price_net_sek.toFixed(2)}} kr/${{c.norm_unit}} exkl. moms</div>
         <div class="ref-line">${{ourTxt}}</div>
       </div>
       <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ Klar' : 'Plocka'}}</button>
