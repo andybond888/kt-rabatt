@@ -332,7 +332,16 @@
       "patterns": [
         "\\bgurka\\b"
       ],
-      "negatives": []
+      "negatives": [
+        "smörg",
+        "inlagd",
+        "ättiks",
+        "saltgurka",
+        "bostongurka",
+        "cornichon",
+        "picklad",
+        "dressing"
+      ]
     },
     {
       "slug": "paprika",
@@ -1405,7 +1414,7 @@
         {
           "date": "2026-07-29",
           "supplier": "Madam Hong Import Export",
-          "price_net": 42.0,
+          "price_net": 1.4,
           "unit": "st"
         }
       ]
@@ -1828,7 +1837,7 @@
         {
           "date": "2026-09-29",
           "supplier": "CT Food Stockholm AB",
-          "price_net": 2095.0,
+          "price_net": 69.83,
           "unit": "kg"
         },
         {
@@ -1840,7 +1849,7 @@
         {
           "date": "2026-09-22",
           "supplier": "CT Food Stockholm AB",
-          "price_net": 2095.0,
+          "price_net": 69.83,
           "unit": "kg"
         },
         {
@@ -1852,7 +1861,7 @@
         {
           "date": "2026-08-31",
           "supplier": "CT Food Stockholm AB",
-          "price_net": 2095.0,
+          "price_net": 69.83,
           "unit": "kg"
         },
         {
@@ -2771,7 +2780,7 @@
         {
           "date": "2026-08-24",
           "supplier": "Nya Greenish AB",
-          "price_net": 80.0,
+          "price_net": 2.67,
           "unit": "st"
         },
         {
@@ -2783,7 +2792,7 @@
         {
           "date": "2026-08-04",
           "supplier": "Nya Greenish AB",
-          "price_net": 67.5,
+          "price_net": 2.25,
           "unit": "st"
         },
         {
@@ -3201,7 +3210,7 @@
       "category": "Läsk & Dryck",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 128.3,
+      "our_best_price": 127.39,
       "record_price": 125.58,
       "ref_source": "butik",
       "history": [
@@ -3214,14 +3223,14 @@
         {
           "date": "2026-09-12",
           "supplier": "Willys Älvsjö",
-          "price_net": 678.11,
-          "unit": "st"
+          "price_net": 125.58,
+          "unit": "kg"
         },
         {
           "date": "2026-09-12",
           "supplier": "Willys Älvsjö",
-          "price_net": 678.11,
-          "unit": "st"
+          "price_net": 125.58,
+          "unit": "kg"
         },
         {
           "date": "2026-08-29",
@@ -3395,50 +3404,50 @@
         {
           "date": "2026-10-21",
           "supplier": "Lidl Rågsved",
-          "price_net": 192.08,
-          "unit": "st"
+          "price_net": 12.01,
+          "unit": "L"
         },
         {
           "date": "2026-10-10",
           "supplier": "Lidl Rågsved",
-          "price_net": 192.08,
-          "unit": "st"
+          "price_net": 12.01,
+          "unit": "L"
         },
         {
           "date": "2026-10-07",
           "supplier": "Lidl Rågsved",
-          "price_net": 216.08,
-          "unit": "st"
+          "price_net": 12.0,
+          "unit": "L"
         },
         {
           "date": "2026-10-04",
           "supplier": "Lidl Rågsved",
-          "price_net": 360.14,
-          "unit": "st"
+          "price_net": 12.0,
+          "unit": "L"
         },
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 336.13,
-          "unit": "st"
+          "price_net": 12.0,
+          "unit": "L"
         },
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 336.13,
-          "unit": "st"
+          "price_net": 12.0,
+          "unit": "L"
         },
         {
           "date": "2026-09-23",
           "supplier": "Lidl Rågsved",
-          "price_net": 240.09,
-          "unit": "st"
+          "price_net": 12.0,
+          "unit": "L"
         },
         {
           "date": "2026-09-16",
           "supplier": "Lidl Rågsved",
-          "price_net": 336.13,
-          "unit": "st"
+          "price_net": 12.0,
+          "unit": "L"
         }
       ]
     },
@@ -3641,14 +3650,14 @@
       "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 59.08,
-      "record_price": 28.3,
+      "our_best_price": 34.95,
+      "record_price": 28.16,
       "ref_source": "butik",
       "history": [
         {
           "date": "2026-10-21",
           "supplier": "Lidl Rågsved",
-          "price_net": 112.64,
+          "price_net": 28.16,
           "unit": "kg"
         },
         {
@@ -3672,13 +3681,13 @@
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 112.64,
+          "price_net": 28.16,
           "unit": "kg"
         },
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 112.64,
+          "price_net": 28.16,
           "unit": "kg"
         },
         {
@@ -4057,7 +4066,7 @@
         {
           "date": "2026-09-12",
           "supplier": "Lidl Rågsved",
-          "price_net": 191.2,
+          "price_net": 2.39,
           "unit": "st"
         },
         {
