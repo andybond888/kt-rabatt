@@ -611,33 +611,37 @@ function togglePick(key) {{
 }}
 
 const STORE_LOCATIONS = {{
-  "City Gross": "Länna (~11 min)",
-  "Coop": "Huddinge (~6 min)",
-  "Costco": "Arninge, Täby (~35 min)",
-  "Din Mat": "Skärholmen (~14 min)",
-  "DollarStore": "Länna (~11 min)",
-  "Hemköp": "Huddinge (~6 min)",
-  "ICA Kvantum": "Farsta (~11 min)",
-  "ICA Maxi Stormarknad": "Flemingsberg (~9 min)",
-  "ICA Nära": "Huddinge (~6 min)",
-  "ICA Supermarket": "Huddinge (~5 min)",
-  "Lidl": "Rågsved (~7 min)",
-  "Matcenter": "Alby (~15 min)",
-  "Matdax": "Högdalen (~9 min)",
-  "Matvärlden": "Kungens Kurva (~13 min)",
-  "Nya Pulsen": "Flemingsberg (~9 min)",
-  "Rusta": "Länna (~11 min)",
-  "Stora Coop": "Huddinge (~8 min)",
-  "Supergrossen": "Skärholmen (~14 min)",
-  "Willys": "Länna (~10 min)",
-  "Willys Hemma": "Huddinge (~8 min)",
-  "ÖoB": "Skärholmen (~16 min)"
+  "City Gross": ["Länna (~11 min)", "Kungens Kurva (~12 min)"],
+  "Coop": ["Huddinge (~6 min)", "Stuvsta (~5 min)"],
+  "Costco": ["Arninge, Täby (~35 min)"],
+  "Din Mat": ["Skärholmen (~14 min)", "Alby (~15 min)"],
+  "DollarStore": ["Länna (~11 min)", "Kungens Kurva (~12 min)"],
+  "Hemköp": ["Huddinge (~6 min)", "Skanstull (~15 min)"],
+  "ICA Kvantum": ["Farsta (~11 min)", "Skanstull (~15 min)"],
+  "ICA Maxi Stormarknad": ["Flemingsberg (~9 min)", "Haninge (~15 min)"],
+  "ICA Nära": ["Huddinge (~6 min)", "Segeltorp (~7 min)"],
+  "ICA Supermarket": ["Huddinge (~5 min)", "Stuvsta (~5 min)"],
+  "Lidl": ["Rågsved (~7 min)", "Huddinge (~7 min)"],
+  "Matcenter": ["Alby (~15 min)"],
+  "Matdax": ["Högdalen (~9 min)", "Hökarängen (~10 min)"],
+  "Matvärlden": ["Kungens Kurva (~13 min)"],
+  "Nya Pulsen": ["Flemingsberg (~9 min)"],
+  "Rusta": ["Länna (~11 min)", "Kungens Kurva (~12 min)"],
+  "Stora Coop": ["Huddinge (~8 min)", "Västberga (~11 min)"],
+  "Supergrossen": ["Skärholmen (~14 min)", "Vårby (~14 min)"],
+  "Willys": ["Länna (~10 min)", "Flemingsberg (~10 min)"],
+  "Willys Hemma": ["Huddinge (~8 min)", "Älvsjö (~9 min)"],
+  "ÖoB": ["Skärholmen (~16 min)", "Haninge (~18 min)"]
 }};
 
 const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen", "ÖoB"]);
 
+function storeLocs(name) {{
+  return STORE_LOCATIONS[name] || [];
+}}
+
 function storeLoc(name) {{
-  return STORE_LOCATIONS[name] || '';
+  return storeLocs(name).join(' ');
 }}
 
 function renderAll() {{
@@ -692,8 +696,8 @@ function renderAll() {{
   stores.forEach(st => {{
     const b = document.createElement('button');
     b.className = 'chip' + (st === activeStore ? ' active' : '');
-    const loc = storeLoc(st);
-    const shortLoc = loc ? loc.replace(/\s*\([^)]*\)/g, '').split('/')[0].trim() : '';
+    const locs = storeLocs(st);
+    const shortLoc = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
     b.onclick = () => {{ activeStore = st; renderAll(); }};
     chipBox.appendChild(b);
@@ -748,13 +752,18 @@ function renderAll() {{
         hist.map(h => `<div class="hist-row"><span>${{h.date}}${{h.supplier ? ' • ' + h.supplier : ''}}</span><b>${{Number(h.price_gross).toFixed(2)}} kr/${{h.unit}}</b></div>`).join('') +
         `</div>`
       : '';
-    const loc = storeLoc(c.store_name);
-    const cleanDest = loc ? loc.replace(/\\s*\\([^)]*\\)/g, '').split('/')[0].trim() : '';
-    const storeQuery = c.store_name + (cleanDest ? ' ' + cleanDest : '');
+    const locs = storeLocs(c.store_name);
     const homeAddr = 'Arrendatorsvägen 1, 141 62 Huddinge';
-    const mapsUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(storeQuery)}}` : '';
-    const hemvagUrl = loc ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Skanstull, Stockholm')}}&waypoints=${{encodeURIComponent(storeQuery)}}&destination=${{encodeURIComponent(homeAddr)}}` : '';
-    const locHtml = loc ? `<a class="loc-tag" href="${{mapsUrl}}" target="_blank" rel="noopener">📍 ${{loc}}</a><a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Hemväg</a>` : '';
+    const locPills = locs.map(l => {{
+      const cleanD = l.replace(/\\s*\\([^)]*\\)/g, '').trim();
+      const qDest = c.store_name + (cleanD ? ' ' + cleanD : '');
+      const uDir = `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(qDest)}}`;
+      return `<a class="loc-tag" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
+    }}).join('');
+    const firstClean = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
+    const firstQuery = c.store_name + (firstClean ? ' ' + firstClean : '');
+    const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Skanstull, Stockholm')}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(homeAddr)}}` : '';
+    const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Hemväg</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
