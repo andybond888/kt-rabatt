@@ -392,9 +392,9 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 "price_gross": round(float(h.get("price_net") or 0.0) * (1.0 + vat_r / 100.0), 2),
                 "unit": h.get("unit") or canon_unit,
             }
-            for h in raw_hist[:8]
-            if float(h.get("price_net") or 0.0) > 0
-        ]
+            for h in raw_hist
+            if float(h.get("price_net") or 0.0) > 0 and (h.get("unit") or canon_unit) == canon_unit
+        ][:8]
         ref_source = str((b.get("ref_source") if b else "") or ("butik" if hist_gross else "riktpris"))
 
         results.append(
