@@ -126,6 +126,8 @@
       "patterns": [
         "vann?amei?",
         "vanneme",
+        "tigerräkor",
+        "jätteräkor",
         "shrimp\\s*\\d+-\\d+",
         "räkor.*skal"
       ],
@@ -162,6 +164,11 @@
       "slug": "tomat",
       "patterns": [
         "tomat\\s*kvist",
+        "kvisttomat",
+        "plommontomat",
+        "körsbärstomat",
+        "cocktailtomat",
+        "tomatmix",
         "\\btomater?\\b"
       ],
       "negatives": [
@@ -169,6 +176,7 @@
         "passerad",
         "puré",
         "pure",
+        "röra",
         "sås",
         "ketchup",
         "soltork",
@@ -312,9 +320,20 @@
     {
       "slug": "paprika",
       "patterns": [
-        "\\bpaprika\\b"
+        "\\bpaprika\\b",
+        "paprikamix",
+        "spetspaprika",
+        "minipaprika"
       ],
-      "negatives": []
+      "negatives": [
+        "puré",
+        "pure",
+        "pulver",
+        "krydda",
+        "chips",
+        "röra",
+        "sås"
+      ]
     },
     {
       "slug": "morotter",
@@ -483,11 +502,12 @@
         "mörkrost",
         "bryggkaffe",
         "jubileumskaffe",
+        "kaffebönor",
         "löfbergs",
         "zoégas",
         "gevalia",
         "arvid\\s*nordquist",
-        "^kaffe$"
+        "\\bkaffe\\b"
       ],
       "negatives": [
         "snabbkaffe",
@@ -565,7 +585,7 @@
         "smör\\s+82",
         "smor\\s+1kg",
         "matriket\\s+smör",
-        "^smör$"
+        "\\bsmör\\b"
       ],
       "negatives": [
         "flytande",
@@ -576,6 +596,7 @@
         "bregott",
         "smörrebröd",
         "popcorn",
+        "croissant",
         "kaka",
         "bull"
       ]
@@ -645,9 +666,7 @@
         "delikatess\\s*potatis",
         "ugnsdelikatess\\s*potatis",
         "potatis\\s*färsk",
-        "^potatis$",
-        "\\bpotatis\\s+fast\\b",
-        "\\bpotatis\\s+mjölig\\b"
+        "\\bpotatis\\b"
       ],
       "negatives": [
         "sötpotatis",
@@ -940,7 +959,7 @@
       "record_price": 84.86
     },
     "vannamei_rakor": {
-      "name": "Vannameiräkor (Frysta)",
+      "name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
       "unit": "kg",
       "yield_pct": 80.0,
@@ -1060,7 +1079,7 @@
       "record_price": 20.9
     },
     "paprika": {
-      "name": "Paprika (Röd / Grön)",
+      "name": "Paprika (Röd / Grön / Mix)",
       "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
@@ -1312,7 +1331,7 @@
       "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 13.9,
+      "our_best_price": 7.2,
       "record_price": 6.51
     },
     "sotpotatis": {
