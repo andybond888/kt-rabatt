@@ -260,7 +260,9 @@ def normalize_offer(
         "price_gross_sek": round(price_gross, 2),
         "norm_qty": round(norm_qty, 3),
         "norm_unit": norm_unit,
+        "vat_rate": vat_r,
         "unit_price_net_sek": round(unit_price_net, 2),
+        "unit_price_gross_sek": round(unit_price_net * (1.0 + vat_r / 100.0), 2),
         "max_limit_note": max_note,
         "valid_until": v_until,
         "image_url": img_url,
@@ -368,6 +370,10 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 verdict = "🔴 DYRARE ÄN VÅRT PRIS"
                 verdict_code = "RED"
 
+        vat_r = float(item.get("vat_rate") or cfg.get("food_vat_rate", 6.0))
+        u_gross = round(u_net * (1.0 + vat_r / 100.0), 2)
+        our_best_gross = round(our_best * (1.0 + vat_r / 100.0), 2) if our_best is not None else None
+
         results.append(
             {
                 "id": item["id"],
@@ -379,8 +385,11 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 "price_gross_sek": float(item["price_gross_sek"]),
                 "norm_qty": float(item.get("norm_qty") or 1.0),
                 "norm_unit": canon_unit,
+                "vat_rate": vat_r,
                 "unit_price_net_sek": round(u_net, 2),
+                "unit_price_gross_sek": u_gross,
                 "our_best_price": our_best,
+                "our_best_price_gross": our_best_gross,
                 "diff_pct": diff_pct,
                 "verdict": verdict,
                 "verdict_code": verdict_code,
@@ -623,8 +632,10 @@ function renderAll() {{
     const cls = c.verdict_code === 'GREEN' ? 'green' : (c.verdict_code === 'YELLOW' ? 'yellow' : '');
     const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="">` : '';
     const savePct = (c.diff_pct != null && c.diff_pct < 0) ? ` (${{Math.round(c.diff_pct)}}%)` : '';
-    const ourTxt = c.our_best_price != null
-      ? `Vårt ordinarie pris: ${{c.our_best_price.toFixed(2)}} kr/${{c.norm_unit}} exkl. moms`
+    const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
+    const ourGross = c.our_best_price_gross != null ? c.our_best_price_gross : (c.our_best_price != null ? c.our_best_price * (1 + (c.vat_rate || 6) / 100) : null);
+    const ourTxt = ourGross != null
+      ? `Vårt ordinarie pris: ${{ourGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms`
       : '';
     const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
     const descShort = c.description ? (c.description.length > 78 ? c.description.slice(0, 75) + '…' : c.description) : '';
@@ -636,7 +647,7 @@ function renderAll() {{
         <div class="title">${{c.heading}}</div>
         ${{descShort ? `<div class="sub" style="color:#334155">${{descShort}}</div>` : ''}}
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
-        <div class="price-line">Annonspris: ${{c.price_gross_sek.toFixed(2)}} kr${{qtyNote}}  →  ${{c.unit_price_net_sek.toFixed(2)}} kr/${{c.norm_unit}} exkl. moms</div>
+        <div class="price-line">Annonspris: ${{c.price_gross_sek.toFixed(2)}} kr${{qtyNote}}  →  Jfr-pris: ${{unitGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms</div>
         <div class="ref-line">${{ourTxt}}</div>
       </div>
       <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ Klar' : 'Plocka'}}</button>
