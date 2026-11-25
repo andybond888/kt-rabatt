@@ -506,7 +506,14 @@ def build_html(payload: Dict[str, Any]) -> str:
     </div>
 
     <div class="row-flex">
-      <input id="originInput" class="search-input" type="text" placeholder="Startadress (t.ex. Arrendatorsvägen 1, Huddinge)" oninput="onOriginChange()">
+      <select id="originSelect" class="prod-select" style="flex:1" onchange="onOriginSelect()">
+        <option value="Arrendatorsvägen 1, 141 62 Huddinge">📍 Start: Arrendatorsvägen 1, 141 62 Huddinge</option>
+        <option value="Skanstull, Stockholm">🏠 Start: Skanstull, Stockholm</option>
+        <option value="__custom__">✏️ Annan startadress...</option>
+      </select>
+    </div>
+    <div id="customOriginRow" class="row-flex" style="display:none">
+      <input id="originInput" class="search-input" type="text" placeholder="Skriv egen startadress..." oninput="onOriginChange()">
     </div>
 
     <div id="varuPanel" class="varu-panel">
@@ -668,9 +675,31 @@ const ROUTE_TIMES = {{
 }};
 let activeArea = 'near';
 const DEFAULT_ORIGIN = 'Arrendatorsvägen 1, 141 62 Huddinge';
+const PRESET_ORIGINS = new Set(['Arrendatorsvägen 1, 141 62 Huddinge', 'Skanstull, Stockholm']);
 let userOrigin = DEFAULT_ORIGIN;
 try {{ userOrigin = localStorage.getItem('kt_cloud_origin') || DEFAULT_ORIGIN; }} catch(e) {{}}
-document.getElementById('originInput').value = userOrigin;
+if (PRESET_ORIGINS.has(userOrigin)) {{
+  document.getElementById('originSelect').value = userOrigin;
+}} else {{
+  document.getElementById('originSelect').value = '__custom__';
+  document.getElementById('customOriginRow').style.display = 'flex';
+  document.getElementById('originInput').value = userOrigin;
+}}
+
+function onOriginSelect() {{
+  const val = document.getElementById('originSelect').value;
+  const row = document.getElementById('customOriginRow');
+  if (val === '__custom__') {{
+    row.style.display = 'flex';
+    document.getElementById('originInput').focus();
+    userOrigin = (document.getElementById('originInput').value || '').trim() || DEFAULT_ORIGIN;
+  }} else {{
+    row.style.display = 'none';
+    userOrigin = val;
+    try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
+  }}
+  renderAll();
+}}
 
 function onOriginChange() {{
   userOrigin = (document.getElementById('originInput').value || '').trim() || DEFAULT_ORIGIN;
