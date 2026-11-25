@@ -609,27 +609,27 @@ function togglePick(key) {{
 }}
 
 const STORE_LOCATIONS = {{
-  "City Gross": "Länna / Kungens Kurva (~11 min)",
-  "Coop": "Huddinge / Stuvsta (~6 min)",
+  "City Gross": "Länna (~11 min)",
+  "Coop": "Huddinge (~6 min)",
   "Costco": "Arninge, Täby (~35 min)",
-  "Din Mat": "Skärholmen / Alby (~14 min)",
-  "DollarStore": "Länna / Kungens Kurva (~11 min)",
-  "Hemköp": "Huddinge / Stuvsta (~6 min)",
-  "ICA Kvantum": "Farsta / Skanstull (~11 min)",
+  "Din Mat": "Skärholmen (~14 min)",
+  "DollarStore": "Länna (~11 min)",
+  "Hemköp": "Huddinge (~6 min)",
+  "ICA Kvantum": "Farsta (~11 min)",
   "ICA Maxi Stormarknad": "Flemingsberg (~9 min)",
-  "ICA Nära": "Huddinge / Segeltorp (~6 min)",
-  "ICA Supermarket": "Huddinge / Stuvsta (~5 min)",
-  "Lidl": "Rågsved / Huddinge (~7 min)",
-  "Matcenter": "Alby / Botkyrka (~15 min)",
-  "Matdax": "Högdalen / Hökarängen (~9 min)",
+  "ICA Nära": "Huddinge (~6 min)",
+  "ICA Supermarket": "Huddinge (~5 min)",
+  "Lidl": "Rågsved (~7 min)",
+  "Matcenter": "Alby (~15 min)",
+  "Matdax": "Högdalen (~9 min)",
   "Matvärlden": "Kungens Kurva (~13 min)",
   "Nya Pulsen": "Flemingsberg (~9 min)",
-  "Rusta": "Länna / Kungens Kurva (~11 min)",
-  "Stora Coop": "Huddinge / Västberga (~8 min)",
-  "Supergrossen": "Skärholmen / Vårby (~14 min)",
-  "Willys": "Länna / Flemingsberg (~10 min)",
-  "Willys Hemma": "Huddinge / Älvsjö (~8 min)",
-  "ÖoB": "Skärholmen / Haninge (~16 min)"
+  "Rusta": "Länna (~11 min)",
+  "Stora Coop": "Huddinge (~8 min)",
+  "Supergrossen": "Skärholmen (~14 min)",
+  "Willys": "Länna (~10 min)",
+  "Willys Hemma": "Huddinge (~8 min)",
+  "ÖoB": "Skärholmen (~16 min)"
 }};
 
 const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen", "ÖoB"]);
