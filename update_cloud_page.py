@@ -234,6 +234,12 @@ def normalize_offer(
             if slug == "gurka" and norm_qty >= 1.0:
                 norm_qty = round(norm_qty * 0.35, 3)
                 norm_unit = "kg"
+            elif canon_unit == "L":
+                m_lit = re.search(r"\b(\d+(?:[.,]\d+)?)\s*(?:l|liter)\b", full_txt, re.I)
+                m_dl = re.search(r"\b(\d+(?:[.,]\d+)?)\s*dl\b", full_txt, re.I)
+                per_p = parse_sv_float(m_lit.group(1)) if m_lit else (parse_sv_float(m_dl.group(1)) / 10.0 if m_dl else 1.0)
+                norm_qty = round(max(0.1, pieces_from * (per_p if per_p > 0 else 1.0)), 3)
+                norm_unit = "L"
             else:
                 norm_unit = "st"
             unit_price_net = price_net / norm_qty
