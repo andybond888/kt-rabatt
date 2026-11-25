@@ -513,8 +513,11 @@ def build_html(payload: Dict[str, Any]) -> str:
       </select>
     </div>
     <div id="customOriginRow" class="row-flex" style="display:none">
-      <input id="originInput" class="search-input" type="text" placeholder="Skriv egen startadress..." oninput="onOriginChange()">
+      <input id="originInput" class="search-input" type="text" placeholder="Skriv valfri adress i Sverige..." oninput="onOriginChange()">
+      <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna tider</button>
+      <button class="cfg-btn" onclick="promptApiKey()" title="Ange/ändra Google Maps API-nyckel">🔑</button>
     </div>
+    <div id="liveTimeStatus" style="font-size:12px;color:#0369a1;display:none"></div>
 
     <div id="varuPanel" class="varu-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
@@ -731,9 +734,85 @@ const STORE_LOCATIONS_SKANSTULL = {{
   "ÖoB": ["Skärholmen (12 min)", "Haninge (16 min)"]
 }};
 
+let liveTimesCache = {{}};
+try {{ liveTimesCache = JSON.parse(localStorage.getItem('kt_live_times') || '{{}}'); }} catch(e) {{}}
+
+function promptApiKey() {{
+  let cur = '';
+  try {{ cur = localStorage.getItem('kt_gmaps_key') || ''; }} catch(e) {{}}
+  const k = prompt('Klistra in din Google Maps API-nyckel (sparas bara lokalt i din webbläsare):', cur);
+  if (k !== null) {{
+    try {{ localStorage.setItem('kt_gmaps_key', k.trim()); }} catch(e) {{}}
+  }}
+  return (k || '').trim();
+}}
+
+async function fetchLiveTimes() {{
+  const addr = (document.getElementById('originInput').value || '').trim();
+  if (!addr) {{ alert('Skriv in en startadress först.'); return; }}
+  let key = '';
+  try {{ key = localStorage.getItem('kt_gmaps_key') || ''; }} catch(e) {{}}
+  if (!key) {{
+    key = promptApiKey();
+    if (!key) return;
+  }}
+  const stEl = document.getElementById('liveTimeStatus');
+  const btn = document.getElementById('btnCalcTimes');
+  stEl.style.display = 'block';
+  stEl.textContent = `⏳ Räknar körtider från ${{addr}}...`;
+  btn.disabled = true;
+
+  const storeNames = Object.keys(STORE_LOCATIONS);
+  const resMap = {{}};
+  const originFull = addr.toLowerCase().includes('sweden') || addr.toLowerCase().includes('sverige') ? addr : addr + ', Sweden';
+
+  await Promise.all(storeNames.map(async (st) => {{
+    const basePlaces = (STORE_LOCATIONS[st] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
+    const outArr = [];
+    for (const p of basePlaces) {{
+      try {{
+        const resp = await fetch('https://routes.googleapis.com/directions/v2:computeRoutes', {{
+          method: 'POST',
+          headers: {{
+            'Content-Type': 'application/json',
+            'X-Goog-Api-Key': key,
+            'X-Goog-FieldMask': 'routes.duration'
+          }},
+          body: JSON.stringify({{
+            origin: {{ address: originFull }},
+            destination: {{ address: `${{st}} ${{p}}, Sweden` }},
+            travelMode: 'DRIVE'
+          }})
+        }});
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        const dur = data.routes && data.routes[0] && data.routes[0].duration;
+        if (dur) {{
+          const mins = Math.round(parseInt(dur.replace('s', ''), 10) / 60);
+          outArr.push(`${{p}} (${{mins}} min)`);
+        }} else {{
+          outArr.push(p);
+        }}
+      }} catch(e) {{
+        outArr.push(p);
+      }}
+    }}
+    resMap[st] = outArr;
+  }}));
+
+  liveTimesCache[addr] = resMap;
+  try {{ localStorage.setItem('kt_live_times', JSON.stringify(liveTimesCache)); }} catch(e) {{}}
+  userOrigin = addr;
+  try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
+  btn.disabled = false;
+  stEl.textContent = `✅ Live-tider uppdaterade från ${{addr}}`;
+  renderAll();
+}}
+
 function storeLocs(name) {{
   if (userOrigin === 'Skanstull, Stockholm') return STORE_LOCATIONS_SKANSTULL[name] || [];
   if (userOrigin === DEFAULT_ORIGIN) return STORE_LOCATIONS[name] || [];
+  if (liveTimesCache[userOrigin] && liveTimesCache[userOrigin][name]) return liveTimesCache[userOrigin][name];
   return (STORE_LOCATIONS[name] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
 }}
 
