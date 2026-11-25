@@ -1,7 +1,8 @@
 """
 Självgående molnskript (update_cloud_page.py) – körs automatiskt i GitHub Actions varje morgon
 (och lokalt vid publicering) helt utan externa paket.
-Hämtar aktuella reklamblad runt Huddinge/Söderort, jämför mot baselines.json och bygger mobilrabattlistan.
+Hämtar aktuella reklamblad runt Huddinge/Söderort, jämför mot baselines.json och bygger mobilrabattlistan
+med full filtrering på varor, kategorier och butiker.
 """
 
 from __future__ import annotations
@@ -40,16 +41,45 @@ def compute_net_from_gross(gross: float, vat_rate: float) -> float:
 
 
 def swedish_now() -> datetime:
-    # Enkel svensk tid (CET/CEST) utan tredjepartsbibliotek
     utc_now = datetime.now(timezone.utc)
-    # Sommartid sista söndagen i mars till sista söndagen i oktober (förenklat: apr-okt = +2, nov-feb = +1)
     offset_h = 2 if 4 <= utc_now.month <= 10 else 1
     return utc_now + timedelta(hours=offset_h)
 
 
+GLOBAL_HEADING_EXCLUSIONS = (
+    "pastry",
+    "gyoza skin",
+    "wonton pastry",
+    "finkrossade",
+    "krossade tomat",
+    "passerade tomat",
+    "tomater på burk",
+    "tomatpur",
+    "leverpastej",
+    "salami",
+    "smörgåspålägg",
+    "skaldjursbricka",
+    "umamifärs",
+    "svartrökt",
+    "flytande smör",
+    "lammrostbiff",
+    "inlagda grönsaker",
+    "mixpickles",
+    "arter/morotter",
+    "ärtor/morötter",
+)
+
+
 def match_slug(text: str, rules: List[Dict[str, Any]]) -> Optional[str]:
     low = (text or "").lower()
+    if not low or "pant" in low or "rabatt" in low:
+        return None
+    if any(x in low for x in GLOBAL_HEADING_EXCLUSIONS):
+        return None
     for rule in rules:
+        negs = rule.get("negatives") or []
+        if negs and any(n in low for n in negs):
+            continue
         for pat in rule["patterns"]:
             if re.search(pat, low, re.I):
                 return str(rule["slug"])
@@ -92,7 +122,6 @@ def normalize_offer(
             "chips",
             "godis",
             "choklad",
-            "glass",
             "kex",
             "kaka",
             "hund",
@@ -102,14 +131,16 @@ def normalize_offer(
             "porchetta",
             "kebab",
             "panerade",
-            "ketchup",
         )
     ):
         slug = None
-    if slug == "farsk_lax" and any(bad in low_txt for bad in ("rökt", "gravad", "fryst", "paj", "soppa")):
+    if slug and slug != "vaniljglass_storpack" and "glass" in low_txt:
         slug = None
-    if slug == "tomat" and any(bad in low_txt for bad in ("krossade", "passerade", "puré", "pure", "sås", "ketchup", "soltork", "på burk")):
-        slug = None
+
+    if slug:
+        rule_obj = next((r for r in rules if r["slug"] == slug), None)
+        if rule_obj and any(n in low_txt for n in (rule_obj.get("negatives") or [])):
+            slug = None
 
     if not slug or slug not in baselines:
         return None
@@ -164,8 +195,10 @@ def normalize_offer(
             norm_qty = max(1.0, pieces_from)
         norm_unit = "st"
         unit_price_net = price_net / norm_qty
-    elif slug in ("engangshandskar", "plastpasar_matfilm") and re.search(r"\b(\d{2,3})\s*-?\s*(?:pack|p|st)\b", full_txt, re.I):
-        m_hp = re.search(r"\b(\d{2,3})\s*-?\s*(?:pack|p|st)\b", full_txt, re.I)
+    elif slug in ("engangshandskar", "avfallspasar_sopsackar", "plastpasar_matfilm", "maskindiskmedel") and re.search(
+        r"\b(\d{2,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I
+    ):
+        m_hp = re.search(r"\b(\d{2,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I)
         per_box = float(m_hp.group(1)) if m_hp else 100.0
         boxes = pieces_from if pieces_from < 20 else 1.0
         norm_qty = boxes * per_box
@@ -205,6 +238,9 @@ def normalize_offer(
                 norm_unit = "st"
             unit_price_net = price_net / norm_qty
 
+    if slug == "vaniljglass_storpack" and (norm_unit != "L" or norm_qty < 0.8):
+        return None
+
     if default_yield < 100.0 and norm_unit == canon_unit:
         unit_price_net = unit_price_net / (default_yield / 100.0)
 
@@ -217,6 +253,7 @@ def normalize_offer(
         "id": oid,
         "slug": slug,
         "canonical_name": b_info["name"],
+        "category": b_info.get("category") or "Övrigt",
         "store_name": store_name,
         "heading": heading,
         "price_gross_sek": round(price_gross, 2),
@@ -309,6 +346,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
         diff_pct = None
         our_best = None
         canon_unit = item["norm_unit"]
+        cat_name = item.get("category") or (b.get("category") if b else "Övrigt") or "Övrigt"
 
         if b and item["norm_unit"] == b["unit"] and b.get("our_best_price") is not None:
             our_best = float(b["our_best_price"])
@@ -319,13 +357,13 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 verdict = "🏆 SLÅR REKORDPRIS!"
                 verdict_code = "GREEN"
             elif u_net < our_best * 0.97:
-                verdict = "🟢 BILLIGARE ÄN GROSSIST!"
+                verdict = "🟢 BILLIGARE ÄN VÅRT PRIS!"
                 verdict_code = "GREEN"
             elif u_net <= our_best * 1.05:
                 verdict = "🟡 I NIVÅ MED VÅRT PRIS"
                 verdict_code = "YELLOW"
             else:
-                verdict = "🔴 DYRARE ÄN GROSSIST"
+                verdict = "🔴 DYRARE ÄN VÅRT PRIS"
                 verdict_code = "RED"
 
         results.append(
@@ -334,6 +372,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 "store_name": item["store_name"],
                 "heading": item["heading"],
                 "canonical_name": item["canonical_name"],
+                "category": cat_name,
                 "price_gross_sek": float(item["price_gross_sek"]),
                 "norm_unit": canon_unit,
                 "unit_price_net_sek": round(u_net, 2),
@@ -349,7 +388,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
         )
 
     order_map = {"GREEN": 0, "YELLOW": 1, "NEUTRAL": 2, "RED": 3}
-    results.sort(key=lambda x: (order_map.get(x["verdict_code"], 5), x["canonical_name"], x["unit_price_net_sek"]))
+    results.sort(key=lambda x: (order_map.get(x["verdict_code"], 5), x["diff_pct"] if x["diff_pct"] is not None else 999.0, x["unit_price_net_sek"]))
     return results
 
 
@@ -363,17 +402,28 @@ def build_html(payload: Dict[str, Any]) -> str:
 <meta name="robots" content="noindex,nofollow">
 <title>Veckans Rabattlista – Inköp</title>
 <style>
-  body {{ margin:0; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:40px; }}
+  body {{ margin:0; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:44px; }}
   .top {{ background:#0f172a; color:#fff; padding:14px 16px; position:sticky; top:0; z-index:20; }}
   .top h1 {{ margin:0; font-size:18px; }}
   .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
-  .wrap {{ padding:12px; max-width:640px; margin:0 auto; }}
+  .wrap {{ padding:12px; max-width:660px; margin:0 auto; }}
   .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
-  .search-input {{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
+  .row-flex {{ display:flex; gap:8px; align-items:center; }}
+  .search-input {{ flex:1; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
+  .cfg-btn {{ border:1px solid #0f172a; background:#fff; color:#0f172a; border-radius:8px; padding:10px 11px; font-weight:700; font-size:13px; cursor:pointer; white-space:nowrap; }}
+  .cfg-btn.active {{ background:#0f172a; color:#fff; }}
+  .prod-select {{ width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; font-weight:600; background:#fff; color:#0f172a; }}
   .toggle-lbl {{ display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; background:#fff; padding:9px 11px; border-radius:8px; border:1px solid #cbd5e1; }}
+  .sec-lbl {{ font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.4px; margin-top:2px; }}
   .chips {{ display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; }}
-  .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:7px 12px; font-size:13px; font-weight:700; white-space:nowrap; cursor:pointer; color:#1e293b; }}
+  .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:6px 12px; font-size:13px; font-weight:700; white-space:nowrap; cursor:pointer; color:#1e293b; }}
   .chip.active {{ background:#ea580c; color:#fff; border-color:#ea580c; }}
+  .chip.cat-chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
+  .varu-panel {{ display:none; background:#fff; border:1px solid #cbd5e1; border-radius:10px; padding:12px; margin-bottom:6px; }}
+  .varu-panel.open {{ display:block; }}
+  .varu-grid {{ display:grid; grid-template-columns:repeat(auto-fill, minmax(175px, 1fr)); gap:6px; max-height:260px; overflow-y:auto; margin-top:8px; }}
+  .varu-chk {{ display:flex; align-items:center; gap:6px; font-size:13px; padding:5px 7px; border-radius:6px; background:#f8fafc; border:1px solid #e2e8f0; }}
+  .mini-btn {{ border:1px solid #cbd5e1; background:#f1f5f9; border-radius:6px; padding:5px 10px; font-size:12px; font-weight:700; cursor:pointer; }}
   .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; gap:10px; align-items:flex-start; }}
   .card.green {{ border-left:6px solid #16a34a; background:#f0fdf4; }}
   .card.yellow {{ border-left:6px solid #eab308; }}
@@ -381,6 +431,7 @@ def build_html(payload: Dict[str, Any]) -> str:
   .thumb {{ width:70px; height:70px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; }}
   .info {{ flex:1; min-width:0; }}
   .store-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
+  .cat-tag {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; }}
   .save-tag {{ display:inline-block; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; background:#dcfce7; color:#14532d; }}
   .title {{ font-weight:700; font-size:15px; margin:4px 0 2px; }}
   .sub {{ font-size:12px; color:#475569; margin-bottom:4px; }}
@@ -398,11 +449,35 @@ def build_html(payload: Dict[str, Any]) -> str:
 
 <div class="wrap">
   <div class="filters">
-    <input id="qInput" class="search-input" type="search" placeholder="Sök vara eller butik..." oninput="renderAll()">
+    <div class="row-flex">
+      <input id="qInput" class="search-input" type="search" placeholder="Sök vara eller butik..." oninput="renderAll()">
+      <button id="btnVaror" class="cfg-btn" onclick="toggleVaruPanel()">⚙️ Välj varor</button>
+    </div>
+
+    <div id="varuPanel" class="varu-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+        <strong style="font-size:13px">Kryssa i vilka varor du vill se i listan:</strong>
+        <div style="display:flex;gap:6px">
+          <button class="mini-btn" onclick="setAllHidden(false)">Visa alla</button>
+          <button class="mini-btn" onclick="setAllHidden(true)">Avmarkera alla</button>
+        </div>
+      </div>
+      <div id="varuGrid" class="varu-grid"></div>
+    </div>
+
+    <select id="prodSelect" class="prod-select" onchange="onProdSelect()">
+      <option value="Alla">Alla valda varor</option>
+    </select>
+
     <label class="toggle-lbl">
       <input id="onlyGreen" type="checkbox" checked onchange="renderAll()">
-      Visa bara klipp som slår våra grossistpriser
+      Visa bara klipp som slår våra priser
     </label>
+
+    <div class="sec-lbl">Kategori</div>
+    <div class="chips" id="catChips"></div>
+
+    <div class="sec-lbl">Butik</div>
     <div class="chips" id="storeChips"></div>
   </div>
   <div id="dealsContainer"></div>
@@ -410,9 +485,61 @@ def build_html(payload: Dict[str, Any]) -> str:
 
 <script>
 const DATA = {json_blob};
+let activeCat = 'Alla';
 let activeStore = 'Alla';
+let activeProd = 'Alla';
 let picked = {{}};
+let hiddenProds = {{}};
 try {{ picked = JSON.parse(localStorage.getItem('kt_cloud_picked') || '{{}}'); }} catch(e) {{}}
+try {{ hiddenProds = JSON.parse(localStorage.getItem('kt_cloud_hidden_prods') || '{{}}'); }} catch(e) {{}}
+
+function toggleVaruPanel() {{
+  const p = document.getElementById('varuPanel');
+  const b = document.getElementById('btnVaror');
+  p.classList.toggle('open');
+  b.classList.toggle('active');
+}}
+
+function toggleHiddenProd(pName, checked) {{
+  if (checked) delete hiddenProds[pName];
+  else hiddenProds[pName] = true;
+  try {{ localStorage.setItem('kt_cloud_hidden_prods', JSON.stringify(hiddenProds)); }} catch(e) {{}}
+  renderAll();
+}}
+
+function setAllHidden(hideAll) {{
+  hiddenProds = {{}};
+  if (hideAll) {{
+    (DATA.campaigns || []).forEach(c => {{ hiddenProds[c.canonical_name] = true; }});
+  }}
+  try {{ localStorage.setItem('kt_cloud_hidden_prods', JSON.stringify(hiddenProds)); }} catch(e) {{}}
+  buildVaruCheckboxes();
+  renderAll();
+}}
+
+function buildVaruCheckboxes() {{
+  const allNames = Array.from(new Set((DATA.campaigns || []).map(c => c.canonical_name))).sort((a, b) => a.localeCompare(b, 'sv'));
+  const grid = document.getElementById('varuGrid');
+  grid.innerHTML = '';
+  allNames.forEach(nm => {{
+    const lbl = document.createElement('label');
+    lbl.className = 'varu-chk';
+    const chk = document.createElement('input');
+    chk.type = 'checkbox';
+    chk.checked = !hiddenProds[nm];
+    chk.onchange = () => toggleHiddenProd(nm, chk.checked);
+    const sp = document.createElement('span');
+    sp.textContent = nm;
+    lbl.appendChild(chk);
+    lbl.appendChild(sp);
+    grid.appendChild(lbl);
+  }});
+}}
+
+function onProdSelect() {{
+  activeProd = document.getElementById('prodSelect').value || 'Alla';
+  renderAll();
+}}
 
 function togglePick(key) {{
   picked[key] = !picked[key];
@@ -423,34 +550,66 @@ function togglePick(key) {{
 function renderAll() {{
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
   const onlyG = document.getElementById('onlyGreen').checked;
-  const baseRows = (DATA.campaigns || []).filter(c => {{
+
+  const visibleBase = (DATA.campaigns || []).filter(c => {{
+    if (hiddenProds[c.canonical_name]) return false;
     if (onlyG && c.verdict_code !== 'GREEN') return false;
-    if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q))) return false;
+    if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || (c.category || '').toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q))) return false;
     return true;
   }});
 
-  const counts = {{}};
-  baseRows.forEach(c => {{ counts[c.store_name] = (counts[c.store_name] || 0) + 1; }});
-  const stores = ['Alla', ...Object.keys(counts).sort((a, b) => counts[b] - counts[a])];
-  if (activeStore !== 'Alla' && !counts[activeStore]) activeStore = 'Alla';
+  const catCounts = {{}};
+  visibleBase.forEach(c => {{
+    const cat = c.category || 'Övrigt';
+    catCounts[cat] = (catCounts[cat] || 0) + 1;
+  }});
+  if (activeCat !== 'Alla' && !catCounts[activeCat]) activeCat = 'Alla';
+  const cats = ['Alla', ...Object.keys(catCounts).sort((a, b) => catCounts[b] - catCounts[a])];
+  const catBox = document.getElementById('catChips');
+  catBox.innerHTML = '';
+  cats.forEach(ct => {{
+    const b = document.createElement('button');
+    b.className = 'chip cat-chip' + (ct === activeCat ? ' active' : '');
+    b.textContent = ct === 'Alla' ? `Alla (${{visibleBase.length}})` : `${{ct}} (${{catCounts[ct]}})`;
+    b.onclick = () => {{ activeCat = ct; activeProd = 'Alla'; renderAll(); }};
+    catBox.appendChild(b);
+  }});
 
-  document.getElementById('metaLbl').textContent =
-    `Uppdaterad: ${{DATA.generated_at || ''}} • ${{baseRows.length}} rabatterade klipp`;
+  const afterCat = activeCat === 'Alla' ? visibleBase : visibleBase.filter(c => (c.category || 'Övrigt') === activeCat);
 
+  const prodCounts = {{}};
+  afterCat.forEach(c => {{ prodCounts[c.canonical_name] = (prodCounts[c.canonical_name] || 0) + 1; }});
+  if (activeProd !== 'Alla' && !prodCounts[activeProd]) activeProd = 'Alla';
+  const sel = document.getElementById('prodSelect');
+  const sortedProds = Object.keys(prodCounts).sort((a, b) => a.localeCompare(b, 'sv'));
+  sel.innerHTML = `<option value="Alla">Alla varor i urvalet (${{sortedProds.length}} varutyper)</option>` +
+    sortedProds.map(p => `<option value="${{p.replace(/"/g, '&quot;')}}" ${{p === activeProd ? 'selected' : ''}}>${{p}} (${{prodCounts[p]}} klipp)</option>`).join('');
+
+  const afterProd = activeProd === 'Alla' ? afterCat : afterCat.filter(c => c.canonical_name === activeProd);
+
+  const stCounts = {{}};
+  afterProd.forEach(c => {{ stCounts[c.store_name] = (stCounts[c.store_name] || 0) + 1; }});
+  if (activeStore !== 'Alla' && !stCounts[activeStore]) activeStore = 'Alla';
+  const stores = ['Alla', ...Object.keys(stCounts).sort((a, b) => stCounts[b] - stCounts[a])];
   const chipBox = document.getElementById('storeChips');
   chipBox.innerHTML = '';
   stores.forEach(st => {{
     const b = document.createElement('button');
     b.className = 'chip' + (st === activeStore ? ' active' : '');
-    b.textContent = st === 'Alla' ? `Alla (${{baseRows.length}})` : `${{st}} (${{counts[st]}})`;
+    b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}} (${{stCounts[st]}})`;
     b.onclick = () => {{ activeStore = st; renderAll(); }};
     chipBox.appendChild(b);
   }});
 
-  const rows = activeStore === 'Alla' ? baseRows : baseRows.filter(c => c.store_name === activeStore);
+  const rows = activeStore === 'Alla' ? afterProd : afterProd.filter(c => c.store_name === activeStore);
+  const hiddenCnt = Object.keys(hiddenProds).length;
+  const hiddenNote = hiddenCnt > 0 ? ` • ${{hiddenCnt}} bortfiltrerade varor` : '';
+  document.getElementById('metaLbl').textContent =
+    `Uppdaterad: ${{DATA.generated_at || ''}} • ${{rows.length}} rabatterade klipp${{hiddenNote}}`;
+
   const cont = document.getElementById('dealsContainer');
   if (!rows.length) {{
-    cont.innerHTML = '<div class="card">Inga rabatter matchar filtret just nu. Avmarkera rutan ovan för att visa alla priser.</div>';
+    cont.innerHTML = '<div class="card">Inga rabatter matchar filtret just nu. Justera varu-/kategorifiltret eller avmarkera rutan ovan för att visa alla priser.</div>';
     return;
   }}
 
@@ -467,7 +626,7 @@ function renderAll() {{
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
-        <div><span class="store-tag">${{c.store_name}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
+        <div><span class="store-tag">${{c.store_name}}</span><span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
         <div class="title">${{c.heading}}</div>
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
         <div class="price-line">Butikspris: ${{c.price_gross_sek.toFixed(2)}} kr  →  ${{c.unit_price_net_sek.toFixed(2)}} kr/${{c.norm_unit}} exkl. moms</div>
@@ -478,6 +637,7 @@ function renderAll() {{
   }}).join('');
 }}
 
+buildVaruCheckboxes();
 renderAll();
 </script>
 </body>

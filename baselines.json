@@ -59,7 +59,8 @@
         "gas\\s+olja.*raps",
         "matolja.*rapsolja",
         "frityrolja"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "jasminris",
@@ -69,7 +70,8 @@
         "thai\\s*hom\\s*mali",
         "ris\\s*20\\s*kg",
         "ris\\s*25\\s*kg"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "sushiris",
@@ -79,7 +81,8 @@
         "nishiki",
         "shinode",
         "haruka"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "potatismjol_vetemjol",
@@ -89,14 +92,16 @@
         "mjöl\\s*12[.,]5\\s*kg",
         "tapioka",
         "majsstärkelse"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "socker_25kg",
       "patterns": [
         "strösocker",
         "socker\\s*\\d+\\s*kg"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "farsk_lax",
@@ -104,7 +109,16 @@
         "sushilax",
         "laxfil[eé]",
         "salmo\\s*salar",
-        "färsk\\s*lax"
+        "färsk\\s*lax",
+        "lax\\s+hel\\s+färsk",
+        "hel\\s+färsk\\s+lax"
+      ],
+      "negatives": [
+        "rökt",
+        "gravad",
+        "fryst",
+        "soppa",
+        "paj"
       ]
     },
     {
@@ -114,7 +128,8 @@
         "vanneme",
         "shrimp\\s*\\d+-\\d+",
         "räkor.*skal"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "anka_file",
@@ -122,14 +137,16 @@
         "roasted\\s*duck",
         "ankbröst",
         "anka\\s*fil"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "nori_sjogras",
       "patterns": [
         "roasted\\s*seaweed",
         "nori\\b"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "majonnas_sasbas",
@@ -138,13 +155,24 @@
         "sasbas",
         "hel\\s*majo",
         "majonnäs"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "tomat",
       "patterns": [
         "tomat\\s*kvist",
         "\\btomater?\\b"
+      ],
+      "negatives": [
+        "krossad",
+        "passerad",
+        "puré",
+        "pure",
+        "sås",
+        "ketchup",
+        "soltork",
+        "på burk"
       ]
     },
     {
@@ -153,7 +181,8 @@
         "sushi\\s*ebi",
         "ebi\\s*3l",
         "ebi\\s*4l"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "blackfisk",
@@ -161,7 +190,8 @@
         "cuttlefish",
         "squid\\s*rings",
         "bläckfisk"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "kycklingfile",
@@ -169,21 +199,24 @@
         "kycklingfil[eé]",
         "kycklingbröstfil[eé]",
         "chicken\\s*fillets?"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "kycklinglar",
       "patterns": [
         "kyckling\\s*lår",
         "kycklinglår"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "kycklingvingar",
       "patterns": [
         "kycklingvingar",
         "chicken\\s*wings"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "notkott_stek",
@@ -193,7 +226,8 @@
         "beef\\s*baby\\s*topsides",
         "entrecote",
         "rostbiff"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "notkott_shank",
@@ -202,7 +236,8 @@
         "beef\\s*shank",
         "beef\\s*heel",
         "oxlägg"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "flask_kotlett_ribs",
@@ -210,9 +245,18 @@
         "fläskkotlett",
         "fälskkotlett",
         "spareribs",
-        "fläsksida",
-        "karr[eé]"
-      ]
+        "fläsksida"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "flaskkarre",
+      "patterns": [
+        "fläskkarr[eé]",
+        "karr[eé]stek",
+        "\\bkarr[eé]\\b"
+      ],
+      "negatives": []
     },
     {
       "slug": "varrullar",
@@ -220,21 +264,24 @@
         "spring\\s*rolls?",
         "vårrull",
         "vårulle"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "gyoza",
       "patterns": [
         "gyoza\\s*chicken",
         "dumpling"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "vitkal",
       "patterns": [
         "vitkål",
         "vitkal"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "lok",
@@ -244,74 +291,85 @@
         "lök\\s*gul",
         "purjulök",
         "purjolök"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "vitlok_skalad",
       "patterns": [
         "garlic\\s*peeled",
         "vitlök"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "gurka",
       "patterns": [
         "\\bgurka\\b"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "paprika",
       "patterns": [
         "\\bpaprika\\b"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "morotter",
       "patterns": [
         "morötter",
         "morot"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "broccoli",
       "patterns": [
         "broccoli"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "champinjoner",
       "patterns": [
         "champinjon",
         "champijon"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "avokado",
       "patterns": [
         "avocado",
         "avokado"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "bongroddar",
       "patterns": [
         "beansprouts",
         "böngroddar"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "bambuskott",
       "patterns": [
         "bamboo\\s*shoot",
         "bambuskott"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "kokosmjolk",
       "patterns": [
         "coconut\\s*milk",
         "kokosmjölk"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "currypasta",
@@ -321,7 +379,8 @@
         "curry\\s*paste",
         "currypasta",
         "sambal\\s*oelek"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "sojasas",
@@ -331,21 +390,24 @@
         "yamasa",
         "kikkoman",
         "wei\\s*ji\\s*xian"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "fisksas",
       "patterns": [
         "fish\\s*sauce",
         "fisksås"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "gari_wasabi",
       "patterns": [
         "gari\\s*\\(?ingefära",
         "pickled\\s*ginger"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "agg",
@@ -354,20 +416,33 @@
         "\\bägg\\s*\\d+\\s*p",
         "frigående\\s*ägg",
         "\\bägg\\b.*st"
-      ]
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "kolsyrat_vatten_33cl",
+      "patterns": [
+        "ram\\s*(?:citrus|naturell|granat).*33\\s*cl",
+        "ramlösa.*33\\s*cl?",
+        "loka.*33\\s*cl?"
+      ],
+      "negatives": []
     },
     {
       "slug": "lask_vatten_33cl",
       "patterns": [
-        "33\\s*cl.*burk",
-        "ram\\s*citrus\\s*33\\s*cl",
-        "coca-cola.*33\\s*cl?",
+        "coca[-\\s]*cola.*33\\s*cl?",
+        "coca[-\\s]*cola\\s+(?:regular|zero)(?!.*1[.,]5\\s*l)(?!.*2\\s*l)",
+        "coc\\s+zero\\s*33\\s*cl",
+        "fan\\s+orange\\s*33\\s*cl",
+        "spr\\s+sprite\\s*33\\s*cl",
         "fanta.*33\\s*cl?",
+        "fantazero.*burk",
         "sprite.*33\\s*cl?",
         "pepsi.*33\\s*cl?",
-        "loka.*33\\s*cl?",
-        "ramlösa.*33\\s*cl?"
-      ]
+        "33\\s*cl.*burk"
+      ],
+      "negatives": []
     },
     {
       "slug": "starkol_50cl",
@@ -375,10 +450,343 @@
         "mariestads.*50cl",
         "mar\\s*(?:export|old\\s*ox).*50cl",
         "norrlands\\s*guld.*50cl",
+        "nor\\s+norrland.*50cl",
         "eriksber.*50cl",
         "50cl.*returglas",
         "50cl.*\\d[.,]\\d%"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "alkoholfri_lattol",
+      "patterns": [
+        "alkoholfri\\s+öl",
+        "alkfri\\s*33cl",
+        "lättöl",
+        "lattol",
+        "gränges.*2[.,]1",
+        "granges.*2[.,]1",
+        "folköl",
+        "lager\\s*2[.,]8%"
+      ],
+      "negatives": [
+        "glögg",
+        "vin",
+        "cider",
+        "bubbel"
       ]
+    },
+    {
+      "slug": "bryggkaffe",
+      "patterns": [
+        "mellanrost",
+        "mörkrost",
+        "bryggkaffe",
+        "jubileumskaffe",
+        "löfbergs",
+        "zoégas",
+        "gevalia",
+        "arvid\\s*nordquist",
+        "^kaffe$"
+      ],
+      "negatives": [
+        "snabbkaffe",
+        "inst",
+        "nescaf",
+        "iskaffe",
+        "ikaffe",
+        "oatly",
+        "kaffebryggare",
+        "kaffefilter",
+        "filter",
+        "kaffebröd",
+        "choklad",
+        "kapsel",
+        "kapslar",
+        "kaffegrädde",
+        "sked"
+      ]
+    },
+    {
+      "slug": "juice",
+      "patterns": [
+        "apelsinjuice",
+        "äppeljuice",
+        "^juice$"
+      ],
+      "negatives": [
+        "citronjuice",
+        "limejuice",
+        "koncentrat"
+      ]
+    },
+    {
+      "slug": "mjolk",
+      "patterns": [
+        "standardmjölk",
+        "standmjölk",
+        "mellanmjölk",
+        "^mjölk$"
+      ],
+      "negatives": [
+        "kokosmjölk",
+        "kondenserad",
+        "filmjölk",
+        "mjölkpulver",
+        "havre",
+        "mandel",
+        "sojamjölk",
+        "choklad"
+      ]
+    },
+    {
+      "slug": "gradde",
+      "patterns": [
+        "vispgrädde",
+        "matlagningsgrädde",
+        "mat\\s*&\\s*visp",
+        "ram\\s+visp"
+      ],
+      "negatives": [
+        "kokosgrädde",
+        "gräddfil",
+        "gräddost",
+        "gräddglass",
+        "spray",
+        "choklad",
+        "chips",
+        "sås"
+      ]
+    },
+    {
+      "slug": "smor",
+      "patterns": [
+        "svenskt\\s+smör",
+        "smör\\s+82",
+        "smor\\s+1kg",
+        "matriket\\s+smör",
+        "^smör$"
+      ],
+      "negatives": [
+        "flytande",
+        "smörgås",
+        "jordnötssmör",
+        "vitlökssmör",
+        "smördeg",
+        "bregott",
+        "smörrebröd",
+        "popcorn",
+        "kaka",
+        "bull"
+      ]
+    },
+    {
+      "slug": "vaniljglass_storpack",
+      "patterns": [
+        "vaniljglass",
+        "tri\\s+glass\\s+5l",
+        "gräddglass\\s*[125]",
+        "glass\\s+2\\s*l"
+      ],
+      "negatives": [
+        "flerpack",
+        "strut",
+        "pinne",
+        "pint",
+        "ben & jerry",
+        "cornetto",
+        "magnum",
+        "sandwich",
+        "bägare 4",
+        "8-pack",
+        "6-pack",
+        "10-pack"
+      ]
+    },
+    {
+      "slug": "bananer",
+      "patterns": [
+        "\\bbanan(?:er)?\\b"
+      ],
+      "negatives": [
+        "skumbanan",
+        "banankaka",
+        "bananchips",
+        "choklad",
+        "yoghurt",
+        "smoothie",
+        "dryck"
+      ]
+    },
+    {
+      "slug": "melon",
+      "patterns": [
+        "vattenmelon",
+        "galiamelon",
+        "honungsmelon",
+        "cantaloupe",
+        "piel\\s*de\\s*sapo",
+        "\\bmelon(?:er)?\\b"
+      ],
+      "negatives": [
+        "torkad",
+        "läsk",
+        "godis",
+        "tuggummi",
+        "yoghurt",
+        "dryck"
+      ]
+    },
+    {
+      "slug": "potatis",
+      "patterns": [
+        "färskpotatis",
+        "matpotatis",
+        "delikatess\\s*potatis",
+        "ugnsdelikatess\\s*potatis",
+        "potatis\\s*färsk",
+        "^potatis$",
+        "\\bpotatis\\s+fast\\b",
+        "\\bpotatis\\s+mjölig\\b"
+      ],
+      "negatives": [
+        "sötpotatis",
+        "potatissallad",
+        "potatisgratäng",
+        "gratäng",
+        "potatismos",
+        "pommes",
+        "chips",
+        "potatismjöl",
+        "krokett",
+        "klyftpotatis"
+      ]
+    },
+    {
+      "slug": "sotpotatis",
+      "patterns": [
+        "sötpotatis"
+      ],
+      "negatives": [
+        "pommes",
+        "chips",
+        "gratäng"
+      ]
+    },
+    {
+      "slug": "vindruvor",
+      "patterns": [
+        "vindruv",
+        "gröna\\s+druvor",
+        "röda\\s+druvor",
+        "druva\\s+grön"
+      ],
+      "negatives": [
+        "juice",
+        "dryck",
+        "vin ",
+        "godis"
+      ]
+    },
+    {
+      "slug": "citrus_frukt",
+      "patterns": [
+        "\\bapelsiner?\\b",
+        "\\bcitron(?:er)?\\b",
+        "\\blime\\b",
+        "\\bklementin",
+        "\\bsatsumas",
+        "\\bnektarin"
+      ],
+      "negatives": [
+        "juice",
+        "kak",
+        "cookie",
+        "choklad",
+        "diskmedel",
+        "tvål",
+        "läsk",
+        "marmelad",
+        "citronpeppar",
+        "citronsyra",
+        "te "
+      ]
+    },
+    {
+      "slug": "isbergssallad_mix",
+      "patterns": [
+        "isbergssallad",
+        "isberssallad",
+        "salladsmix"
+      ],
+      "negatives": [
+        "räksallad",
+        "rödbetssallad",
+        "potatissallad",
+        "kyckling",
+        "pasta",
+        "skagen",
+        "tonfisk",
+        "ost"
+      ]
+    },
+    {
+      "slug": "jordnotter",
+      "patterns": [
+        "jordnötter"
+      ],
+      "negatives": [
+        "choklad",
+        "godis",
+        "bågar",
+        "ringar",
+        "jordnötssmör",
+        "kaka",
+        "glass"
+      ]
+    },
+    {
+      "slug": "flaskfars_notfars",
+      "patterns": [
+        "fläskfärs",
+        "blandfärs",
+        "nötfärs",
+        "köttfärs"
+      ],
+      "negatives": [
+        "vegofärs",
+        "tacofärs",
+        "färssås",
+        "lasagne",
+        "biffar",
+        "börek",
+        "paj",
+        "pirog",
+        "pizza"
+      ]
+    },
+    {
+      "slug": "sidflask_bacon",
+      "patterns": [
+        "sidfläsk",
+        "sidflask",
+        "\\bbacon\\b",
+        "stekfläsk"
+      ],
+      "negatives": [
+        "ost",
+        "chips",
+        "krydda",
+        "kalkonbacon",
+        "snacks"
+      ]
+    },
+    {
+      "slug": "ketchup",
+      "patterns": [
+        "\\bketchup\\b"
+      ],
+      "negatives": []
     },
     {
       "slug": "engangshandskar",
@@ -387,7 +795,8 @@
         "handsk.*100",
         "nitrilhandsk",
         "vinylhandsk"
-      ]
+      ],
+      "negatives": []
     },
     {
       "slug": "takeaway_lador",
@@ -396,8 +805,18 @@
         "take\\s*away\\s*box",
         "sushi.*låda",
         "aluminiumform",
+        "alu\\s*beh\\s*lock",
         "dressingbägare"
-      ]
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "avfallspasar_sopsackar",
+      "patterns": [
+        "avfallspåsar?",
+        "sopsäck(?:ar)?"
+      ],
+      "negatives": []
     },
     {
       "slug": "plastpasar_matfilm",
@@ -406,15 +825,52 @@
         "bakpapper",
         "bärkasse",
         "plastpåse",
-        "fryspåse",
-        "avfallspåse",
-        "sopsäck"
+        "fryspåse"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "handdiskmedel",
+      "patterns": [
+        "handdiskmedel",
+        "^diskmedel\\b"
+      ],
+      "negatives": [
+        "maskindisk",
+        "tablett",
+        "kapslar",
+        "all in 1",
+        "platinum",
+        "diskborste",
+        "disktrasa"
       ]
+    },
+    {
+      "slug": "maskindiskmedel",
+      "patterns": [
+        "maskindiskmedel",
+        "yes.*maskin",
+        "all\\s+in\\s+1\\s+maskin"
+      ],
+      "negatives": [
+        "spolglans",
+        "maskinrengöring",
+        "salt"
+      ]
+    },
+    {
+      "slug": "papper_servetter",
+      "patterns": [
+        "toalettpapper",
+        "hushållspapper"
+      ],
+      "negatives": []
     }
   ],
   "baselines": {
     "rapsolja": {
       "name": "Rapsolja / Frityrolja",
+      "category": "Olja & Bas",
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 14.99,
@@ -422,6 +878,7 @@
     },
     "jasminris": {
       "name": "Jasminris",
+      "category": "Ris & Nudlar",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 9.99,
@@ -429,6 +886,7 @@
     },
     "sushiris": {
       "name": "Sushiris",
+      "category": "Ris & Nudlar",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 14.45,
@@ -436,6 +894,7 @@
     },
     "potatismjol_vetemjol": {
       "name": "Potatismjöl & Vetemjöl (Storsäck)",
+      "category": "Olja & Bas",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 5.59,
@@ -443,27 +902,31 @@
     },
     "socker_25kg": {
       "name": "Strösocker",
+      "category": "Olja & Bas",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 9.49,
       "record_price": 9.49
     },
     "farsk_lax": {
-      "name": "Färsk Laxfilé (Sushilax)",
+      "name": "Färsk Laxfilé / Hel Lax",
+      "category": "Fisk & Skaldjur",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 115.0,
-      "record_price": 107.0
+      "record_price": 84.86
     },
     "vannamei_rakor": {
       "name": "Vannameiräkor (Frysta)",
+      "category": "Fisk & Skaldjur",
       "unit": "kg",
       "yield_pct": 80.0,
-      "our_best_price": 111.12,
+      "our_best_price": 130.0,
       "record_price": 111.12
     },
     "sushi_ebi": {
       "name": "Sushiräkor (Ebi 3L/4L)",
+      "category": "Fisk & Skaldjur",
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 1.28,
@@ -471,6 +934,7 @@
     },
     "blackfisk": {
       "name": "Bläckfisk (Squid / Cuttlefish)",
+      "category": "Fisk & Skaldjur",
       "unit": "kg",
       "yield_pct": 80.0,
       "our_best_price": 68.43,
@@ -478,6 +942,7 @@
     },
     "kycklingfile": {
       "name": "Kycklingfilé / Bröstfilé",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 45.9,
@@ -485,13 +950,15 @@
     },
     "kycklinglar": {
       "name": "Kycklinglårfilé (Urbenad)",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 46.0,
-      "record_price": 46.0
+      "our_best_price": 44.9,
+      "record_price": 44.9
     },
     "kycklingvingar": {
       "name": "Kycklingvingar",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 19.9,
@@ -499,20 +966,23 @@
     },
     "notkott_stek": {
       "name": "Nötkött (Oxinnanlår / Ryggbiff)",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 118.0,
-      "record_price": 118.0
+      "our_best_price": 116.9,
+      "record_price": 116.9
     },
     "notkott_shank": {
       "name": "Nötlägg / Beef Shank (Långkok/Ramen)",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 86.9,
-      "record_price": 86.9
+      "record_price": 85.0
     },
     "flask_kotlett_ribs": {
-      "name": "Fläskkött (Fläskkotlett / Spareribs)",
+      "name": "Fläskkotlett & Spareribs",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 34.9,
@@ -520,20 +990,23 @@
     },
     "varrullar": {
       "name": "Vårrullar (Frysta)",
+      "category": "Fryst & Halvfabrikat",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 28.78,
-      "record_price": 28.78
+      "our_best_price": 25.54,
+      "record_price": 25.54
     },
     "gyoza": {
       "name": "Gyoza / Dumplings",
+      "category": "Fryst & Halvfabrikat",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 60.83,
-      "record_price": 60.83
+      "record_price": 59.83
     },
     "vitkal": {
       "name": "Vitkål",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 5.9,
@@ -541,20 +1014,23 @@
     },
     "lok": {
       "name": "Gul lök & Purjolök",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 19.9,
-      "record_price": 8.0
+      "our_best_price": 9.4,
+      "record_price": 7.0
     },
     "vitlok_skalad": {
       "name": "Vitlök (Skalad)",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 59.9,
-      "record_price": 59.9
+      "record_price": 57.9
     },
     "gurka": {
       "name": "Gurka",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 22.0,
@@ -562,20 +1038,23 @@
     },
     "paprika": {
       "name": "Paprika (Röd / Grön)",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 31.9,
-      "record_price": 22.9
+      "record_price": 16.0
     },
     "morotter": {
       "name": "Morötter",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 10.0,
-      "record_price": 10.0
+      "record_price": 9.33
     },
     "broccoli": {
       "name": "Broccoli",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 31.9,
@@ -583,6 +1062,7 @@
     },
     "champinjoner": {
       "name": "Champinjoner (Färska)",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 29.9,
@@ -590,13 +1070,15 @@
     },
     "avokado": {
       "name": "Avokado (Sushi)",
+      "category": "Frukt & Grönt",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 4.72,
+      "our_best_price": 10.0,
       "record_price": 4.72
     },
     "bongroddar": {
       "name": "Böngroddar (Färska)",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 31.96,
@@ -604,6 +1086,7 @@
     },
     "bambuskott": {
       "name": "Bambuskott (Skivade konserv)",
+      "category": "Såser & Konserver",
       "unit": "kg",
       "yield_pct": 60.0,
       "our_best_price": 16.06,
@@ -611,6 +1094,7 @@
     },
     "kokosmjolk": {
       "name": "Kokosmjölk (Aroy-D m.fl.)",
+      "category": "Såser & Konserver",
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 30.31,
@@ -618,6 +1102,7 @@
     },
     "currypasta": {
       "name": "Grön / Röd Currypasta",
+      "category": "Såser & Konserver",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 25.5,
@@ -625,6 +1110,7 @@
     },
     "sojasas": {
       "name": "Sojasås (Kikkoman / Yamasa / Haday)",
+      "category": "Såser & Konserver",
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 18.28,
@@ -632,6 +1118,7 @@
     },
     "fisksas": {
       "name": "Fisksås (Fish Sauce)",
+      "category": "Såser & Konserver",
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 22.2,
@@ -639,6 +1126,7 @@
     },
     "gari_wasabi": {
       "name": "Sushi-tillbehör (Gari Ingefära / Wasabi)",
+      "category": "Såser & Konserver",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 17.0,
@@ -646,20 +1134,23 @@
     },
     "agg": {
       "name": "Ägg (Storförpackning)",
+      "category": "Mejeri & Ägg",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 2.17,
-      "record_price": 2.17
+      "our_best_price": 1.73,
+      "record_price": 1.73
     },
     "lask_vatten_33cl": {
-      "name": "Läsk & Kolsyrat Vatten 33cl",
+      "name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
+      "category": "Dryck",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 2.4,
-      "record_price": 2.4
+      "our_best_price": 4.95,
+      "record_price": 3.8
     },
     "starkol_50cl": {
       "name": "Starköl 50cl (Returglas / Flaska)",
+      "category": "Dryck",
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 13.9,
@@ -667,6 +1158,7 @@
     },
     "engangshandskar": {
       "name": "Engångshandskar (100-pack)",
+      "category": "Förbrukning & Emballage",
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 0.53,
@@ -674,6 +1166,7 @@
     },
     "takeaway_lador": {
       "name": "Takeaway-lådor & Lock",
+      "category": "Förbrukning & Emballage",
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 127.0,
@@ -681,6 +1174,7 @@
     },
     "plastpasar_matfilm": {
       "name": "Plastpåsar, Matfilm & Bakpapper",
+      "category": "Förbrukning & Emballage",
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 0.45,
@@ -688,6 +1182,7 @@
     },
     "anka_file": {
       "name": "Ankbröst / Roasted Duck Filé",
+      "category": "Kött & Fågel",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 78.99,
@@ -695,6 +1190,7 @@
     },
     "nori_sjogras": {
       "name": "Nori Sjögräsblad (Sushi)",
+      "category": "Ris & Nudlar",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 492.0,
@@ -702,6 +1198,7 @@
     },
     "majonnas_sasbas": {
       "name": "Majonnäs & Såsbas (10L)",
+      "category": "Såser & Konserver",
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 17.99,
@@ -709,10 +1206,203 @@
     },
     "tomat": {
       "name": "Tomater",
+      "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 26.0,
-      "record_price": 25.9
+      "record_price": 20.0
+    },
+    "alkoholfri_lattol": {
+      "name": "Lättöl, Folköl & Alkoholfri Öl 33cl",
+      "category": "Dryck",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 8.9,
+      "record_price": 3.5
+    },
+    "bryggkaffe": {
+      "name": "Bryggkaffe & Kaffe",
+      "category": "Dryck",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 128.3,
+      "record_price": 125.58
+    },
+    "juice": {
+      "name": "Apelsinjuice & Juice (1L)",
+      "category": "Dryck",
+      "unit": "L",
+      "yield_pct": 100.0,
+      "our_best_price": 35.62,
+      "record_price": 35.62
+    },
+    "mjolk": {
+      "name": "Mjölk (Standard / Mellan)",
+      "category": "Mejeri & Ägg",
+      "unit": "L",
+      "yield_pct": 100.0,
+      "our_best_price": 13.06,
+      "record_price": 10.0
+    },
+    "gradde": {
+      "name": "Vispgrädde & Matgrädde",
+      "category": "Mejeri & Ägg",
+      "unit": "L",
+      "yield_pct": 100.0,
+      "our_best_price": 29.9,
+      "record_price": 29.9
+    },
+    "smor": {
+      "name": "Smör (Normalsaltat 82%)",
+      "category": "Mejeri & Ägg",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 94.9,
+      "record_price": 65.85
+    },
+    "vaniljglass_storpack": {
+      "name": "Vaniljglass (Storpack)",
+      "category": "Mejeri & Ägg",
+      "unit": "L",
+      "yield_pct": 100.0,
+      "our_best_price": 13.98,
+      "record_price": 12.0
+    },
+    "bananer": {
+      "name": "Bananer",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 10.93,
+      "record_price": 10.93
+    },
+    "melon": {
+      "name": "Vattenmelon & Melon",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 18.0,
+      "record_price": 9.43
+    },
+    "potatis": {
+      "name": "Potatis",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 13.9,
+      "record_price": 6.51
+    },
+    "sotpotatis": {
+      "name": "Sötpotatis",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 14.15,
+      "record_price": 14.15
+    },
+    "vindruvor": {
+      "name": "Vindruvor",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 59.08,
+      "record_price": 28.3
+    },
+    "citrus_frukt": {
+      "name": "Apelsiner, Citron & Lime",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 16.0,
+      "record_price": 15.88
+    },
+    "isbergssallad_mix": {
+      "name": "Isbergssallad & Salladsmix",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 69.22,
+      "record_price": 44.59
+    },
+    "jordnotter": {
+      "name": "Jordnötter",
+      "category": "Olja & Bas",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 28.54,
+      "record_price": 28.21
+    },
+    "flaskfars_notfars": {
+      "name": "Fläskfärs, Blandfärs & Nötfärs",
+      "category": "Kött & Fågel",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 95.47,
+      "record_price": 94.15
+    },
+    "sidflask_bacon": {
+      "name": "Sidfläsk & Bacon",
+      "category": "Kött & Fågel",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 53.9,
+      "record_price": 53.9
+    },
+    "ketchup": {
+      "name": "Ketchup",
+      "category": "Såser & Konserver",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 21.98,
+      "record_price": 21.98
+    },
+    "avfallspasar_sopsackar": {
+      "name": "Avfallspåsar & Sopsäckar",
+      "category": "Förbrukning & Emballage",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 2.49,
+      "record_price": 1.32
+    },
+    "handdiskmedel": {
+      "name": "Handdiskmedel",
+      "category": "Förbrukning & Emballage",
+      "unit": "L",
+      "yield_pct": 100.0,
+      "our_best_price": 17.52,
+      "record_price": 17.52
+    },
+    "maskindiskmedel": {
+      "name": "Maskindiskmedel (Tabletter)",
+      "category": "Förbrukning & Emballage",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 1.69,
+      "record_price": 1.6
+    },
+    "papper_servetter": {
+      "name": "Toalett- & Hushållspapper",
+      "category": "Förbrukning & Emballage",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 32.0,
+      "record_price": 27.2
+    },
+    "flaskkarre": {
+      "name": "Fläskkarré",
+      "category": "Kött & Fågel",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 48.9,
+      "record_price": 48.9
+    },
+    "kolsyrat_vatten_33cl": {
+      "name": "Kolsyrat Vatten 33cl (Ramlösa / Loka)",
+      "category": "Dryck",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 2.4,
+      "record_price": 2.4
     }
   },
   "manual_campaigns": []
