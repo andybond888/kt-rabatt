@@ -804,77 +804,72 @@ function promptApiKey() {{
   return (k || '').trim();
 }}
 
+const PLACE_COORDS = {{
+  "Huddinge": [17.9819, 59.2367],
+  "Stuvsta": [17.9970, 59.2500],
+  "Rågsved": [18.0278, 59.2564],
+  "Högdalen": [18.0422, 59.2633],
+  "Hökarängen": [18.0825, 59.2578],
+  "Flemingsberg": [17.9465, 59.2195],
+  "Länna": [18.1460, 59.1930],
+  "Kungens Kurva": [17.9175, 59.2705],
+  "Skärholmen": [17.9070, 59.2772],
+  "Alby": [17.8450, 59.2395],
+  "Farsta": [18.0933, 59.2430],
+  "Skanstull": [18.0762, 59.3082],
+  "Haninge": [18.1360, 59.1680],
+  "Segeltorp": [17.9475, 59.2770],
+  "Västberga": [18.0040, 59.2935],
+  "Vårby": [17.8820, 59.2635],
+  "Älvsjö": [18.0105, 59.2785],
+  "Arninge, Täby": [18.1355, 59.4570]
+}};
+
 async function fetchLiveTimes() {{
   const addr = (document.getElementById('originInput').value || '').trim();
   if (!addr) {{ alert('Skriv in en startadress först.'); return; }}
-  let key = '';
-  try {{ key = localStorage.getItem('kt_gmaps_key') || ''; }} catch(e) {{}}
-  if (!key) {{
-    key = promptApiKey();
-    if (!key) return;
-  }}
   const stEl = document.getElementById('liveTimeStatus');
   const btn = document.getElementById('btnCalcTimes');
   stEl.style.display = 'block';
   stEl.textContent = `⏳ Räknar körtider från ${{addr}}...`;
   btn.disabled = true;
 
-  const storeNames = Object.keys(STORE_LOCATIONS);
-  const resMap = {{}};
-  const originFull = addr.toLowerCase().includes('sweden') || addr.toLowerCase().includes('sverige') ? addr : addr + ', Sweden';
-  let okCnt = 0;
-  let lastErr = '';
-
-  await Promise.all(storeNames.map(async (st) => {{
-    const basePlaces = (STORE_LOCATIONS[st] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
-    const outArr = [];
-    for (const p of basePlaces) {{
-      try {{
-        const resp = await fetch('https://routes.googleapis.com/directions/v2:computeRoutes', {{
-          method: 'POST',
-          headers: {{
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': key,
-            'X-Goog-FieldMask': 'routes.duration'
-          }},
-          body: JSON.stringify({{
-            origin: {{ address: originFull }},
-            destination: {{ address: `${{st}} ${{p}}, Sweden` }},
-            travelMode: 'DRIVE'
-          }})
-        }});
-        if (!resp.ok) {{
-          const errTxt = await resp.text();
-          lastErr = `HTTP ${{resp.status}}`;
-          throw new Error(errTxt);
-        }}
-        const data = await resp.json();
-        const dur = data.routes && data.routes[0] && data.routes[0].duration;
-        if (dur) {{
-          const mins = Math.round(parseInt(dur.replace('s', ''), 10) / 60);
-          outArr.push(`${{p}} (${{mins}} min)`);
-          okCnt++;
-        }} else {{
-          outArr.push(p);
-        }}
-      }} catch(e) {{
-        if (!lastErr) lastErr = String(e.message || e);
-        outArr.push(p);
-      }}
+  try {{
+    const gResp = await fetch(`https://photon.komoot.io/api/?q=${{encodeURIComponent(addr)}}&lat=59.24&lon=17.98&limit=1`);
+    const gData = await gResp.json();
+    const feat = gData.features && gData.features[0];
+    if (!feat || !feat.geometry || !feat.geometry.coordinates) {{
+      throw new Error('Hittade inte adressen');
     }}
-    resMap[st] = outArr;
-  }}));
+    const [oLon, oLat] = feat.geometry.coordinates;
+    const placeNames = Object.keys(PLACE_COORDS);
+    const coordsStr = [`${{oLon}},${{oLat}}`, ...placeNames.map(p => `${{PLACE_COORDS[p][0]}},${{PLACE_COORDS[p][1]}}`)].join(';');
+    const osrmUrl = `https://router.project-osrm.org/table/v1/driving/${{coordsStr}}?sources=0&annotations=duration`;
+    const oResp = await fetch(osrmUrl);
+    if (!oResp.ok) throw new Error('HTTP ' + oResp.status);
+    const oData = await oResp.json();
+    const durs = (oData.durations && oData.durations[0]) || [];
+    const placeMins = {{}};
+    placeNames.forEach((p, idx) => {{
+      const sec = durs[idx + 1];
+      if (typeof sec === 'number' && sec >= 0) placeMins[p] = Math.max(1, Math.round(sec / 60));
+    }});
 
-  btn.disabled = false;
-  if (okCnt > 0) {{
+    const resMap = {{}};
+    Object.keys(STORE_LOCATIONS).forEach(st => {{
+      const basePlaces = (STORE_LOCATIONS[st] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
+      resMap[st] = basePlaces.map(p => (placeMins[p] != null ? `${{p}} (${{placeMins[p]}} min)` : p));
+    }});
+
     liveTimesCache[addr] = resMap;
     try {{ localStorage.setItem('kt_live_times', JSON.stringify(liveTimesCache)); }} catch(e) {{}}
     userOrigin = addr;
     try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
-    stEl.textContent = `✅ Live-tider uppdaterade från ${{addr}} (${{okCnt}} platser)`;
-  }} else {{
-    stEl.textContent = `⚠️ Kunde inte hämta tider (${{lastErr || 'kontrollera API-nyckeln med 🔑'}})`;
+    stEl.textContent = `✅ Körtider uppdaterade från ${{addr}}`;
+  }} catch(e) {{
+    stEl.textContent = `⚠️ Kunde inte räkna tider (${{e.message || e}})`;
   }}
+  btn.disabled = false;
   renderAll();
 }}
 
