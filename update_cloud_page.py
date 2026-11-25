@@ -377,7 +377,12 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 verdict_code = "RED"
 
         vat_r = float(item.get("vat_rate") or cfg.get("food_vat_rate", 6.0))
-        u_gross = round(u_net * (1.0 + vat_r / 100.0), 2)
+        u_gross = round(
+            float(item["unit_price_gross_sek"])
+            if item.get("unit_price_gross_sek") is not None
+            else u_net * (1.0 + vat_r / 100.0),
+            2,
+        )
         our_best_gross = round(our_best * (1.0 + vat_r / 100.0), 2) if our_best is not None else None
         raw_hist = (b.get("history") if b else []) or []
         hist_gross = [
