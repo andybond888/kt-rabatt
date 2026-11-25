@@ -494,36 +494,77 @@
       "negatives": []
     },
     {
-      "slug": "starkol_50cl",
+      "slug": "mariestads_old_ox_50cl",
       "patterns": [
-        "mariestads.*50cl",
-        "mar\\s*(?:export|old\\s*ox).*50cl",
-        "norrlands\\s*guld.*50cl",
-        "nor\\s+norrland.*50cl",
-        "eriksber.*50cl",
-        "50cl.*returglas",
-        "50cl.*\\d[.,]\\d%"
+        "mariestads\\s+old\\s*ox",
+        "mar\\s+old\\s*ox"
       ],
       "negatives": []
     },
     {
-      "slug": "alkoholfri_lattol",
+      "slug": "mariestads_export_50cl",
       "patterns": [
-        "alkoholfri\\s+öl",
-        "alkfri\\s*33cl",
-        "lättöl",
-        "lattol",
-        "gränges.*2[.,]1",
-        "granges.*2[.,]1",
+        "mariestads\\s+export",
+        "mar\\s+export"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "norrlands_guld_50cl",
+      "patterns": [
+        "norrlands\\s*guld",
+        "nor\\s+norrland"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "eriksberg_50cl",
+      "patterns": [
+        "eriksber"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "rekorderlig_cider_50cl",
+      "patterns": [
+        "rekorderlig",
+        "rek\\s+cider"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "granges_lattol_33cl",
+      "patterns": [
+        "gränges",
+        "granges",
+        "grä\\s+gränges",
+        "gra\\s+granges"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "pripps_lattol_33cl",
+      "patterns": [
+        "pripps\\s*blå.*lättöl",
+        "lättöl.*pripps"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "carlsberg_alkfri_33cl",
+      "patterns": [
+        "carlsberg.*alk",
+        "car\\s+alkfri"
+      ],
+      "negatives": []
+    },
+    {
+      "slug": "folkol_33cl",
+      "patterns": [
         "folköl",
         "lager\\s*2[.,]8%"
       ],
-      "negatives": [
-        "glögg",
-        "vin",
-        "cider",
-        "bubbel"
-      ]
+      "negatives": []
     },
     {
       "slug": "bryggkaffe",
@@ -2817,59 +2858,10 @@
       "category": "Alkohol",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 13.9,
-      "record_price": 13.5,
-      "ref_source": "grossist",
-      "history": [
-        {
-          "date": "2026-10-15",
-          "supplier": "Spendrups Bryggeri AB",
-          "price_net": 27.2,
-          "unit": "st"
-        },
-        {
-          "date": "2026-10-15",
-          "supplier": "Spendrups Bryggeri AB",
-          "price_net": 26.77,
-          "unit": "st"
-        },
-        {
-          "date": "2026-10-15",
-          "supplier": "Spendrups Bryggeri AB",
-          "price_net": 30.88,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-27",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 13.9,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-27",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 13.9,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-26",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 13.9,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-17",
-          "supplier": "Spendrups Bryggeri AB",
-          "price_net": 27.2,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-17",
-          "supplier": "Spendrups Bryggeri AB",
-          "price_net": 26.77,
-          "unit": "st"
-        }
-      ]
+      "our_best_price": 16.5,
+      "record_price": 14.03,
+      "ref_source": "riktpris",
+      "history": []
     },
     "engangshandskar": {
       "name": "Engångshandskar (100-pack)",
@@ -3199,47 +3191,10 @@
       "category": "Läsk & Dryck",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 8.9,
-      "record_price": 3.5,
-      "ref_source": "grossist",
-      "history": [
-        {
-          "date": "2026-09-26",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 8.9,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-26",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 3.5,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-18",
-          "supplier": "Lidl Rågsved",
-          "price_net": 4.01,
-          "unit": "st"
-        },
-        {
-          "date": "2026-08-29",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 4.49,
-          "unit": "st"
-        },
-        {
-          "date": "2026-08-24",
-          "supplier": "Hemköp",
-          "price_net": 5.2,
-          "unit": "st"
-        },
-        {
-          "date": "2026-08-06",
-          "supplier": "Axfood Snabbgross AB",
-          "price_net": 4.49,
-          "unit": "st"
-        }
-      ]
+      "our_best_price": 6.5,
+      "record_price": 5.52,
+      "ref_source": "riktpris",
+      "history": []
     },
     "bryggkaffe": {
       "name": "Bryggkaffe & Kaffe",
@@ -4136,11 +4091,271 @@
           "unit": "st"
         }
       ]
+    },
+    "mariestads_old_ox_50cl": {
+      "name": "Mariestads Old Ox 6,9% 50cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 19.9,
+      "record_price": 19.88,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-10-15",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 30.88,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-17",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 30.88,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-03",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 30.88,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-04",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 19.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-07-30",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 19.88,
+          "unit": "st"
+        }
+      ]
+    },
+    "mariestads_export_50cl": {
+      "name": "Mariestads Export 5,3% 50cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 17.5,
+      "record_price": 16.2,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-10-15",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 27.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-17",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 27.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-03",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 27.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-10",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 17.5,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-04",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 17.5,
+          "unit": "st"
+        },
+        {
+          "date": "2026-07-30",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 16.2,
+          "unit": "st"
+        }
+      ]
+    },
+    "norrlands_guld_50cl": {
+      "name": "Norrlands Guld Export 5,3% 50cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 14.9,
+      "record_price": 14.9,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-10-15",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 26.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-17",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 26.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-03",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 26.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-06",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 14.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-07-30",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 15.77,
+          "unit": "st"
+        }
+      ]
+    },
+    "eriksberg_50cl": {
+      "name": "Eriksberg 5,3% 50cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 13.9,
+      "record_price": 13.9,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-09-27",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 13.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-27",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 13.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 13.9,
+          "unit": "st"
+        }
+      ]
+    },
+    "rekorderlig_cider_50cl": {
+      "name": "Rekorderlig Cider 4,5% 50cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 13.5,
+      "record_price": 13.5,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-09-18",
+          "supplier": "Systembolaget",
+          "price_net": 154.18,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-04",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 13.5,
+          "unit": "st"
+        }
+      ]
+    },
+    "granges_lattol_33cl": {
+      "name": "Gränges Lättöl 2,1% 33cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 3.5,
+      "record_price": 3.5,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-09-26",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 3.5,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-18",
+          "supplier": "Lidl Rågsved",
+          "price_net": 4.01,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 4.49,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-06",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 4.49,
+          "unit": "st"
+        }
+      ]
+    },
+    "pripps_lattol_33cl": {
+      "name": "Pripps Blå Lättöl 2,2% 33cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 4.2,
+      "record_price": 3.57,
+      "ref_source": "riktpris",
+      "history": []
+    },
+    "carlsberg_alkfri_33cl": {
+      "name": "Carlsberg Alkoholfri 0,5% 33cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 8.9,
+      "record_price": 8.9,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-09-26",
+          "supplier": "Axfood Snabbgross AB",
+          "price_net": 8.9,
+          "unit": "st"
+        }
+      ]
+    },
+    "folkol_33cl": {
+      "name": "Folköl 2,8% 33cl",
+      "category": "Alkohol",
+      "unit": "st",
+      "yield_pct": 100.0,
+      "our_best_price": 5.2,
+      "record_price": 5.2,
+      "ref_source": "butik",
+      "history": [
+        {
+          "date": "2026-08-24",
+          "supplier": "Hemköp",
+          "price_net": 5.2,
+          "unit": "st"
+        }
+      ]
     }
   },
   "manual_campaigns": [
     {
-      "id": "man_31287",
+      "id": "man_31557",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -4157,7 +4372,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31288",
+      "id": "man_31558",
       "slug": "flaskkarre",
       "canonical_name": "Fläskkarré",
       "category": "Kött & Fågel",
@@ -4174,7 +4389,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31290",
+      "id": "man_31560",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -4191,7 +4406,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31294",
+      "id": "man_31564",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4208,7 +4423,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31295",
+      "id": "man_31565",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4225,7 +4440,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31298",
+      "id": "man_31568",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4242,7 +4457,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31301",
+      "id": "man_31571",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -4259,7 +4474,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31316",
+      "id": "man_31586",
       "slug": "kycklingvingar",
       "canonical_name": "Kycklingvingar",
       "category": "Kött & Fågel",
@@ -4276,7 +4491,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31317",
+      "id": "man_31587",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -4293,7 +4508,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31324",
+      "id": "man_31594",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -4310,7 +4525,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31327",
+      "id": "man_31597",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4327,7 +4542,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31332",
+      "id": "man_31602",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -4344,7 +4559,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31344",
+      "id": "man_31614",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -4361,7 +4576,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31347",
+      "id": "man_31617",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -4378,7 +4593,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31357",
+      "id": "man_31627",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4395,10 +4610,10 @@
       "image_url": ""
     },
     {
-      "id": "man_31378",
-      "slug": "alkoholfri_lattol",
-      "canonical_name": "Lättöl, Folköl & Alkoholfri Öl 33cl",
-      "category": "Läsk & Dryck",
+      "id": "man_31648",
+      "slug": "pripps_lattol_33cl",
+      "canonical_name": "Pripps Blå Lättöl 2,2% 33cl",
+      "category": "Alkohol",
       "store_name": "Snabbgross",
       "heading": "Lättöl 24x33 cl à  exkl pant. 2,2%. Pripps Blå Ord.pris: /pl",
       "description": "78 00 | /st +pant | /pl +pant",
@@ -4412,7 +4627,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31380",
+      "id": "man_31650",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -4429,7 +4644,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31383",
+      "id": "man_31653",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -4446,7 +4661,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31385",
+      "id": "man_31655",
       "slug": "lask_vatten_33cl",
       "canonical_name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
       "category": "Läsk & Dryck",
@@ -4463,7 +4678,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31386",
+      "id": "man_31656",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -4480,7 +4695,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31388",
+      "id": "man_31658",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4497,7 +4712,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31390",
+      "id": "man_31660",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -4514,7 +4729,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31399",
+      "id": "man_31669",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4531,7 +4746,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31401",
+      "id": "man_31671",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -4548,7 +4763,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31402",
+      "id": "man_31672",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -4565,7 +4780,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31404",
+      "id": "man_31674",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -4582,7 +4797,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31405",
+      "id": "man_31675",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -4599,7 +4814,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31416",
+      "id": "man_31686",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -4616,7 +4831,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31443",
+      "id": "man_31713",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -4633,7 +4848,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31446",
+      "id": "man_31716",
       "slug": "lok",
       "canonical_name": "Gul lök & Purjolök",
       "category": "Frukt & Grönt",
@@ -4650,7 +4865,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31451",
+      "id": "man_31721",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4667,7 +4882,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31459",
+      "id": "man_31729",
       "slug": "majonnas_sasbas",
       "canonical_name": "Majonnäs & Såsbas (10L)",
       "category": "Såser & Konserver",
@@ -4684,7 +4899,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31476",
+      "id": "man_31746",
       "slug": "lask_vatten_33cl",
       "canonical_name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
       "category": "Läsk & Dryck",
@@ -4701,7 +4916,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31483",
+      "id": "man_31753",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -4718,7 +4933,24 @@
       "image_url": ""
     },
     {
-      "id": "man_31490",
+      "id": "man_31758",
+      "slug": "norrlands_guld_50cl",
+      "canonical_name": "Norrlands Guld Export 5,3% 50cl",
+      "category": "Alkohol",
+      "store_name": "Snabbgross",
+      "heading": "Starköl 15x50 cl à 178,5/back exkl pant. 5,3%. Norrlands Guld Ord.pris:",
+      "description": "",
+      "price_gross_sek": 15.79,
+      "norm_qty": 1.0,
+      "norm_unit": "st",
+      "vat_rate": 6.0,
+      "unit_price_net_sek": 14.9,
+      "max_limit_note": "",
+      "valid_until": "2026-11-30",
+      "image_url": ""
+    },
+    {
+      "id": "man_31760",
       "slug": "flaskfars",
       "canonical_name": "Fläskfärs & Blandfärs",
       "category": "Kött & Fågel",
@@ -4735,7 +4967,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31491",
+      "id": "man_31761",
       "slug": "flaskfars_notfars",
       "canonical_name": "Nötfärs & Köttfärs",
       "category": "Kött & Fågel",
@@ -4752,7 +4984,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31494",
+      "id": "man_31764",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -4769,7 +5001,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31495",
+      "id": "man_31765",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -4786,7 +5018,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31497",
+      "id": "man_31767",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -4803,7 +5035,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31498",
+      "id": "man_31768",
       "slug": "flaskkarre",
       "canonical_name": "Fläskkarré",
       "category": "Kött & Fågel",
@@ -4820,7 +5052,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31499",
+      "id": "man_31769",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -4837,7 +5069,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31520",
+      "id": "man_31790",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -4854,7 +5086,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31533",
+      "id": "man_31803",
       "slug": "jordnotter",
       "canonical_name": "Jordnötter",
       "category": "Olja & Bas",
@@ -4871,7 +5103,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31536",
+      "id": "man_31806",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4888,7 +5120,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31537",
+      "id": "man_31807",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4905,7 +5137,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31540",
+      "id": "man_31810",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
@@ -4922,7 +5154,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31541",
+      "id": "man_31811",
       "slug": "potatismjol_vetemjol",
       "canonical_name": "Potatismjöl & Vetemjöl (Storsäck)",
       "category": "Olja & Bas",
@@ -4939,10 +5171,27 @@
       "image_url": ""
     },
     {
-      "id": "man_31547",
-      "slug": "alkoholfri_lattol",
-      "canonical_name": "Lättöl, Folköl & Alkoholfri Öl 33cl",
-      "category": "Läsk & Dryck",
+      "id": "man_31816",
+      "slug": "norrlands_guld_50cl",
+      "canonical_name": "Norrlands Guld Export 5,3% 50cl",
+      "category": "Alkohol",
+      "store_name": "Snabbgross",
+      "heading": "Starköl 15x50 cl à 178,5/back exkl pant. 5,3%. Norrlands Guld Ord.pris:",
+      "description": "",
+      "price_gross_sek": 15.79,
+      "norm_qty": 1.0,
+      "norm_unit": "st",
+      "vat_rate": 6.0,
+      "unit_price_net_sek": 14.9,
+      "max_limit_note": "",
+      "valid_until": "2026-11-30",
+      "image_url": ""
+    },
+    {
+      "id": "man_31817",
+      "slug": "granges_lattol_33cl",
+      "canonical_name": "Gränges Lättöl 2,1% 33cl",
+      "category": "Alkohol",
       "store_name": "Snabbgross",
       "heading": "Lättöl 20x33 cl à  exkl pant. 2,1%. Grängesberg Ord.pris: /pl",
       "description": "",
@@ -4956,7 +5205,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31549",
+      "id": "man_31819",
       "slug": "lask_vatten_33cl",
       "canonical_name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
       "category": "Läsk & Dryck",
@@ -4973,7 +5222,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31551",
+      "id": "man_31821",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
