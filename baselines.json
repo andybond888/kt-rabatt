@@ -3274,7 +3274,7 @@
       "category": "Mejeri & Ägg",
       "unit": "L",
       "yield_pct": 100.0,
-      "our_best_price": 13.75,
+      "our_best_price": 13.84,
       "record_price": 10.0,
       "ref_source": "butik",
       "history": [
@@ -3323,7 +3323,7 @@
         {
           "date": "2026-09-12",
           "supplier": "Lidl Rågsved",
-          "price_net": 13.29,
+          "price_net": 14.62,
           "unit": "L"
         }
       ]
@@ -3457,7 +3457,7 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 10.93,
-      "record_price": 10.93,
+      "record_price": 10.9,
       "ref_source": "grossist",
       "history": [
         {
@@ -3516,43 +3516,43 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 18.0,
-      "record_price": 9.43,
+      "record_price": 8.73,
       "ref_source": "grossist",
       "history": [
         {
           "date": "2026-10-10",
           "supplier": "Lidl Rågsved",
-          "price_net": 13.39,
+          "price_net": 8.93,
           "unit": "kg"
         },
         {
           "date": "2026-10-10",
           "supplier": "Lidl Rågsved",
-          "price_net": 12.68,
+          "price_net": 9.51,
           "unit": "kg"
         },
         {
           "date": "2026-10-07",
           "supplier": "Lidl Rågsved",
-          "price_net": 13.79,
+          "price_net": 9.19,
           "unit": "kg"
         },
         {
           "date": "2026-10-07",
           "supplier": "Lidl Rågsved",
-          "price_net": 12.4,
+          "price_net": 9.64,
           "unit": "kg"
         },
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 12.86,
+          "price_net": 9.0,
           "unit": "kg"
         },
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 13.04,
+          "price_net": 9.49,
           "unit": "kg"
         },
         {
@@ -3650,14 +3650,14 @@
       "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 42.99,
+      "our_best_price": 59.08,
       "record_price": 28.3,
       "ref_source": "butik",
       "history": [
         {
           "date": "2026-10-21",
           "supplier": "Lidl Rågsved",
-          "price_net": 56.32,
+          "price_net": 112.64,
           "unit": "kg"
         },
         {
@@ -3681,7 +3681,7 @@
         {
           "date": "2026-09-26",
           "supplier": "Lidl",
-          "price_net": 56.32,
+          "price_net": 112.64,
           "unit": "kg"
         },
         {
@@ -3734,8 +3734,8 @@
         {
           "date": "2026-09-16",
           "supplier": "Lidl Rågsved",
-          "price_net": 18.46,
-          "unit": "kg"
+          "price_net": 36.92,
+          "unit": "st"
         },
         {
           "date": "2026-09-07",
