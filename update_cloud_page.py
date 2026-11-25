@@ -363,10 +363,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
             rec_p = float(b.get("record_price") or our_best)
             diff_pct = round((u_net - our_best) / our_best * 100.0, 1) if our_best > 0 else 0.0
 
-            if u_net <= rec_p:
-                verdict = "🏆 SLÅR REKORDPRIS!"
-                verdict_code = "GREEN"
-            elif u_net < our_best * 0.97:
+            if u_net < our_best * 0.97:
                 verdict = "🟢 BILLIGARE ÄN VÅRT PRIS!"
                 verdict_code = "GREEN"
             elif u_net <= our_best * 1.05:
