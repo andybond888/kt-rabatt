@@ -739,7 +739,12 @@
         "marmelad",
         "citronpeppar",
         "citronsyra",
-        "te "
+        "te ",
+        "mineralvatten",
+        "loka",
+        "ramlösa",
+        "kolsyra",
+        "vatten"
       ]
     },
     {
@@ -1474,7 +1479,7 @@
   },
   "manual_campaigns": [
     {
-      "id": "man_29933",
+      "id": "man_30203",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1491,7 +1496,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29934",
+      "id": "man_30204",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1508,7 +1513,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29935",
+      "id": "man_30205",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1525,7 +1530,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29936",
+      "id": "man_30206",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1542,7 +1547,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29937",
+      "id": "man_30207",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -1559,7 +1564,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29938",
+      "id": "man_30208",
       "slug": "flaskkarre",
       "canonical_name": "Fläskkarré",
       "category": "Kött & Fågel",
@@ -1576,7 +1581,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29939",
+      "id": "man_30209",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1593,7 +1598,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29940",
+      "id": "man_30210",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -1610,7 +1615,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29941",
+      "id": "man_30211",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1627,7 +1632,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29942",
+      "id": "man_30212",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1644,7 +1649,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29943",
+      "id": "man_30213",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1661,7 +1666,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29944",
+      "id": "man_30214",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1678,7 +1683,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29945",
+      "id": "man_30215",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1695,7 +1700,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29946",
+      "id": "man_30216",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1712,7 +1717,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29947",
+      "id": "man_30217",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1729,7 +1734,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29948",
+      "id": "man_30218",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1746,7 +1751,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29949",
+      "id": "man_30219",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1763,7 +1768,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29950",
+      "id": "man_30220",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1780,7 +1785,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29951",
+      "id": "man_30221",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -1797,7 +1802,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29952",
+      "id": "man_30222",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1814,7 +1819,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29953",
+      "id": "man_30223",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1831,7 +1836,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29954",
+      "id": "man_30224",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1848,7 +1853,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29955",
+      "id": "man_30225",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1865,7 +1870,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29956",
+      "id": "man_30226",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1882,7 +1887,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29957",
+      "id": "man_30227",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1899,7 +1904,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29958",
+      "id": "man_30228",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1916,7 +1921,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29959",
+      "id": "man_30229",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1933,7 +1938,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29960",
+      "id": "man_30230",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1950,7 +1955,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29961",
+      "id": "man_30231",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1967,7 +1972,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29962",
+      "id": "man_30232",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1984,7 +1989,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29963",
+      "id": "man_30233",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2001,7 +2006,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29964",
+      "id": "man_30234",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2018,7 +2023,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29965",
+      "id": "man_30235",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2035,7 +2040,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29966",
+      "id": "man_30236",
       "slug": "kycklingvingar",
       "canonical_name": "Kycklingvingar",
       "category": "Kött & Fågel",
@@ -2052,7 +2057,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29967",
+      "id": "man_30237",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -2069,7 +2074,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29968",
+      "id": "man_30238",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2086,7 +2091,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29969",
+      "id": "man_30239",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2103,7 +2108,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29970",
+      "id": "man_30240",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2120,7 +2125,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29971",
+      "id": "man_30241",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2137,7 +2142,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29972",
+      "id": "man_30242",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2154,7 +2159,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29973",
+      "id": "man_30243",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2171,7 +2176,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29974",
+      "id": "man_30244",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -2188,7 +2193,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29975",
+      "id": "man_30245",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2205,7 +2210,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29976",
+      "id": "man_30246",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2222,7 +2227,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29977",
+      "id": "man_30247",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -2239,7 +2244,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29978",
+      "id": "man_30248",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2256,7 +2261,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29979",
+      "id": "man_30249",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2273,7 +2278,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29980",
+      "id": "man_30250",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2290,7 +2295,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29981",
+      "id": "man_30251",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2307,7 +2312,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29982",
+      "id": "man_30252",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -2324,7 +2329,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29983",
+      "id": "man_30253",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2341,7 +2346,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29984",
+      "id": "man_30254",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2358,7 +2363,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29985",
+      "id": "man_30255",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2375,7 +2380,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29986",
+      "id": "man_30256",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2392,7 +2397,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29987",
+      "id": "man_30257",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2409,7 +2414,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29988",
+      "id": "man_30258",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2426,7 +2431,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29989",
+      "id": "man_30259",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2443,7 +2448,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29990",
+      "id": "man_30260",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2460,7 +2465,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29991",
+      "id": "man_30261",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2477,7 +2482,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29992",
+      "id": "man_30262",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2494,7 +2499,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29993",
+      "id": "man_30263",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2511,7 +2516,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29994",
+      "id": "man_30264",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -2528,7 +2533,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29995",
+      "id": "man_30265",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2545,7 +2550,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29996",
+      "id": "man_30266",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2562,7 +2567,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29997",
+      "id": "man_30267",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -2579,7 +2584,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29998",
+      "id": "man_30268",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2596,7 +2601,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29999",
+      "id": "man_30269",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2613,7 +2618,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30000",
+      "id": "man_30270",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2630,7 +2635,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30001",
+      "id": "man_30271",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2647,7 +2652,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30002",
+      "id": "man_30272",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2664,7 +2669,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30003",
+      "id": "man_30273",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2681,7 +2686,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30004",
+      "id": "man_30274",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2698,7 +2703,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30005",
+      "id": "man_30275",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2715,7 +2720,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30006",
+      "id": "man_30276",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2732,7 +2737,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30007",
+      "id": "man_30277",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -2749,7 +2754,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30008",
+      "id": "man_30278",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2766,7 +2771,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30009",
+      "id": "man_30279",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2783,7 +2788,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30010",
+      "id": "man_30280",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2800,7 +2805,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30011",
+      "id": "man_30281",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2817,7 +2822,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30012",
+      "id": "man_30282",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2834,7 +2839,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30013",
+      "id": "man_30283",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2851,7 +2856,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30014",
+      "id": "man_30284",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2868,7 +2873,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30015",
+      "id": "man_30285",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2885,7 +2890,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30016",
+      "id": "man_30286",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2902,7 +2907,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30017",
+      "id": "man_30287",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2919,7 +2924,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30018",
+      "id": "man_30288",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2936,7 +2941,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30019",
+      "id": "man_30289",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2953,7 +2958,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30020",
+      "id": "man_30290",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2970,7 +2975,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30021",
+      "id": "man_30291",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2987,7 +2992,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30022",
+      "id": "man_30292",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3004,7 +3009,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30023",
+      "id": "man_30293",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3021,7 +3026,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30024",
+      "id": "man_30294",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3038,7 +3043,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30025",
+      "id": "man_30295",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3055,7 +3060,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30026",
+      "id": "man_30296",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3072,7 +3077,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30027",
+      "id": "man_30297",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3089,7 +3094,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30028",
+      "id": "man_30298",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3106,7 +3111,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30029",
+      "id": "man_30299",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3123,7 +3128,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30030",
+      "id": "man_30300",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3140,7 +3145,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30031",
+      "id": "man_30301",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3157,7 +3162,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30032",
+      "id": "man_30302",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3174,7 +3179,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30033",
+      "id": "man_30303",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -3191,7 +3196,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30034",
+      "id": "man_30304",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3208,7 +3213,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30035",
+      "id": "man_30305",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3225,7 +3230,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30036",
+      "id": "man_30306",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -3242,7 +3247,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30037",
+      "id": "man_30307",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3259,7 +3264,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30038",
+      "id": "man_30308",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -3276,7 +3281,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30039",
+      "id": "man_30309",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3293,7 +3298,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30040",
+      "id": "man_30310",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -3310,7 +3315,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30041",
+      "id": "man_30311",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3327,7 +3332,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30042",
+      "id": "man_30312",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3344,7 +3349,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30043",
+      "id": "man_30313",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3361,7 +3366,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30044",
+      "id": "man_30314",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3378,7 +3383,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30045",
+      "id": "man_30315",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3395,7 +3400,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30046",
+      "id": "man_30316",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3412,7 +3417,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30047",
+      "id": "man_30317",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3429,7 +3434,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30048",
+      "id": "man_30318",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3446,7 +3451,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30049",
+      "id": "man_30319",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -3463,7 +3468,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30050",
+      "id": "man_30320",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3480,7 +3485,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30051",
+      "id": "man_30321",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -3497,7 +3502,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30052",
+      "id": "man_30322",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -3514,7 +3519,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30053",
+      "id": "man_30323",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3531,7 +3536,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30054",
+      "id": "man_30324",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -3548,7 +3553,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30055",
+      "id": "man_30325",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -3565,7 +3570,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30056",
+      "id": "man_30326",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3582,7 +3587,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30057",
+      "id": "man_30327",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3599,7 +3604,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30058",
+      "id": "man_30328",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3616,7 +3621,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30059",
+      "id": "man_30329",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3633,7 +3638,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30060",
+      "id": "man_30330",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3650,7 +3655,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30061",
+      "id": "man_30331",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3667,7 +3672,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30062",
+      "id": "man_30332",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3684,7 +3689,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30063",
+      "id": "man_30333",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3701,7 +3706,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30064",
+      "id": "man_30334",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3718,7 +3723,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30065",
+      "id": "man_30335",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3735,7 +3740,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30066",
+      "id": "man_30336",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -3752,7 +3757,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30067",
+      "id": "man_30337",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3769,7 +3774,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30068",
+      "id": "man_30338",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3786,7 +3791,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30069",
+      "id": "man_30339",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3803,7 +3808,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30070",
+      "id": "man_30340",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3820,7 +3825,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30071",
+      "id": "man_30341",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3837,7 +3842,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30072",
+      "id": "man_30342",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3854,7 +3859,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30073",
+      "id": "man_30343",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3871,7 +3876,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30074",
+      "id": "man_30344",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3888,7 +3893,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30075",
+      "id": "man_30345",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3905,7 +3910,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30076",
+      "id": "man_30346",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3922,7 +3927,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30077",
+      "id": "man_30347",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3939,7 +3944,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30078",
+      "id": "man_30348",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3956,7 +3961,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30079",
+      "id": "man_30349",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3973,7 +3978,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30080",
+      "id": "man_30350",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -3990,7 +3995,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30081",
+      "id": "man_30351",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4007,7 +4012,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30082",
+      "id": "man_30352",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4024,7 +4029,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30083",
+      "id": "man_30353",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4041,7 +4046,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30084",
+      "id": "man_30354",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4058,7 +4063,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30085",
+      "id": "man_30355",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4075,7 +4080,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30086",
+      "id": "man_30356",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4092,7 +4097,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30087",
+      "id": "man_30357",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4109,7 +4114,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30088",
+      "id": "man_30358",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4126,7 +4131,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30089",
+      "id": "man_30359",
       "slug": "agg",
       "canonical_name": "Ägg (Storförpackning)",
       "category": "Mejeri & Ägg",
@@ -4143,7 +4148,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30090",
+      "id": "man_30360",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4160,7 +4165,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30091",
+      "id": "man_30361",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4177,7 +4182,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30092",
+      "id": "man_30362",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4194,7 +4199,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30093",
+      "id": "man_30363",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -4211,7 +4216,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30094",
+      "id": "man_30364",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4228,7 +4233,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30095",
+      "id": "man_30365",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4245,7 +4250,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30096",
+      "id": "man_30366",
       "slug": "lok",
       "canonical_name": "Gul lök & Purjolök",
       "category": "Frukt & Grönt",
@@ -4262,7 +4267,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30097",
+      "id": "man_30367",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4279,7 +4284,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30098",
+      "id": "man_30368",
       "slug": "majonnas_sasbas",
       "canonical_name": "Majonnäs & Såsbas (10L)",
       "category": "Såser & Konserver",
@@ -4296,7 +4301,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30099",
+      "id": "man_30369",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -4313,7 +4318,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30100",
+      "id": "man_30370",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4330,7 +4335,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30101",
+      "id": "man_30371",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4347,7 +4352,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30102",
+      "id": "man_30372",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4364,7 +4369,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30103",
+      "id": "man_30373",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4381,7 +4386,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30104",
+      "id": "man_30374",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4398,7 +4403,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30105",
+      "id": "man_30375",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4415,7 +4420,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30106",
+      "id": "man_30376",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4432,7 +4437,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30107",
+      "id": "man_30377",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4449,7 +4454,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30108",
+      "id": "man_30378",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4466,7 +4471,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30109",
+      "id": "man_30379",
       "slug": "majonnas_sasbas",
       "canonical_name": "Majonnäs & Såsbas (10L)",
       "category": "Såser & Konserver",
@@ -4483,7 +4488,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30110",
+      "id": "man_30380",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4500,7 +4505,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30111",
+      "id": "man_30381",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4517,7 +4522,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30112",
+      "id": "man_30382",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4534,7 +4539,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30113",
+      "id": "man_30383",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4551,7 +4556,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30114",
+      "id": "man_30384",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4568,7 +4573,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30115",
+      "id": "man_30385",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4585,7 +4590,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30116",
+      "id": "man_30386",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4602,7 +4607,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30117",
+      "id": "man_30387",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4619,7 +4624,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30118",
+      "id": "man_30388",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4636,7 +4641,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30119",
+      "id": "man_30389",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4653,7 +4658,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30120",
+      "id": "man_30390",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4670,7 +4675,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30121",
+      "id": "man_30391",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4687,7 +4692,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30122",
+      "id": "man_30392",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4704,7 +4709,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30123",
+      "id": "man_30393",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4721,7 +4726,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30124",
+      "id": "man_30394",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4738,7 +4743,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30125",
+      "id": "man_30395",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4755,7 +4760,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30126",
+      "id": "man_30396",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4772,7 +4777,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30127",
+      "id": "man_30397",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4789,10 +4794,10 @@
       "image_url": ""
     },
     {
-      "id": "man_30128",
-      "slug": "citrus_frukt",
-      "canonical_name": "Apelsiner, Citron & Lime",
-      "category": "Frukt & Grönt",
+      "id": "man_30398",
+      "slug": "",
+      "canonical_name": "Kampanjvara",
+      "category": "Övrigt",
       "store_name": "Snabbgross",
       "heading": "Mineralvatten 12x50 cl à  exkl pant. Päron, Citron & Naturell m.fl. Med kolsyra. Loka Ord.pris: /pl",
       "description": "/pl +pant",
@@ -4806,7 +4811,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30129",
+      "id": "man_30399",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4823,7 +4828,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30130",
+      "id": "man_30400",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4840,7 +4845,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30131",
+      "id": "man_30401",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4857,7 +4862,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30132",
+      "id": "man_30402",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4874,7 +4879,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30133",
+      "id": "man_30403",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -4891,7 +4896,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30134",
+      "id": "man_30404",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4908,7 +4913,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30135",
+      "id": "man_30405",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4925,7 +4930,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30136",
+      "id": "man_30406",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4942,7 +4947,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30137",
+      "id": "man_30407",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4959,7 +4964,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30138",
+      "id": "man_30408",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4976,7 +4981,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30139",
+      "id": "man_30409",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4993,7 +4998,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30140",
+      "id": "man_30410",
       "slug": "flaskfars",
       "canonical_name": "Fläskfärs & Blandfärs",
       "category": "Kött & Fågel",
@@ -5010,7 +5015,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30141",
+      "id": "man_30411",
       "slug": "flaskfars_notfars",
       "canonical_name": "Nötfärs & Köttfärs",
       "category": "Kött & Fågel",
@@ -5027,7 +5032,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30142",
+      "id": "man_30412",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5044,7 +5049,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30143",
+      "id": "man_30413",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5061,7 +5066,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30144",
+      "id": "man_30414",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -5078,7 +5083,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30145",
+      "id": "man_30415",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -5095,7 +5100,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30146",
+      "id": "man_30416",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5112,7 +5117,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30147",
+      "id": "man_30417",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -5129,7 +5134,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30148",
+      "id": "man_30418",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -5146,7 +5151,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30149",
+      "id": "man_30419",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -5163,7 +5168,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30150",
+      "id": "man_30420",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5180,7 +5185,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30151",
+      "id": "man_30421",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5197,7 +5202,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30152",
+      "id": "man_30422",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5214,7 +5219,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30153",
+      "id": "man_30423",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5231,7 +5236,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30154",
+      "id": "man_30424",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5248,7 +5253,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30155",
+      "id": "man_30425",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5265,7 +5270,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30156",
+      "id": "man_30426",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5282,7 +5287,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30157",
+      "id": "man_30427",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5299,7 +5304,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30158",
+      "id": "man_30428",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5316,7 +5321,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30159",
+      "id": "man_30429",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5333,7 +5338,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30160",
+      "id": "man_30430",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5350,7 +5355,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30161",
+      "id": "man_30431",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5367,7 +5372,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30162",
+      "id": "man_30432",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5384,7 +5389,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30163",
+      "id": "man_30433",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5401,7 +5406,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30164",
+      "id": "man_30434",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5418,7 +5423,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30165",
+      "id": "man_30435",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5435,7 +5440,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30166",
+      "id": "man_30436",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5452,7 +5457,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30167",
+      "id": "man_30437",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5469,7 +5474,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30168",
+      "id": "man_30438",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5486,7 +5491,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30169",
+      "id": "man_30439",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5503,7 +5508,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30170",
+      "id": "man_30440",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -5520,7 +5525,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30171",
+      "id": "man_30441",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -5537,7 +5542,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30172",
+      "id": "man_30442",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -5554,7 +5559,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30173",
+      "id": "man_30443",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5571,7 +5576,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30174",
+      "id": "man_30444",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5588,7 +5593,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30175",
+      "id": "man_30445",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5605,7 +5610,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30176",
+      "id": "man_30446",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5622,7 +5627,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30177",
+      "id": "man_30447",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5639,7 +5644,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30178",
+      "id": "man_30448",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5656,7 +5661,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30179",
+      "id": "man_30449",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5673,7 +5678,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30180",
+      "id": "man_30450",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5690,7 +5695,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30181",
+      "id": "man_30451",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5707,7 +5712,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30182",
+      "id": "man_30452",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5724,7 +5729,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30183",
+      "id": "man_30453",
       "slug": "jordnotter",
       "canonical_name": "Jordnötter",
       "category": "Olja & Bas",
@@ -5741,7 +5746,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30184",
+      "id": "man_30454",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5758,7 +5763,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30185",
+      "id": "man_30455",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5775,7 +5780,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30186",
+      "id": "man_30456",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -5792,7 +5797,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30187",
+      "id": "man_30457",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -5809,7 +5814,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30188",
+      "id": "man_30458",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5826,7 +5831,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30189",
+      "id": "man_30459",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5843,7 +5848,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30190",
+      "id": "man_30460",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
@@ -5860,7 +5865,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30191",
+      "id": "man_30461",
       "slug": "potatismjol_vetemjol",
       "canonical_name": "Potatismjöl & Vetemjöl (Storsäck)",
       "category": "Olja & Bas",
@@ -5877,7 +5882,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30192",
+      "id": "man_30462",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5894,7 +5899,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30193",
+      "id": "man_30463",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5911,7 +5916,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30194",
+      "id": "man_30464",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5928,7 +5933,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30195",
+      "id": "man_30465",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5945,7 +5950,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30196",
+      "id": "man_30466",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5962,7 +5967,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30197",
+      "id": "man_30467",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5979,7 +5984,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30198",
+      "id": "man_30468",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5996,7 +6001,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30199",
+      "id": "man_30469",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6013,7 +6018,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30200",
+      "id": "man_30470",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6030,7 +6035,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30201",
+      "id": "man_30471",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
@@ -6047,7 +6052,7 @@
       "image_url": ""
     },
     {
-      "id": "man_30202",
+      "id": "man_30472",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
