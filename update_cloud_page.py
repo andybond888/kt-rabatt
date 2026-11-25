@@ -377,12 +377,14 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
         hist_gross = [
             {
                 "date": h.get("date") or "",
+                "supplier": h.get("supplier") or "",
                 "price_gross": round(float(h.get("price_net") or 0.0) * (1.0 + vat_r / 100.0), 2),
                 "unit": h.get("unit") or canon_unit,
             }
             for h in raw_hist[:8]
             if float(h.get("price_net") or 0.0) > 0
         ]
+        ref_source = str((b.get("ref_source") if b else "") or ("butik" if hist_gross else "riktpris"))
 
         results.append(
             {
@@ -400,6 +402,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 "unit_price_gross_sek": u_gross,
                 "our_best_price": our_best,
                 "our_best_price_gross": our_best_gross,
+                "ref_source": ref_source,
                 "history": hist_gross,
                 "diff_pct": diff_pct,
                 "verdict": verdict,
@@ -657,8 +660,11 @@ function renderAll() {{
     const savePct = (c.diff_pct != null && c.diff_pct < 0) ? ` (${{Math.round(c.diff_pct)}}%)` : '';
     const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
     const ourGross = c.our_best_price_gross != null ? c.our_best_price_gross : (c.our_best_price != null ? c.our_best_price * (1 + (c.vat_rate || 6) / 100) : null);
+    const refLbl = c.ref_source === 'grossist'
+      ? 'Vårt grossistpris'
+      : (c.ref_source === 'butik' ? 'Vårt snittpris (butik)' : 'Riktpris (saknar egna köp)');
     const ourTxt = ourGross != null
-      ? `Vårt ordinarie pris: ${{ourGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms`
+      ? `${{refLbl}}: ${{ourGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms`
       : '';
     const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
     const descShort = c.description ? (c.description.length > 78 ? c.description.slice(0, 75) + '…' : c.description) : '';
@@ -670,7 +676,7 @@ function renderAll() {{
       : '';
     const histHtml = (isH && hist.length)
       ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Senaste inköpspriser (${{c.canonical_name}}, inkl. moms):</div>` +
-        hist.map(h => `<div class="hist-row"><span>${{h.date}}</span><b>${{Number(h.price_gross).toFixed(2)}} kr/${{h.unit}}</b></div>`).join('') +
+        hist.map(h => `<div class="hist-row"><span>${{h.date}}${{h.supplier ? ' • ' + h.supplier : ''}}</span><b>${{Number(h.price_gross).toFixed(2)}} kr/${{h.unit}}</b></div>`).join('') +
         `</div>`
       : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
