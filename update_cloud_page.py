@@ -609,13 +609,13 @@ function togglePick(key) {{
 }}
 
 const STORE_LOCATIONS = {{
-  "City Gross": "Kungens Kurva / Länna",
+  "City Gross": "Länna / Kungens Kurva",
   "Coop": "Huddinge / Skanstull",
   "Costco": "Arninge (Täby)",
   "Din Mat": "Skärholmen / Alby",
-  "DollarStore": "Kungens Kurva / Länna",
+  "DollarStore": "Länna / Kungens Kurva",
   "Hemköp": "Huddinge / Skanstull",
-  "ICA Kvantum": "Kungens Kurva / Farsta / Skanstull",
+  "ICA Kvantum": "Farsta / Skanstull",
   "ICA Maxi Stormarknad": "Flemingsberg / Haninge",
   "ICA Nära": "Huddinge / Söderort",
   "ICA Supermarket": "Huddinge / Skanstull",
@@ -624,12 +624,12 @@ const STORE_LOCATIONS = {{
   "Matdax": "Högdalen / Hökarängen",
   "Matvärlden": "Kungens Kurva",
   "Nya Pulsen": "Flemingsberg",
-  "Rusta": "Kungens Kurva / Länna",
+  "Rusta": "Länna / Kungens Kurva",
   "Stora Coop": "Huddinge / Västberga",
   "Supergrossen": "Skärholmen / Vårby",
   "Willys": "Länna / Flemingsberg / Sköndal",
   "Willys Hemma": "Huddinge / Hornstull",
-  "ÖoB": "Kungens Kurva / Länna"
+  "ÖoB": "Länna / Kungens Kurva"
 }};
 
 const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen"]);
