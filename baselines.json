@@ -1474,7 +1474,7 @@
   },
   "manual_campaigns": [
     {
-      "id": "man_29645",
+      "id": "man_29933",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1491,7 +1491,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29646",
+      "id": "man_29934",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1508,7 +1508,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29647",
+      "id": "man_29935",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1525,7 +1525,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29648",
+      "id": "man_29936",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1542,7 +1542,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29649",
+      "id": "man_29937",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -1559,7 +1559,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29650",
+      "id": "man_29938",
       "slug": "flaskkarre",
       "canonical_name": "Fläskkarré",
       "category": "Kött & Fågel",
@@ -1576,7 +1576,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29651",
+      "id": "man_29939",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1593,7 +1593,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29652",
+      "id": "man_29940",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -1610,7 +1610,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29653",
+      "id": "man_29941",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1627,7 +1627,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29654",
+      "id": "man_29942",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1644,7 +1644,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29655",
+      "id": "man_29943",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1661,7 +1661,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29656",
+      "id": "man_29944",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1678,7 +1678,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29657",
+      "id": "man_29945",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1695,7 +1695,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29658",
+      "id": "man_29946",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1712,7 +1712,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29659",
+      "id": "man_29947",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1729,7 +1729,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29660",
+      "id": "man_29948",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1746,7 +1746,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29661",
+      "id": "man_29949",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1763,7 +1763,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29662",
+      "id": "man_29950",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1780,7 +1780,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29663",
+      "id": "man_29951",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -1797,7 +1797,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29664",
+      "id": "man_29952",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1814,7 +1814,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29665",
+      "id": "man_29953",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1831,7 +1831,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29666",
+      "id": "man_29954",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1848,7 +1848,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29667",
+      "id": "man_29955",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1865,7 +1865,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29668",
+      "id": "man_29956",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1882,7 +1882,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29669",
+      "id": "man_29957",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1899,7 +1899,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29670",
+      "id": "man_29958",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1916,7 +1916,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29671",
+      "id": "man_29959",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1933,7 +1933,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29672",
+      "id": "man_29960",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1950,7 +1950,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29673",
+      "id": "man_29961",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1967,7 +1967,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29674",
+      "id": "man_29962",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -1984,7 +1984,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29675",
+      "id": "man_29963",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2001,7 +2001,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29676",
+      "id": "man_29964",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2018,7 +2018,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29677",
+      "id": "man_29965",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2035,7 +2035,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29678",
+      "id": "man_29966",
       "slug": "kycklingvingar",
       "canonical_name": "Kycklingvingar",
       "category": "Kött & Fågel",
@@ -2052,7 +2052,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29679",
+      "id": "man_29967",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -2069,7 +2069,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29680",
+      "id": "man_29968",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2086,7 +2086,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29681",
+      "id": "man_29969",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2103,7 +2103,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29682",
+      "id": "man_29970",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2120,7 +2120,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29683",
+      "id": "man_29971",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2137,7 +2137,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29684",
+      "id": "man_29972",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2154,7 +2154,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29685",
+      "id": "man_29973",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2171,7 +2171,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29686",
+      "id": "man_29974",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -2188,7 +2188,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29687",
+      "id": "man_29975",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2205,7 +2205,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29688",
+      "id": "man_29976",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2222,7 +2222,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29689",
+      "id": "man_29977",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -2239,7 +2239,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29690",
+      "id": "man_29978",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2256,7 +2256,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29691",
+      "id": "man_29979",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2273,7 +2273,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29692",
+      "id": "man_29980",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2290,7 +2290,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29693",
+      "id": "man_29981",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2307,7 +2307,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29694",
+      "id": "man_29982",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -2324,7 +2324,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29695",
+      "id": "man_29983",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2341,7 +2341,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29696",
+      "id": "man_29984",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2358,7 +2358,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29697",
+      "id": "man_29985",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2375,7 +2375,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29698",
+      "id": "man_29986",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2392,7 +2392,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29699",
+      "id": "man_29987",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2409,7 +2409,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29700",
+      "id": "man_29988",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2426,7 +2426,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29701",
+      "id": "man_29989",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2443,24 +2443,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29702",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "French Hot Dog 40X60g. Fryst. /korvbröd. Graham. La Lorraine Ord.pris:",
-      "description": "27 90 | 114 90 | /st | /st",
-      "price_gross_sek": 3.04,
-      "norm_qty": 0.06,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 47.83,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29703",
+      "id": "man_29990",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2477,7 +2460,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29704",
+      "id": "man_29991",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2494,24 +2477,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29705",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Cornichons kg. Extra prima. Önos Ord.pris:",
-      "description": "99 90 | /st | 79 90",
-      "price_gross_sek": 1.75,
-      "norm_qty": 1.0,
-      "norm_unit": "st",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 1.65,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29706",
+      "id": "man_29992",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2528,7 +2494,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29707",
+      "id": "man_29993",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2545,24 +2511,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29708",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Majs /kg. Crispy. Bonduelle Ord.pris:",
-      "description": "79 90 | /st | 59 90",
-      "price_gross_sek": 1.91,
-      "norm_qty": 1.0,
-      "norm_unit": "st",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 1.8,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29709",
+      "id": "man_29994",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -2579,7 +2528,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29710",
+      "id": "man_29995",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2596,7 +2545,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29711",
+      "id": "man_29996",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2613,7 +2562,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29712",
+      "id": "man_29997",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -2630,7 +2579,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29713",
+      "id": "man_29998",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2647,7 +2596,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29714",
+      "id": "man_29999",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2664,7 +2613,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29715",
+      "id": "man_30000",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2681,7 +2630,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29716",
+      "id": "man_30001",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2698,7 +2647,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29717",
+      "id": "man_30002",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2715,7 +2664,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29718",
+      "id": "man_30003",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2732,7 +2681,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29719",
+      "id": "man_30004",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2749,7 +2698,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29720",
+      "id": "man_30005",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2766,7 +2715,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29721",
+      "id": "man_30006",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2783,7 +2732,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29722",
+      "id": "man_30007",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -2800,7 +2749,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29723",
+      "id": "man_30008",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2817,7 +2766,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29724",
+      "id": "man_30009",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2834,7 +2783,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29725",
+      "id": "man_30010",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2851,24 +2800,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29726",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Ananas kg. Bitar i lag. Gastrino",
-      "description": "69 90 | /st | Non-food",
-      "price_gross_sek": 3.24,
-      "norm_qty": 1.0,
-      "norm_unit": "st",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 3.06,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29727",
+      "id": "man_30011",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2885,7 +2817,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29728",
+      "id": "man_30012",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2902,7 +2834,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29729",
+      "id": "man_30013",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2919,7 +2851,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29730",
+      "id": "man_30014",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2936,7 +2868,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29731",
+      "id": "man_30015",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2953,7 +2885,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29732",
+      "id": "man_30016",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2970,7 +2902,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29733",
+      "id": "man_30017",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -2987,7 +2919,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29734",
+      "id": "man_30018",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3004,7 +2936,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29735",
+      "id": "man_30019",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3021,7 +2953,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29736",
+      "id": "man_30020",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3038,7 +2970,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29737",
+      "id": "man_30021",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3055,7 +2987,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29738",
+      "id": "man_30022",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3072,7 +3004,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29739",
+      "id": "man_30023",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3089,7 +3021,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29740",
+      "id": "man_30024",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3106,7 +3038,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29741",
+      "id": "man_30025",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3123,7 +3055,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29742",
+      "id": "man_30026",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3140,7 +3072,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29743",
+      "id": "man_30027",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3157,7 +3089,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29744",
+      "id": "man_30028",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3165,16 +3097,16 @@
       "heading": "Lättöl 24x33 cl à  exkl pant. 2,2%. Pripps Blå Ord.pris: /pl",
       "description": "Kaffe Dryck | 10 90 | 78 00 | /st +pant | /pl +pant | Läsk Läsk 24x50 cl à 261,60/platta exkl pant. Coca Cola, Cola Zero, Fanta & Sprite. Coca-Cola Ord.pris: 11,90/st",
       "price_gross_sek": 3.45,
-      "norm_qty": 24.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.14,
+      "unit_price_net_sek": 3.25,
       "max_limit_note": "",
       "valid_until": "2026-11-30",
       "image_url": ""
     },
     {
-      "id": "man_29745",
+      "id": "man_30029",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3191,7 +3123,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29746",
+      "id": "man_30030",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3208,7 +3140,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29747",
+      "id": "man_30031",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3225,7 +3157,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29748",
+      "id": "man_30032",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3242,7 +3174,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29749",
+      "id": "man_30033",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -3259,7 +3191,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29750",
+      "id": "man_30034",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3276,7 +3208,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29751",
+      "id": "man_30035",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3284,16 +3216,16 @@
       "heading": "Läsk 20x33 cl à  exkl pant. Pepsi, Zingo, 7Up, Pommac & Mountain Dew. Carlsberg Ord.pris: /pl",
       "description": "",
       "price_gross_sek": 4.19,
-      "norm_qty": 20.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.2,
+      "unit_price_net_sek": 3.95,
       "max_limit_note": "",
       "valid_until": "2026-12-14",
       "image_url": ""
     },
     {
-      "id": "man_29752",
+      "id": "man_30036",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -3310,7 +3242,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29753",
+      "id": "man_30037",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3327,7 +3259,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29754",
+      "id": "man_30038",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -3344,7 +3276,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29755",
+      "id": "man_30039",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3361,7 +3293,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29756",
+      "id": "man_30040",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -3378,7 +3310,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29757",
+      "id": "man_30041",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3395,7 +3327,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29758",
+      "id": "man_30042",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3412,7 +3344,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29759",
+      "id": "man_30043",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3429,7 +3361,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29760",
+      "id": "man_30044",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3446,7 +3378,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29761",
+      "id": "man_30045",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3463,7 +3395,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29762",
+      "id": "man_30046",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3480,7 +3412,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29763",
+      "id": "man_30047",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3497,7 +3429,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29764",
+      "id": "man_30048",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3514,7 +3446,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29765",
+      "id": "man_30049",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -3531,7 +3463,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29766",
+      "id": "man_30050",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3548,7 +3480,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29767",
+      "id": "man_30051",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -3565,7 +3497,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29768",
+      "id": "man_30052",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -3582,7 +3514,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29769",
+      "id": "man_30053",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3599,24 +3531,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29770",
-      "slug": "gradde",
-      "canonical_name": "Vispgrädde & Matgrädde",
-      "category": "Mejeri & Ägg",
-      "store_name": "Snabbgross",
-      "heading": "Färskost 1,5 kg & kg. Professional/Laktosfri & Original. 21%. Philadelphia Ord.pris:",
-      "description": "/st | LF | Mat & Visp 1 liter. Laktosfri. 33%. Millac Gold Ord.pris: 39,90/st | 119 90 | 129 90 | /st",
-      "price_gross_sek": 1.75,
-      "norm_qty": 1.5,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 1.1,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_29771",
+      "id": "man_30054",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -3633,7 +3548,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29772",
+      "id": "man_30055",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -3650,24 +3565,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29773",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Hamburgerost kg. Emmentaler. Friendship Ord.pris:",
-      "description": "119 90 | /st | Hamburgerost 1,25 kg. Pepperjack. Friendship Ord.pris: 155,00/st",
-      "price_gross_sek": 1.33,
-      "norm_qty": 1.25,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 1.0,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_29774",
+      "id": "man_30056",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3684,41 +3582,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29775",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Hamburgerost kg. Pepperjack. Friendship Ord.pris:",
-      "description": "119 90 | 129 90 | /st | /st | Hamburgerost 1,25 kg. Emmentaler. Friendship Ord.pris: 149,00/st | Hamburgerost 1,033 kg. Cheddar. Friendship Ord.pris: 109,00/st",
-      "price_gross_sek": 1.33,
-      "norm_qty": 1.25,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 1.0,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_29776",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Hamburgerost 3 kg. Cheddar. Friendship Ord.pris:",
-      "description": "129 90 | 79 90 | /st | /st | Cheddarost 1 kg. Skivat. Friendship Ord.pris: 125,00/st | Hamburgerost 1,25 kg. Pepperjack. Friendship Ord.pris: 155,00/st",
-      "price_gross_sek": 1.09,
-      "norm_qty": 3.0,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 0.34,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_29777",
+      "id": "man_30057",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3735,7 +3599,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29778",
+      "id": "man_30058",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3752,24 +3616,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29779",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "French Hot Dog 40X60g. Fryst. /korvbröd. Graham. La Lorraine Ord.pris:",
-      "description": "99 90 | 109 90 | /st | /st",
-      "price_gross_sek": 2.92,
-      "norm_qty": 0.06,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 45.83,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_29780",
+      "id": "man_30059",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3786,7 +3633,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29781",
+      "id": "man_30060",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3803,7 +3650,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29782",
+      "id": "man_30061",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3820,7 +3667,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29783",
+      "id": "man_30062",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3837,7 +3684,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29784",
+      "id": "man_30063",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3854,7 +3701,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29785",
+      "id": "man_30064",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3871,7 +3718,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29786",
+      "id": "man_30065",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3888,7 +3735,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29787",
+      "id": "man_30066",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -3905,7 +3752,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29788",
+      "id": "man_30067",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3922,7 +3769,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29789",
+      "id": "man_30068",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3939,7 +3786,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29790",
+      "id": "man_30069",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3956,7 +3803,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29791",
+      "id": "man_30070",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3973,7 +3820,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29792",
+      "id": "man_30071",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -3990,7 +3837,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29793",
+      "id": "man_30072",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4007,7 +3854,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29794",
+      "id": "man_30073",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4024,7 +3871,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29795",
+      "id": "man_30074",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4041,7 +3888,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29796",
+      "id": "man_30075",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4058,7 +3905,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29797",
+      "id": "man_30076",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4075,7 +3922,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29798",
+      "id": "man_30077",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4092,7 +3939,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29799",
+      "id": "man_30078",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4109,7 +3956,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29800",
+      "id": "man_30079",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4126,7 +3973,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29801",
+      "id": "man_30080",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -4143,7 +3990,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29802",
+      "id": "man_30081",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4160,7 +4007,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29803",
+      "id": "man_30082",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4177,7 +4024,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29804",
+      "id": "man_30083",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4194,7 +4041,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29805",
+      "id": "man_30084",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4211,7 +4058,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29806",
+      "id": "man_30085",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4228,7 +4075,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29807",
+      "id": "man_30086",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4245,7 +4092,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29808",
+      "id": "man_30087",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4262,7 +4109,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29809",
+      "id": "man_30088",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4279,7 +4126,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29810",
+      "id": "man_30089",
       "slug": "agg",
       "canonical_name": "Ägg (Storförpackning)",
       "category": "Mejeri & Ägg",
@@ -4296,7 +4143,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29811",
+      "id": "man_30090",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4313,7 +4160,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29812",
+      "id": "man_30091",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4330,7 +4177,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29813",
+      "id": "man_30092",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4347,7 +4194,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29814",
+      "id": "man_30093",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -4364,7 +4211,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29815",
+      "id": "man_30094",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4381,7 +4228,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29816",
+      "id": "man_30095",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4398,7 +4245,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29817",
+      "id": "man_30096",
       "slug": "lok",
       "canonical_name": "Gul lök & Purjolök",
       "category": "Frukt & Grönt",
@@ -4415,7 +4262,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29818",
+      "id": "man_30097",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4432,7 +4279,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29819",
+      "id": "man_30098",
       "slug": "majonnas_sasbas",
       "canonical_name": "Majonnäs & Såsbas (10L)",
       "category": "Såser & Konserver",
@@ -4449,7 +4296,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29820",
+      "id": "man_30099",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -4466,7 +4313,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29821",
+      "id": "man_30100",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4483,24 +4330,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29822",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Sweet chili sauce l. Santa Maria Ord.pris:",
-      "description": "69 90 | /st | Teriyaki sauce 2,7 kg. Original. Santa Maria Ord.pris: 204,00/st",
-      "price_gross_sek": 2.07,
-      "norm_qty": 2.7,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 0.72,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_29823",
+      "id": "man_30101",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4517,7 +4347,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29824",
+      "id": "man_30102",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4534,7 +4364,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29825",
+      "id": "man_30103",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -4551,7 +4381,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29826",
+      "id": "man_30104",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4568,7 +4398,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29827",
+      "id": "man_30105",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4585,7 +4415,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29828",
+      "id": "man_30106",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4602,7 +4432,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29829",
+      "id": "man_30107",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4619,7 +4449,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29830",
+      "id": "man_30108",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4636,7 +4466,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29831",
+      "id": "man_30109",
       "slug": "majonnas_sasbas",
       "canonical_name": "Majonnäs & Såsbas (10L)",
       "category": "Såser & Konserver",
@@ -4653,7 +4483,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29832",
+      "id": "man_30110",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4670,7 +4500,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29833",
+      "id": "man_30111",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4687,7 +4517,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29834",
+      "id": "man_30112",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4704,7 +4534,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29835",
+      "id": "man_30113",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4721,7 +4551,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29836",
+      "id": "man_30114",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4738,7 +4568,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29837",
+      "id": "man_30115",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4755,7 +4585,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29838",
+      "id": "man_30116",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4772,7 +4602,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29839",
+      "id": "man_30117",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4789,7 +4619,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29840",
+      "id": "man_30118",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4806,7 +4636,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29841",
+      "id": "man_30119",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4823,7 +4653,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29842",
+      "id": "man_30120",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4840,7 +4670,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29843",
+      "id": "man_30121",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4857,7 +4687,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29844",
+      "id": "man_30122",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4874,7 +4704,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29845",
+      "id": "man_30123",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4891,7 +4721,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29846",
+      "id": "man_30124",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4908,7 +4738,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29847",
+      "id": "man_30125",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4925,7 +4755,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29848",
+      "id": "man_30126",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4933,16 +4763,16 @@
       "heading": "Läsk 20x33 cl à  exkl pant. Pepsi, Zingo, 7Up, Pommac & Mountain Dew. Carlsberg Ord.pris: /pl",
       "description": "/pl +pant | 75 00 | /pl +pant",
       "price_gross_sek": 4.19,
-      "norm_qty": 20.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.2,
+      "unit_price_net_sek": 3.95,
       "max_limit_note": "",
       "valid_until": "2026-12-14",
       "image_url": ""
     },
     {
-      "id": "man_29849",
+      "id": "man_30127",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4959,7 +4789,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29850",
+      "id": "man_30128",
       "slug": "citrus_frukt",
       "canonical_name": "Apelsiner, Citron & Lime",
       "category": "Frukt & Grönt",
@@ -4967,16 +4797,16 @@
       "heading": "Mineralvatten 12x50 cl à  exkl pant. Päron, Citron & Naturell m.fl. Med kolsyra. Loka Ord.pris: /pl",
       "description": "/pl +pant",
       "price_gross_sek": 6.62,
-      "norm_qty": 12.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.52,
+      "unit_price_net_sek": 6.25,
       "max_limit_note": "",
       "valid_until": "2026-12-14",
       "image_url": ""
     },
     {
-      "id": "man_29851",
+      "id": "man_30129",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -4984,16 +4814,16 @@
       "heading": "Läsk 6x33 cl à . Limonata, Aranciata & Aranciata Rossa m.fl. San Pellegrino Ord.pris:",
       "description": "",
       "price_gross_sek": 8.11,
-      "norm_qty": 6.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 1.28,
+      "unit_price_net_sek": 7.65,
       "max_limit_note": "",
       "valid_until": "2026-12-14",
       "image_url": ""
     },
     {
-      "id": "man_29852",
+      "id": "man_30130",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5010,7 +4840,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29853",
+      "id": "man_30131",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5027,7 +4857,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29854",
+      "id": "man_30132",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5044,7 +4874,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29855",
+      "id": "man_30133",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -5061,7 +4891,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29856",
+      "id": "man_30134",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5078,7 +4908,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29857",
+      "id": "man_30135",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5095,7 +4925,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29858",
+      "id": "man_30136",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5112,7 +4942,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29859",
+      "id": "man_30137",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5129,7 +4959,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29860",
+      "id": "man_30138",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5137,16 +4967,16 @@
       "heading": "Starköl 15x50 cl à 178,5/back exkl pant. 5,3%. Norrlands Guld Ord.pris:",
       "description": "11 90 | /st +pant",
       "price_gross_sek": 15.79,
-      "norm_qty": 15.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.99,
+      "unit_price_net_sek": 14.9,
       "max_limit_note": "",
       "valid_until": "2026-11-30",
       "image_url": ""
     },
     {
-      "id": "man_29861",
+      "id": "man_30139",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5163,7 +4993,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29862",
+      "id": "man_30140",
       "slug": "flaskfars",
       "canonical_name": "Fläskfärs & Blandfärs",
       "category": "Kött & Fågel",
@@ -5180,7 +5010,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29863",
+      "id": "man_30141",
       "slug": "flaskfars_notfars",
       "canonical_name": "Nötfärs & Köttfärs",
       "category": "Kött & Fågel",
@@ -5197,7 +5027,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29864",
+      "id": "man_30142",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5214,7 +5044,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29865",
+      "id": "man_30143",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5231,7 +5061,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29866",
+      "id": "man_30144",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -5248,7 +5078,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29867",
+      "id": "man_30145",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -5265,7 +5095,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29868",
+      "id": "man_30146",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5282,7 +5112,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29869",
+      "id": "man_30147",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -5299,7 +5129,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29870",
+      "id": "man_30148",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -5316,7 +5146,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29871",
+      "id": "man_30149",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -5333,58 +5163,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29872",
-      "slug": "mjolk",
-      "canonical_name": "Mjölk (Standard / Mellan)",
-      "category": "Mejeri & Ägg",
-      "store_name": "Snabbgross",
-      "heading": "Mellanmjölk 2 cl. 1,5 %. Portionsförpackning. Arla Ord.pris:",
-      "description": "/st | 7 90 | /st +pant",
-      "price_gross_sek": 1.43,
-      "norm_qty": 0.02,
-      "norm_unit": "L",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 67.5,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29873",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Mellanmjölk 2 cl. 1,5 %. Portionsförpackning. EKO. Arla Ord.pris:",
-      "description": "/st | /st | 7 90 | 9 90 | /st +pant | /st",
-      "price_gross_sek": 1.47,
-      "norm_qty": 0.02,
-      "norm_unit": "L",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 69.5,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29874",
-      "slug": "mjolk",
-      "canonical_name": "Mjölk (Standard / Mellan)",
-      "category": "Mejeri & Ägg",
-      "store_name": "Snabbgross",
-      "heading": "Mellanmjölk 2 cl. 1,5 %. Portionsförpackning. Laktosfri. Arla Ord.pris:",
-      "description": "/st | /st | 9 90 | 64 90 | /st | /st",
-      "price_gross_sek": 1.69,
-      "norm_qty": 0.02,
-      "norm_unit": "L",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 79.5,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29875",
+      "id": "man_30150",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5401,7 +5180,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29876",
+      "id": "man_30151",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5418,7 +5197,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29877",
+      "id": "man_30152",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5435,7 +5214,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29878",
+      "id": "man_30153",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5452,7 +5231,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29879",
+      "id": "man_30154",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5469,7 +5248,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29880",
+      "id": "man_30155",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5486,7 +5265,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29881",
+      "id": "man_30156",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5503,7 +5282,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29882",
+      "id": "man_30157",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5520,7 +5299,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29883",
+      "id": "man_30158",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5537,7 +5316,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29884",
+      "id": "man_30159",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5554,7 +5333,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29885",
+      "id": "man_30160",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5571,7 +5350,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29886",
+      "id": "man_30161",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5588,7 +5367,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29887",
+      "id": "man_30162",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5605,7 +5384,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29888",
+      "id": "man_30163",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5622,7 +5401,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29889",
+      "id": "man_30164",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5639,7 +5418,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29890",
+      "id": "man_30165",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5656,7 +5435,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29891",
+      "id": "man_30166",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5673,7 +5452,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29892",
+      "id": "man_30167",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5690,7 +5469,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29893",
+      "id": "man_30168",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5707,7 +5486,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29894",
+      "id": "man_30169",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5724,7 +5503,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29895",
+      "id": "man_30170",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -5741,7 +5520,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29896",
+      "id": "man_30171",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -5758,7 +5537,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29897",
+      "id": "man_30172",
       "slug": "vitlok_skalad",
       "canonical_name": "Vitlök (Skalad)",
       "category": "Frukt & Grönt",
@@ -5775,7 +5554,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29898",
+      "id": "man_30173",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5792,7 +5571,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29899",
+      "id": "man_30174",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5809,7 +5588,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29900",
+      "id": "man_30175",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5826,7 +5605,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29901",
+      "id": "man_30176",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5843,7 +5622,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29902",
+      "id": "man_30177",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5860,7 +5639,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29903",
+      "id": "man_30178",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5877,7 +5656,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29904",
+      "id": "man_30179",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5894,24 +5673,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29905",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Falafel kg. Fryst. Ida Ord.pris:",
-      "description": "249 90 | /st | Hamburgare 24x150 g. Jet set. Ostekt. Fryst. Scan Ord.pris: 499,90/st",
-      "price_gross_sek": 3.83,
-      "norm_qty": 0.15,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 24.07,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29906",
+      "id": "man_30180",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5928,7 +5690,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29907",
+      "id": "man_30181",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5945,7 +5707,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29908",
+      "id": "man_30182",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5962,7 +5724,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29909",
+      "id": "man_30183",
       "slug": "jordnotter",
       "canonical_name": "Jordnötter",
       "category": "Olja & Bas",
@@ -5979,7 +5741,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29910",
+      "id": "man_30184",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -5996,7 +5758,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29911",
+      "id": "man_30185",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6013,24 +5775,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29912",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Potatismos 6,3 kg & kg. Klassisk, Komplett & Grillmästarmos. Felix Ord.pris:",
-      "description": "289 90",
-      "price_gross_sek": 7.16,
-      "norm_qty": 6.3,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 1.07,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29913",
+      "id": "man_30186",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -6047,7 +5792,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29914",
+      "id": "man_30187",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -6064,7 +5809,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29915",
+      "id": "man_30188",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6081,7 +5826,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29916",
+      "id": "man_30189",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6098,7 +5843,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29917",
+      "id": "man_30190",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
@@ -6115,7 +5860,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29918",
+      "id": "man_30191",
       "slug": "potatismjol_vetemjol",
       "canonical_name": "Potatismjöl & Vetemjöl (Storsäck)",
       "category": "Olja & Bas",
@@ -6132,7 +5877,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29919",
+      "id": "man_30192",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6149,7 +5894,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29920",
+      "id": "man_30193",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6166,7 +5911,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29921",
+      "id": "man_30194",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6183,7 +5928,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29922",
+      "id": "man_30195",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6200,7 +5945,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29923",
+      "id": "man_30196",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6208,33 +5953,16 @@
       "heading": "Starköl 15x50 cl à 178,5/back exkl pant. 5,3%. Norrlands Guld Ord.pris:",
       "description": "Alkohol | 11 90",
       "price_gross_sek": 15.79,
-      "norm_qty": 15.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.99,
+      "unit_price_net_sek": 14.9,
       "max_limit_note": "",
       "valid_until": "2026-11-30",
       "image_url": ""
     },
     {
-      "id": "man_29924",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Mineralvatten 20x33 cl à  exkl pant. Päron, Citrus & Naturell m.fl. Med kolsyra. Ramlösa Ord.pris: /pl",
-      "description": "59 00 | /pl +pant | 59 00 | /pl +pant",
-      "price_gross_sek": 3.13,
-      "norm_qty": 20.0,
-      "norm_unit": "st",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 0.15,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29925",
+      "id": "man_30197",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6242,33 +5970,16 @@
       "heading": "Lättöl 20x33 cl à  exkl pant. 2,1%. Grängesberg Ord.pris: /pl",
       "description": "70 00 | /pl +pant | /pl +pant | 7 49 | 9 49 | /st +pant | /st",
       "price_gross_sek": 3.71,
-      "norm_qty": 20.0,
+      "norm_qty": 1.0,
       "norm_unit": "st",
       "vat_rate": 6.0,
-      "unit_price_net_sek": 0.17,
+      "unit_price_net_sek": 3.5,
       "max_limit_note": "",
       "valid_until": "2026-11-30",
       "image_url": ""
     },
     {
-      "id": "man_29926",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Läsk 20x33 cl à  exkl pant. Trocadero, Loka, Champis & Cuba Cola. Spendrups Ord.pris: /pl",
-      "description": "/pl +pant",
-      "price_gross_sek": 3.13,
-      "norm_qty": 20.0,
-      "norm_unit": "st",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 0.15,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29927",
+      "id": "man_30198",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6285,7 +5996,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29928",
+      "id": "man_30199",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6302,7 +6013,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29929",
+      "id": "man_30200",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6319,7 +6030,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29930",
+      "id": "man_30201",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
@@ -6336,7 +6047,7 @@
       "image_url": ""
     },
     {
-      "id": "man_29931",
+      "id": "man_30202",
       "slug": "",
       "canonical_name": "Kampanjvara",
       "category": "Övrigt",
@@ -6348,23 +6059,6 @@
       "norm_unit": "kg",
       "vat_rate": 6.0,
       "unit_price_net_sek": 68.9,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_29932",
-      "slug": "",
-      "canonical_name": "Kampanjvara",
-      "category": "Övrigt",
-      "store_name": "Snabbgross",
-      "heading": "Läsk 20x33 cl à  exkl pant. Trocadero, Loka, Champis & Cuba Cola. Spendrups Ord.pris: /pl",
-      "description": "59 00 | /st | /pl +pant | Priserna gäller exklusive moms. Med reservation för slutförsäljning, prisjusteringar och eventuella tryckfel.",
-      "price_gross_sek": 3.13,
-      "norm_qty": 20.0,
-      "norm_unit": "st",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 0.15,
       "max_limit_note": "",
       "valid_until": "2026-11-30",
       "image_url": ""
