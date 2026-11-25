@@ -469,6 +469,8 @@ def build_html(payload: Dict[str, Any]) -> str:
   .thumb {{ width:70px; height:70px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; }}
   .info {{ flex:1; min-width:0; }}
   .store-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
+  .loc-tag {{ display:inline-block; background:#fef3c7; color:#92400e; font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; margin-left:4px; text-decoration:none; }}
+  .loc-tag:hover {{ background:#fde68a; }}
   .cat-tag {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; }}
   .save-tag {{ display:inline-block; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; background:#dcfce7; color:#14532d; }}
   .title {{ font-weight:700; font-size:15px; margin:4px 0 2px; }}
@@ -597,6 +599,34 @@ function togglePick(key) {{
   renderAll();
 }}
 
+const STORE_LOCATIONS = {{
+  "City Gross": "Kungens Kurva / Länna",
+  "Coop": "Huddinge / Skanstull",
+  "Costco": "Arninge (Täby)",
+  "Din Mat": "Skärholmen / Alby",
+  "DollarStore": "Kungens Kurva / Länna",
+  "Hemköp": "Huddinge / Skanstull",
+  "ICA Kvantum": "Kungens Kurva / Farsta / Skanstull",
+  "ICA Maxi Stormarknad": "Flemingsberg / Haninge",
+  "ICA Nära": "Huddinge / Söderort",
+  "ICA Supermarket": "Huddinge / Skanstull",
+  "Lidl": "Rågsved / Huddinge / Medis",
+  "Matcenter": "Alby / Botkyrka",
+  "Matdax": "Högdalen / Hökarängen",
+  "Matvärlden": "Kungens Kurva",
+  "Nya Pulsen": "Flemingsberg",
+  "Rusta": "Kungens Kurva / Länna",
+  "Stora Coop": "Huddinge / Västberga",
+  "Supergrossen": "Skärholmen / Vårby",
+  "Willys": "Länna / Flemingsberg / Sköndal",
+  "Willys Hemma": "Huddinge / Hornstull",
+  "ÖoB": "Kungens Kurva / Länna"
+}};
+
+function storeLoc(name) {{
+  return STORE_LOCATIONS[name] || '';
+}}
+
 function renderAll() {{
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
   const onlyG = document.getElementById('onlyGreen').checked;
@@ -604,7 +634,8 @@ function renderAll() {{
   const visibleBase = (DATA.campaigns || []).filter(c => {{
     if (hiddenProds[c.canonical_name]) return false;
     if (onlyG && c.verdict_code !== 'GREEN') return false;
-    if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || (c.category || '').toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q))) return false;
+    const loc = storeLoc(c.store_name).toLowerCase();
+    if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || (c.category || '').toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q) || loc.includes(q))) return false;
     return true;
   }});
 
@@ -646,7 +677,9 @@ function renderAll() {{
   stores.forEach(st => {{
     const b = document.createElement('button');
     b.className = 'chip' + (st === activeStore ? ' active' : '');
-    b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}} (${{stCounts[st]}})`;
+    const loc = storeLoc(st);
+    const shortLoc = loc ? loc.split('/')[0].trim() : '';
+    b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
     b.onclick = () => {{ activeStore = st; renderAll(); }};
     chipBox.appendChild(b);
   }});
@@ -690,10 +723,13 @@ function renderAll() {{
         hist.map(h => `<div class="hist-row"><span>${{h.date}}${{h.supplier ? ' • ' + h.supplier : ''}}</span><b>${{Number(h.price_gross).toFixed(2)}} kr/${{h.unit}}</b></div>`).join('') +
         `</div>`
       : '';
+    const loc = storeLoc(c.store_name);
+    const mapsUrl = loc ? `https://www.google.com/maps/search/${{encodeURIComponent(c.store_name + ' ' + loc.split('/')[0].trim())}}` : '';
+    const locHtml = loc ? `<a class="loc-tag" href="${{mapsUrl}}" target="_blank" rel="noopener">📍 ${{loc}}</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
-        <div><span class="store-tag">${{c.store_name}}</span><span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
+        <div><span class="store-tag">${{c.store_name}}</span>${{locHtml}}<span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
         <div class="title">${{c.heading}}</div>
         ${{descShort ? `<div class="sub" style="color:#334155">${{descShort}}</div>` : ''}}
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
