@@ -520,15 +520,12 @@ def build_html(payload: Dict[str, Any]) -> str:
       <option value="Alla">Alla valda varor</option>
     </select>
 
-    <div style="display:flex;gap:14px;flex-wrap:wrap">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
       <label class="toggle-lbl">
         <input id="onlyGreen" type="checkbox" checked onchange="renderAll()">
         Visa bara klipp som slår våra priser
       </label>
-      <label class="toggle-lbl">
-        <input id="onlyNear" type="checkbox" checked onchange="renderAll()">
-        📍 Bara nära (Huddinge &amp; längs vägen från Skanstull)
-      </label>
+      <div class="chips" id="areaChips" style="padding-bottom:0"></div>
     </div>
 
     <div class="sec-lbl">Kategori</div>
@@ -635,6 +632,11 @@ const STORE_LOCATIONS = {{
 }};
 
 const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen", "ÖoB"]);
+const ROUTE_STORES = new Set([
+  "ICA Kvantum", "Hemköp", "Lidl", "Matdax", "Stora Coop",
+  "Willys Hemma", "Coop", "ICA Supermarket", "ICA Nära"
+]);
+let activeArea = 'near';
 
 function storeLocs(name) {{
   return STORE_LOCATIONS[name] || [];
@@ -645,14 +647,29 @@ function storeLoc(name) {{
 }}
 
 function renderAll() {{
+  const areaBox = document.getElementById('areaChips');
+  const areaOpts = [
+    ['near', '📍 Nära Arrendatorsvägen'],
+    ['route', '🚗 Skanstull → Hem'],
+    ['all', '🗺️ Alla butiker']
+  ];
+  areaBox.innerHTML = '';
+  areaOpts.forEach(([val, lbl]) => {{
+    const b = document.createElement('button');
+    b.className = 'chip cat-chip' + (activeArea === val ? ' active' : '');
+    b.textContent = lbl;
+    b.onclick = () => {{ activeArea = val; renderAll(); }};
+    areaBox.appendChild(b);
+  }});
+
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
   const onlyG = document.getElementById('onlyGreen').checked;
-  const onlyN = document.getElementById('onlyNear').checked;
 
   const visibleBase = (DATA.campaigns || []).filter(c => {{
     if (hiddenProds[c.canonical_name]) return false;
     if (onlyG && c.verdict_code !== 'GREEN') return false;
-    if (onlyN && FAR_STORES.has(c.store_name)) return false;
+    if (activeArea === 'near' && FAR_STORES.has(c.store_name)) return false;
+    if (activeArea === 'route' && !ROUTE_STORES.has(c.store_name)) return false;
     const loc = storeLoc(c.store_name).toLowerCase();
     if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || (c.category || '').toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q) || loc.includes(q))) return false;
     return true;
