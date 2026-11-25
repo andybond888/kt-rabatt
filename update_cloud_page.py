@@ -71,8 +71,8 @@ GLOBAL_HEADING_EXCLUSIONS = (
 
 
 def match_slug(text: str, rules: List[Dict[str, Any]]) -> Optional[str]:
-    low = (text or "").lower()
-    if not low or "pant" in low or "rabatt" in low:
+    low = re.sub(r"\s+", " ", (text or "")).lower().strip()
+    if not low or low == "pant" or low.startswith("pant ") or "rabatt" in low:
         return None
     if any(x in low for x in GLOBAL_HEADING_EXCLUSIONS):
         return None
