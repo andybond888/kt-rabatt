@@ -158,7 +158,13 @@
         "hel\\s*majo",
         "majonnäs"
       ],
-      "negatives": []
+      "negatives": [
+        "gurkmajonnäs",
+        "räkmajonnäs",
+        "chilimajonnäs",
+        "aioli",
+        "dressing"
+      ]
     },
     {
       "slug": "tomat",
@@ -308,7 +314,18 @@
         "garlic\\s*peeled",
         "vitlök"
       ],
-      "negatives": []
+      "negatives": [
+        "dressing",
+        "sås",
+        "granulerad",
+        "pulver",
+        "krydda",
+        "smör",
+        "bröd",
+        "baguette",
+        "ost",
+        "chips"
+      ]
     },
     {
       "slug": "gurka",
@@ -1483,7 +1500,7 @@
   },
   "manual_campaigns": [
     {
-      "id": "man_31017",
+      "id": "man_31287",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -1500,7 +1517,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31018",
+      "id": "man_31288",
       "slug": "flaskkarre",
       "canonical_name": "Fläskkarré",
       "category": "Kött & Fågel",
@@ -1517,7 +1534,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31020",
+      "id": "man_31290",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -1534,7 +1551,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31024",
+      "id": "man_31294",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1551,7 +1568,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31025",
+      "id": "man_31295",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1568,7 +1585,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31028",
+      "id": "man_31298",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1585,7 +1602,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31031",
+      "id": "man_31301",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -1602,7 +1619,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31046",
+      "id": "man_31316",
       "slug": "kycklingvingar",
       "canonical_name": "Kycklingvingar",
       "category": "Kött & Fågel",
@@ -1619,7 +1636,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31047",
+      "id": "man_31317",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -1636,7 +1653,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31054",
+      "id": "man_31324",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -1653,7 +1670,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31057",
+      "id": "man_31327",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1670,7 +1687,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31062",
+      "id": "man_31332",
       "slug": "champinjoner",
       "canonical_name": "Champinjoner (Färska)",
       "category": "Frukt & Grönt",
@@ -1687,7 +1704,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31074",
+      "id": "man_31344",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -1704,7 +1721,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31077",
+      "id": "man_31347",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -1721,7 +1738,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31087",
+      "id": "man_31357",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -1738,7 +1755,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31108",
+      "id": "man_31378",
       "slug": "alkoholfri_lattol",
       "canonical_name": "Lättöl, Folköl & Alkoholfri Öl 33cl",
       "category": "Läsk & Dryck",
@@ -1755,7 +1772,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31110",
+      "id": "man_31380",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -1772,7 +1789,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31113",
+      "id": "man_31383",
       "slug": "socker_25kg",
       "canonical_name": "Strösocker",
       "category": "Olja & Bas",
@@ -1789,7 +1806,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31115",
+      "id": "man_31385",
       "slug": "lask_vatten_33cl",
       "canonical_name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
       "category": "Läsk & Dryck",
@@ -1806,7 +1823,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31116",
+      "id": "man_31386",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -1823,7 +1840,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31118",
+      "id": "man_31388",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1840,7 +1857,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31120",
+      "id": "man_31390",
       "slug": "flask_kotlett_ribs",
       "canonical_name": "Fläskkotlett & Spareribs",
       "category": "Kött & Fågel",
@@ -1857,7 +1874,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31129",
+      "id": "man_31399",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -1874,7 +1891,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31131",
+      "id": "man_31401",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -1891,7 +1908,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31132",
+      "id": "man_31402",
       "slug": "vannamei_rakor",
       "canonical_name": "Vannamei- & Tigerräkor (Frysta)",
       "category": "Fisk & Skaldjur",
@@ -1908,7 +1925,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31134",
+      "id": "man_31404",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -1925,7 +1942,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31135",
+      "id": "man_31405",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -1942,7 +1959,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31146",
+      "id": "man_31416",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -1959,24 +1976,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31160",
-      "slug": "vitlok_skalad",
-      "canonical_name": "Vitlök (Skalad)",
-      "category": "Frukt & Grönt",
-      "store_name": "Snabbgross",
-      "heading": "Granulerad vitlök 650 g. Santa Maria Ord.pris:",
-      "description": "",
-      "price_gross_sek": 147.34,
-      "norm_qty": 0.65,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 213.85,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_31173",
+      "id": "man_31443",
       "slug": "ketchup",
       "canonical_name": "Ketchup",
       "category": "Såser & Konserver",
@@ -1993,7 +1993,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31176",
+      "id": "man_31446",
       "slug": "lok",
       "canonical_name": "Gul lök & Purjolök",
       "category": "Frukt & Grönt",
@@ -2010,41 +2010,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31178",
-      "slug": "majonnas_sasbas",
-      "canonical_name": "Majonnäs & Såsbas (10L)",
-      "category": "Såser & Konserver",
-      "store_name": "Snabbgross",
-      "heading": "Gurkmajonnäs 800 g. Johnny’S Ord.pris:",
-      "description": "",
-      "price_gross_sek": 38.05,
-      "norm_qty": 0.8,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 44.87,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_31179",
-      "slug": "vitlok_skalad",
-      "canonical_name": "Vitlök (Skalad)",
-      "category": "Frukt & Grönt",
-      "store_name": "Snabbgross",
-      "heading": "Vitlöksdressing 800 g. Johnny’S Ord.pris:",
-      "description": "/st | /st",
-      "price_gross_sek": 38.05,
-      "norm_qty": 0.8,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 44.87,
-      "max_limit_note": "",
-      "valid_until": "2026-12-14",
-      "image_url": ""
-    },
-    {
-      "id": "man_31181",
+      "id": "man_31451",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -2061,7 +2027,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31189",
+      "id": "man_31459",
       "slug": "majonnas_sasbas",
       "canonical_name": "Majonnäs & Såsbas (10L)",
       "category": "Såser & Konserver",
@@ -2078,7 +2044,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31206",
+      "id": "man_31476",
       "slug": "lask_vatten_33cl",
       "canonical_name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
       "category": "Läsk & Dryck",
@@ -2095,7 +2061,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31213",
+      "id": "man_31483",
       "slug": "gradde",
       "canonical_name": "Vispgrädde & Matgrädde",
       "category": "Mejeri & Ägg",
@@ -2112,7 +2078,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31220",
+      "id": "man_31490",
       "slug": "flaskfars",
       "canonical_name": "Fläskfärs & Blandfärs",
       "category": "Kött & Fågel",
@@ -2129,7 +2095,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31221",
+      "id": "man_31491",
       "slug": "flaskfars_notfars",
       "canonical_name": "Nötfärs & Köttfärs",
       "category": "Kött & Fågel",
@@ -2146,7 +2112,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31224",
+      "id": "man_31494",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -2163,7 +2129,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31225",
+      "id": "man_31495",
       "slug": "kycklingfile",
       "canonical_name": "Kycklingfilé / Bröstfilé",
       "category": "Kött & Fågel",
@@ -2180,7 +2146,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31227",
+      "id": "man_31497",
       "slug": "kycklinglar",
       "canonical_name": "Kycklinglårfilé (Urbenad)",
       "category": "Kött & Fågel",
@@ -2197,7 +2163,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31228",
+      "id": "man_31498",
       "slug": "flaskkarre",
       "canonical_name": "Fläskkarré",
       "category": "Kött & Fågel",
@@ -2214,7 +2180,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31229",
+      "id": "man_31499",
       "slug": "notkott_stek",
       "canonical_name": "Nötkött (Oxinnanlår / Ryggbiff)",
       "category": "Kött & Fågel",
@@ -2231,7 +2197,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31250",
+      "id": "man_31520",
       "slug": "sidflask_bacon",
       "canonical_name": "Sidfläsk & Bacon",
       "category": "Kött & Fågel",
@@ -2248,24 +2214,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31251",
-      "slug": "vitlok_skalad",
-      "canonical_name": "Vitlök (Skalad)",
-      "category": "Frukt & Grönt",
-      "store_name": "Snabbgross",
-      "heading": "Vitlöksdressing 2,5 kg. Ida Storkök Ord.pris:",
-      "description": "74 90 | /st",
-      "price_gross_sek": 126.14,
-      "norm_qty": 2.5,
-      "norm_unit": "kg",
-      "vat_rate": 6.0,
-      "unit_price_net_sek": 47.6,
-      "max_limit_note": "",
-      "valid_until": "2026-11-30",
-      "image_url": ""
-    },
-    {
-      "id": "man_31263",
+      "id": "man_31533",
       "slug": "jordnotter",
       "canonical_name": "Jordnötter",
       "category": "Olja & Bas",
@@ -2282,7 +2231,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31266",
+      "id": "man_31536",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -2299,7 +2248,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31267",
+      "id": "man_31537",
       "slug": "jasminris",
       "canonical_name": "Jasminris",
       "category": "Ris & Nudlar",
@@ -2316,7 +2265,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31270",
+      "id": "man_31540",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
@@ -2333,7 +2282,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31271",
+      "id": "man_31541",
       "slug": "potatismjol_vetemjol",
       "canonical_name": "Potatismjöl & Vetemjöl (Storsäck)",
       "category": "Olja & Bas",
@@ -2350,7 +2299,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31277",
+      "id": "man_31547",
       "slug": "alkoholfri_lattol",
       "canonical_name": "Lättöl, Folköl & Alkoholfri Öl 33cl",
       "category": "Läsk & Dryck",
@@ -2367,7 +2316,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31279",
+      "id": "man_31549",
       "slug": "lask_vatten_33cl",
       "canonical_name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
       "category": "Läsk & Dryck",
@@ -2384,7 +2333,7 @@
       "image_url": ""
     },
     {
-      "id": "man_31281",
+      "id": "man_31551",
       "slug": "rapsolja",
       "canonical_name": "Rapsolja / Frityrolja",
       "category": "Olja & Bas",
