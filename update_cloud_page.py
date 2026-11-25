@@ -707,8 +707,34 @@ function onOriginChange() {{
   renderAll();
 }}
 
+const STORE_LOCATIONS_SKANSTULL = {{
+  "City Gross": ["Länna (14 min)", "Kungens Kurva (14 min)"],
+  "Coop": ["Stuvsta (13 min)", "Huddinge (17 min)"],
+  "Costco": ["Arninge, Täby (26 min)"],
+  "Din Mat": ["Skärholmen (12 min)", "Alby (21 min)"],
+  "DollarStore": ["Kungens Kurva (12 min)"],
+  "Hemköp": ["Skanstull (5 min)", "Huddinge (17 min)"],
+  "ICA Kvantum": ["Skanstull (1 min)", "Farsta (9 min)"],
+  "ICA Maxi Stormarknad": ["Haninge (17 min)", "Flemingsberg (20 min)"],
+  "ICA Nära": ["Segeltorp (11 min)", "Huddinge (12 min)"],
+  "ICA Supermarket": ["Stuvsta (14 min)", "Huddinge (15 min)"],
+  "Lidl": ["Rågsved (12 min)", "Huddinge (21 min)"],
+  "Matcenter": ["Alby (18 min)"],
+  "Matdax": ["Hökarängen (8 min)", "Högdalen (12 min)"],
+  "Matvärlden": ["Kungens Kurva (14 min)"],
+  "Nya Pulsen": ["Flemingsberg (21 min)"],
+  "Rusta": ["Länna (13 min)", "Kungens Kurva (13 min)"],
+  "Stora Coop": ["Västberga (8 min)", "Huddinge (17 min)"],
+  "Supergrossen": ["Skärholmen (12 min)", "Vårby (17 min)"],
+  "Willys": ["Länna (13 min)", "Flemingsberg (21 min)"],
+  "Willys Hemma": ["Älvsjö (10 min)", "Huddinge (27 min)"],
+  "ÖoB": ["Skärholmen (12 min)", "Haninge (16 min)"]
+}};
+
 function storeLocs(name) {{
-  return STORE_LOCATIONS[name] || [];
+  if (userOrigin === 'Skanstull, Stockholm') return STORE_LOCATIONS_SKANSTULL[name] || [];
+  if (userOrigin === DEFAULT_ORIGIN) return STORE_LOCATIONS[name] || [];
+  return (STORE_LOCATIONS[name] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
 }}
 
 function storeLoc(name) {{
