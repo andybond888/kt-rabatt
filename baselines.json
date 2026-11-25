@@ -951,7 +951,49 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 14.99,
-      "record_price": 14.99
+      "record_price": 14.99,
+      "history": [
+        {
+          "date": "2026-09-25",
+          "price_net": 14.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 14.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 14.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 14.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 18.5,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 17.2,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-04",
+          "price_net": 17.2,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 18.5,
+          "unit": "L"
+        }
+      ]
     },
     "jasminris": {
       "name": "Jasminris",
@@ -959,7 +1001,44 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 9.99,
-      "record_price": 9.99
+      "record_price": 9.99,
+      "history": [
+        {
+          "date": "2026-09-15",
+          "price_net": 12.25,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-13",
+          "price_net": 129.94,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-13",
+          "price_net": 9.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 12.25,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-19",
+          "price_net": 11.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-14",
+          "price_net": 11.95,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 11.95,
+          "unit": "kg"
+        }
+      ]
     },
     "sushiris": {
       "name": "Sushiris",
@@ -967,7 +1046,39 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 14.45,
-      "record_price": 14.45
+      "record_price": 14.45,
+      "history": [
+        {
+          "date": "2026-10-07",
+          "price_net": 14.45,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 14.45,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 14.45,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 14.45,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 14.45,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 14.45,
+          "unit": "kg"
+        }
+      ]
     },
     "potatismjol_vetemjol": {
       "name": "Potatismjöl & Vetemjöl (Storsäck)",
@@ -975,7 +1086,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 5.59,
-      "record_price": 5.59
+      "record_price": 5.59,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 14.36,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-28",
+          "price_net": 14.36,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 8.95,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 14.36,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 8.95,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-04",
+          "price_net": 14.36,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 8.95,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-28",
+          "price_net": 8.95,
+          "unit": "kg"
+        }
+      ]
     },
     "socker_25kg": {
       "name": "Strösocker",
@@ -983,7 +1136,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 9.49,
-      "record_price": 9.49
+      "record_price": 9.49,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 10.36,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 9.49,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 10.76,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 10.76,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-17",
+          "price_net": 10.36,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-12",
+          "price_net": 10.76,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-10",
+          "price_net": 10.76,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-28",
+          "price_net": 9.96,
+          "unit": "kg"
+        }
+      ]
     },
     "farsk_lax": {
       "name": "Färsk Laxfilé / Hel Lax",
@@ -991,7 +1186,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 115.0,
-      "record_price": 84.86
+      "record_price": 84.86,
+      "history": [
+        {
+          "date": "2026-10-19",
+          "price_net": 115.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 115.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 111.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-08",
+          "price_net": 84.86,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-08",
+          "price_net": 84.86,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-08",
+          "price_net": 84.86,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-08",
+          "price_net": 84.86,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-05",
+          "price_net": 112.0,
+          "unit": "kg"
+        }
+      ]
     },
     "vannamei_rakor": {
       "name": "Vannamei- & Tigerräkor (Frysta)",
@@ -999,7 +1236,49 @@
       "unit": "kg",
       "yield_pct": 80.0,
       "our_best_price": 130.0,
-      "record_price": 111.12
+      "record_price": 111.12,
+      "history": [
+        {
+          "date": "2026-10-13",
+          "price_net": 145.83,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-09",
+          "price_net": 130.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 131.12,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-23",
+          "price_net": 111.12,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-23",
+          "price_net": 132.38,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-23",
+          "price_net": 131.12,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 145.83,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-08",
+          "price_net": 145.83,
+          "unit": "kg"
+        }
+      ]
     },
     "sushi_ebi": {
       "name": "Sushiräkor (Ebi 3L/4L)",
@@ -1007,7 +1286,24 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 1.28,
-      "record_price": 1.26
+      "record_price": 1.26,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 1.28,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-28",
+          "price_net": 1.26,
+          "unit": "st"
+        },
+        {
+          "date": "2026-07-29",
+          "price_net": 42.0,
+          "unit": "st"
+        }
+      ]
     },
     "blackfisk": {
       "name": "Bläckfisk (Squid / Cuttlefish)",
@@ -1015,7 +1311,44 @@
       "unit": "kg",
       "yield_pct": 80.0,
       "our_best_price": 68.43,
-      "record_price": 68.43
+      "record_price": 68.43,
+      "history": [
+        {
+          "date": "2026-10-08",
+          "price_net": 58.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 97.38,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 131.09,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 68.43,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-08",
+          "price_net": 68.43,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 68.43,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 107.25,
+          "unit": "kg"
+        }
+      ]
     },
     "kycklingfile": {
       "name": "Kycklingfilé / Bröstfilé",
@@ -1023,7 +1356,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 45.9,
-      "record_price": 45.9
+      "record_price": 45.9,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 46.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-20",
+          "price_net": 46.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-13",
+          "price_net": 46.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-09",
+          "price_net": 45.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 46.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 46.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 46.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-28",
+          "price_net": 45.9,
+          "unit": "kg"
+        }
+      ]
     },
     "kycklinglar": {
       "name": "Kycklinglårfilé (Urbenad)",
@@ -1031,7 +1406,24 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 44.9,
-      "record_price": 44.9
+      "record_price": 44.9,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 46.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-08",
+          "price_net": 44.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-25",
+          "price_net": 47.9,
+          "unit": "kg"
+        }
+      ]
     },
     "kycklingvingar": {
       "name": "Kycklingvingar",
@@ -1039,7 +1431,19 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 19.9,
-      "record_price": 19.9
+      "record_price": 19.9,
+      "history": [
+        {
+          "date": "2026-09-29",
+          "price_net": 19.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 19.9,
+          "unit": "kg"
+        }
+      ]
     },
     "notkott_stek": {
       "name": "Nötkött (Oxinnanlår / Ryggbiff)",
@@ -1047,7 +1451,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 116.9,
-      "record_price": 116.9
+      "record_price": 116.9,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 118.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 118.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 118.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-29",
+          "price_net": 145.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 116.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 145.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 145.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-28",
+          "price_net": 128.9,
+          "unit": "kg"
+        }
+      ]
     },
     "notkott_shank": {
       "name": "Nötlägg / Beef Shank (Långkok/Ramen)",
@@ -1055,7 +1501,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 86.9,
-      "record_price": 85.0
+      "record_price": 85.0,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-20",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 85.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 85.0,
+          "unit": "kg"
+        }
+      ]
     },
     "flask_kotlett_ribs": {
       "name": "Fläskkotlett & Spareribs",
@@ -1063,7 +1551,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 34.9,
-      "record_price": 34.9
+      "record_price": 34.9,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 44.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-28",
+          "price_net": 42.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 42.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 34.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-04",
+          "price_net": 42.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-19",
+          "price_net": 45.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-17",
+          "price_net": 39.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-10",
+          "price_net": 39.0,
+          "unit": "kg"
+        }
+      ]
     },
     "varrullar": {
       "name": "Vårrullar (Frysta)",
@@ -1071,7 +1601,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 25.54,
-      "record_price": 25.54
+      "record_price": 25.54,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 32.11,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-20",
+          "price_net": 32.11,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 25.54,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 32.11,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-28",
+          "price_net": 28.78,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 32.11,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 32.11,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 32.11,
+          "unit": "kg"
+        }
+      ]
     },
     "gyoza": {
       "name": "Gyoza / Dumplings",
@@ -1079,7 +1651,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 60.83,
-      "record_price": 59.83
+      "record_price": 59.83,
+      "history": [
+        {
+          "date": "2026-09-30",
+          "price_net": 60.83,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-29",
+          "price_net": 2095.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 101.8,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-22",
+          "price_net": 2095.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 60.83,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 2095.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 59.83,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-28",
+          "price_net": 73.17,
+          "unit": "kg"
+        }
+      ]
     },
     "vitkal": {
       "name": "Vitkål",
@@ -1087,7 +1701,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 5.9,
-      "record_price": 5.9
+      "record_price": 5.9,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 6.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 7.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 5.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-22",
+          "price_net": 12.21,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 6.67,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-24",
+          "price_net": 6.67,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-11",
+          "price_net": 6.67,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-04",
+          "price_net": 25.0,
+          "unit": "kg"
+        }
+      ]
     },
     "lok": {
       "name": "Gul lök & Purjolök",
@@ -1095,7 +1751,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 9.4,
-      "record_price": 7.0
+      "record_price": 7.0,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 19.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-23",
+          "price_net": 12.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-13",
+          "price_net": 19.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 20.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 8.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 10.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 21.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 21.9,
+          "unit": "kg"
+        }
+      ]
     },
     "vitlok_skalad": {
       "name": "Vitlök (Skalad)",
@@ -1103,7 +1801,34 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 59.9,
-      "record_price": 57.9
+      "record_price": 57.9,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 59.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 64.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 64.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-18",
+          "price_net": 60.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-12",
+          "price_net": 57.9,
+          "unit": "kg"
+        }
+      ]
     },
     "gurka": {
       "name": "Gurka",
@@ -1111,7 +1836,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 22.0,
-      "record_price": 20.9
+      "record_price": 20.9,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 28.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-13",
+          "price_net": 21.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 22.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 23.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 20.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 23.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 22.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 21.0,
+          "unit": "kg"
+        }
+      ]
     },
     "paprika": {
       "name": "Paprika (Röd / Grön / Mix)",
@@ -1119,7 +1886,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 31.9,
-      "record_price": 16.0
+      "record_price": 16.0,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 31.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-23",
+          "price_net": 22.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 34.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 24.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 25.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 24.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 28.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 22.9,
+          "unit": "kg"
+        }
+      ]
     },
     "morotter": {
       "name": "Morötter",
@@ -1127,7 +1936,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 10.0,
-      "record_price": 9.33
+      "record_price": 9.33,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 10.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 13.9,
+          "unit": "kg"
+        }
+      ]
     },
     "broccoli": {
       "name": "Broccoli",
@@ -1135,7 +1986,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 31.9,
-      "record_price": 31.9
+      "record_price": 31.9,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 31.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 35.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 32.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 31.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 31.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 41.67,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 38.33,
+          "unit": "kg"
+        }
+      ]
     },
     "champinjoner": {
       "name": "Champinjoner (Färska)",
@@ -1143,7 +2036,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 29.9,
-      "record_price": 29.9
+      "record_price": 29.9,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 43.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-09",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-04",
+          "price_net": 74.72,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 40.0,
+          "unit": "kg"
+        }
+      ]
     },
     "avokado": {
       "name": "Avokado (Sushi)",
@@ -1151,7 +2086,49 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 10.0,
-      "record_price": 4.72
+      "record_price": 4.72,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 11.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-13",
+          "price_net": 11.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 10.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-08",
+          "price_net": 4.72,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-04",
+          "price_net": 5.26,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 11.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 11.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 11.77,
+          "unit": "st"
+        }
+      ]
     },
     "bongroddar": {
       "name": "Böngroddar (Färska)",
@@ -1159,7 +2136,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 31.96,
-      "record_price": 31.96
+      "record_price": 31.96,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-13",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-28",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 31.96,
+          "unit": "kg"
+        }
+      ]
     },
     "bambuskott": {
       "name": "Bambuskott (Skivade konserv)",
@@ -1167,7 +2186,49 @@
       "unit": "kg",
       "yield_pct": 60.0,
       "our_best_price": 16.06,
-      "record_price": 16.06
+      "record_price": 16.06,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 20.28,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-20",
+          "price_net": 20.28,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-09",
+          "price_net": 16.06,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 20.28,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-28",
+          "price_net": 16.06,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 20.28,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 20.28,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 20.28,
+          "unit": "kg"
+        }
+      ]
     },
     "kokosmjolk": {
       "name": "Kokosmjölk (Aroy-D m.fl.)",
@@ -1175,7 +2236,49 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 30.31,
-      "record_price": 30.31
+      "record_price": 30.31,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 30.31,
+          "unit": "L"
+        },
+        {
+          "date": "2026-10-20",
+          "price_net": 30.31,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 30.31,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 30.31,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-15",
+          "price_net": 31.0,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-28",
+          "price_net": 30.31,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-14",
+          "price_net": 30.31,
+          "unit": "L"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 30.31,
+          "unit": "L"
+        }
+      ]
     },
     "currypasta": {
       "name": "Grön / Röd Currypasta",
@@ -1183,7 +2286,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 25.5,
-      "record_price": 25.5
+      "record_price": 25.5,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 25.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 25.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 44.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 44.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-08",
+          "price_net": 67.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-08",
+          "price_net": 67.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 78.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 105.0,
+          "unit": "kg"
+        }
+      ]
     },
     "sojasas": {
       "name": "Sojasås (Kikkoman / Yamasa / Haday)",
@@ -1191,7 +2336,49 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 18.28,
-      "record_price": 18.28
+      "record_price": 18.28,
+      "history": [
+        {
+          "date": "2026-09-28",
+          "price_net": 18.28,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 18.83,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-17",
+          "price_net": 18.28,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-14",
+          "price_net": 25.4,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 35.92,
+          "unit": "L"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 47.37,
+          "unit": "L"
+        },
+        {
+          "date": "2026-07-29",
+          "price_net": 25.62,
+          "unit": "L"
+        },
+        {
+          "date": "2026-07-25",
+          "price_net": 35.92,
+          "unit": "L"
+        }
+      ]
     },
     "fisksas": {
       "name": "Fisksås (Fish Sauce)",
@@ -1199,7 +2386,14 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 22.2,
-      "record_price": 22.2
+      "record_price": 22.2,
+      "history": [
+        {
+          "date": "2026-09-15",
+          "price_net": 22.2,
+          "unit": "L"
+        }
+      ]
     },
     "gari_wasabi": {
       "name": "Sushi-tillbehör (Gari Ingefära / Wasabi)",
@@ -1207,7 +2401,39 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 17.0,
-      "record_price": 17.0
+      "record_price": 17.0,
+      "history": [
+        {
+          "date": "2026-10-09",
+          "price_net": 17.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 21.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 23.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 21.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 21.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 21.0,
+          "unit": "kg"
+        }
+      ]
     },
     "agg": {
       "name": "Ägg (Storförpackning)",
@@ -1215,7 +2441,44 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 2.17,
-      "record_price": 1.73
+      "record_price": 1.73,
+      "history": [
+        {
+          "date": "2026-10-12",
+          "price_net": 2.17,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 2.33,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 2.17,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-24",
+          "price_net": 80.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-11",
+          "price_net": 2.17,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-04",
+          "price_net": 67.5,
+          "unit": "st"
+        },
+        {
+          "date": "2026-07-27",
+          "price_net": 1.73,
+          "unit": "st"
+        }
+      ]
     },
     "lask_vatten_33cl": {
       "name": "Läsk 33cl (Coca-Cola, Fanta, Sprite, Pepsi)",
@@ -1223,7 +2486,49 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 4.95,
-      "record_price": 3.8
+      "record_price": 3.8,
+      "history": [
+        {
+          "date": "2026-10-10",
+          "price_net": 4.25,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 4.25,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 4.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-30",
+          "price_net": 4.95,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-30",
+          "price_net": 3.8,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-30",
+          "price_net": 3.8,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-30",
+          "price_net": 4.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 4.95,
+          "unit": "st"
+        }
+      ]
     },
     "starkol_50cl": {
       "name": "Starköl 50cl (Returglas / Flaska)",
@@ -1231,7 +2536,49 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 13.9,
-      "record_price": 13.5
+      "record_price": 13.5,
+      "history": [
+        {
+          "date": "2026-10-15",
+          "price_net": 27.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-15",
+          "price_net": 26.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-15",
+          "price_net": 30.88,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-27",
+          "price_net": 13.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-27",
+          "price_net": 13.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 13.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-17",
+          "price_net": 27.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-17",
+          "price_net": 26.77,
+          "unit": "st"
+        }
+      ]
     },
     "engangshandskar": {
       "name": "Engångshandskar (100-pack)",
@@ -1239,7 +2586,29 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 0.53,
-      "record_price": 0.53
+      "record_price": 0.53,
+      "history": [
+        {
+          "date": "2026-09-25",
+          "price_net": 0.53,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 0.53,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 0.53,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 0.53,
+          "unit": "st"
+        }
+      ]
     },
     "takeaway_lador": {
       "name": "Takeaway-lådor & Lock",
@@ -1247,7 +2616,49 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 127.0,
-      "record_price": 127.0
+      "record_price": 127.0,
+      "history": [
+        {
+          "date": "2026-10-14",
+          "price_net": 127.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 167.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 349.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 245.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 245.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 371.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 343.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 409.0,
+          "unit": "st"
+        }
+      ]
     },
     "plastpasar_matfilm": {
       "name": "Plastpåsar, Matfilm & Bakpapper",
@@ -1255,7 +2666,24 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 0.45,
-      "record_price": 0.45
+      "record_price": 0.45,
+      "history": [
+        {
+          "date": "2026-10-14",
+          "price_net": 211.0,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-27",
+          "price_net": 0.45,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-17",
+          "price_net": 211.0,
+          "unit": "st"
+        }
+      ]
     },
     "anka_file": {
       "name": "Ankbröst / Roasted Duck Filé",
@@ -1263,7 +2691,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 78.99,
-      "record_price": 78.99
+      "record_price": 78.99,
+      "history": [
+        {
+          "date": "2026-10-20",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 100.64,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-25",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-28",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-12",
+          "price_net": 92.64,
+          "unit": "kg"
+        }
+      ]
     },
     "nori_sjogras": {
       "name": "Nori Sjögräsblad (Sushi)",
@@ -1271,7 +2741,34 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 492.0,
-      "record_price": 492.0
+      "record_price": 492.0,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 492.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-20",
+          "price_net": 500.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 500.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 500.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-29",
+          "price_net": 500.0,
+          "unit": "kg"
+        }
+      ]
     },
     "majonnas_sasbas": {
       "name": "Majonnäs & Såsbas (10L)",
@@ -1279,7 +2776,34 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 17.99,
-      "record_price": 17.99
+      "record_price": 17.99,
+      "history": [
+        {
+          "date": "2026-09-27",
+          "price_net": 17.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-27",
+          "price_net": 17.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 51.9,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-06",
+          "price_net": 24.99,
+          "unit": "L"
+        },
+        {
+          "date": "2026-07-27",
+          "price_net": 39.99,
+          "unit": "L"
+        }
+      ]
     },
     "tomat": {
       "name": "Tomater",
@@ -1287,7 +2811,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 26.0,
-      "record_price": 20.0
+      "record_price": 20.0,
+      "history": [
+        {
+          "date": "2026-10-23",
+          "price_net": 31.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 26.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 27.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-30",
+          "price_net": 25.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 39.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 29.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-18",
+          "price_net": 23.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-11",
+          "price_net": 20.0,
+          "unit": "kg"
+        }
+      ]
     },
     "alkoholfri_lattol": {
       "name": "Lättöl, Folköl & Alkoholfri Öl 33cl",
@@ -1295,7 +2861,39 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 8.9,
-      "record_price": 3.5
+      "record_price": 3.5,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "price_net": 8.9,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 3.5,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 4.01,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 4.49,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-24",
+          "price_net": 5.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-06",
+          "price_net": 4.49,
+          "unit": "st"
+        }
+      ]
     },
     "bryggkaffe": {
       "name": "Bryggkaffe & Kaffe",
@@ -1303,7 +2901,34 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 128.3,
-      "record_price": 125.58
+      "record_price": 125.58,
+      "history": [
+        {
+          "date": "2026-10-10",
+          "price_net": 112.92,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 678.11,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 678.11,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 125.58,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-10",
+          "price_net": 131.03,
+          "unit": "kg"
+        }
+      ]
     },
     "juice": {
       "name": "Apelsinjuice & Juice (1L)",
@@ -1311,7 +2936,19 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 35.62,
-      "record_price": 35.62
+      "record_price": 35.62,
+      "history": [
+        {
+          "date": "2026-08-29",
+          "price_net": 35.62,
+          "unit": "L"
+        },
+        {
+          "date": "2026-08-06",
+          "price_net": 35.62,
+          "unit": "L"
+        }
+      ]
     },
     "mjolk": {
       "name": "Mjölk (Standard / Mellan)",
@@ -1319,7 +2956,49 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 13.06,
-      "record_price": 10.0
+      "record_price": 10.0,
+      "history": [
+        {
+          "date": "2026-10-21",
+          "price_net": 73.11,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 87.74,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-10",
+          "price_net": 58.49,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 102.36,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 43.87,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 43.87,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-23",
+          "price_net": 73.11,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 146.23,
+          "unit": "st"
+        }
+      ]
     },
     "gradde": {
       "name": "Vispgrädde & Matgrädde",
@@ -1327,7 +3006,24 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 29.9,
-      "record_price": 29.9
+      "record_price": 29.9,
+      "history": [
+        {
+          "date": "2026-10-14",
+          "price_net": 19.39,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 29.9,
+          "unit": "L"
+        },
+        {
+          "date": "2026-07-27",
+          "price_net": 31.9,
+          "unit": "L"
+        }
+      ]
     },
     "smor": {
       "name": "Smör (Normalsaltat 82%)",
@@ -1335,7 +3031,29 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 94.9,
-      "record_price": 65.85
+      "record_price": 65.85,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "price_net": 94.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-21",
+          "price_net": 51.79,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 65.85,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-03",
+          "price_net": 109.0,
+          "unit": "kg"
+        }
+      ]
     },
     "vaniljglass_storpack": {
       "name": "Vaniljglass (Storpack)",
@@ -1343,7 +3061,49 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 13.98,
-      "record_price": 12.0
+      "record_price": 12.0,
+      "history": [
+        {
+          "date": "2026-10-21",
+          "price_net": 192.08,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-10",
+          "price_net": 192.08,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 216.08,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-04",
+          "price_net": 360.14,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 336.13,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 336.13,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-23",
+          "price_net": 240.09,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 336.13,
+          "unit": "st"
+        }
+      ]
     },
     "bananer": {
       "name": "Bananer",
@@ -1351,7 +3111,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 10.93,
-      "record_price": 10.93
+      "record_price": 10.93,
+      "history": [
+        {
+          "date": "2026-10-14",
+          "price_net": 14.68,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 15.66,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-14",
+          "price_net": 22.8,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-11",
+          "price_net": 14.15,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-11",
+          "price_net": 39.72,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-10",
+          "price_net": 51.07,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 22.43,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 38.44,
+          "unit": "st"
+        }
+      ]
     },
     "melon": {
       "name": "Vattenmelon & Melon",
@@ -1359,7 +3161,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 18.0,
-      "record_price": 9.43
+      "record_price": 9.43,
+      "history": [
+        {
+          "date": "2026-10-10",
+          "price_net": 53.56,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-10",
+          "price_net": 190.27,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 82.74,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 86.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 90.02,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 104.35,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 90.02,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 104.35,
+          "unit": "st"
+        }
+      ]
     },
     "potatis": {
       "name": "Potatis",
@@ -1367,7 +3211,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 7.2,
-      "record_price": 6.51
+      "record_price": 6.51,
+      "history": [
+        {
+          "date": "2026-10-21",
+          "price_net": 40.68,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 31.65,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 34.36,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-07",
+          "price_net": 33.89,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 19.82,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 21.94,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 7.2,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 8.0,
+          "unit": "kg"
+        }
+      ]
     },
     "sotpotatis": {
       "name": "Sötpotatis",
@@ -1375,7 +3261,14 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 14.15,
-      "record_price": 14.15
+      "record_price": 14.15,
+      "history": [
+        {
+          "date": "2026-09-22",
+          "price_net": 14.15,
+          "unit": "kg"
+        }
+      ]
     },
     "vindruvor": {
       "name": "Vindruvor",
@@ -1383,7 +3276,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 59.08,
-      "record_price": 28.3
+      "record_price": 28.3,
+      "history": [
+        {
+          "date": "2026-10-21",
+          "price_net": 112.64,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-10",
+          "price_net": 39.89,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-10",
+          "price_net": 57.37,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-04",
+          "price_net": 37.56,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 112.64,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 112.64,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "price_net": 42.45,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 18.87,
+          "unit": "st"
+        }
+      ]
     },
     "citrus_frukt": {
       "name": "Apelsiner, Citron & Lime",
@@ -1391,7 +3326,49 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 16.0,
-      "record_price": 15.88
+      "record_price": 15.88,
+      "history": [
+        {
+          "date": "2026-10-14",
+          "price_net": 28.21,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-23",
+          "price_net": 28.21,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-16",
+          "price_net": 36.92,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-07",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 26.32,
+          "unit": "kg"
+        }
+      ]
     },
     "isbergssallad_mix": {
       "name": "Isbergssallad",
@@ -1399,7 +3376,14 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 44.59,
-      "record_price": 44.59
+      "record_price": 44.59,
+      "history": [
+        {
+          "date": "2026-08-26",
+          "price_net": 44.59,
+          "unit": "kg"
+        }
+      ]
     },
     "jordnotter": {
       "name": "Jordnötter",
@@ -1407,7 +3391,19 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 28.54,
-      "record_price": 28.21
+      "record_price": 28.21,
+      "history": [
+        {
+          "date": "2026-08-30",
+          "price_net": 28.87,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-30",
+          "price_net": 28.21,
+          "unit": "kg"
+        }
+      ]
     },
     "flaskfars_notfars": {
       "name": "Nötfärs & Köttfärs",
@@ -1415,7 +3411,8 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 85.0,
-      "record_price": 72.25
+      "record_price": 72.25,
+      "history": []
     },
     "sidflask_bacon": {
       "name": "Sidfläsk & Bacon",
@@ -1423,7 +3420,34 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 53.9,
-      "record_price": 53.9
+      "record_price": 53.9,
+      "history": [
+        {
+          "date": "2026-09-12",
+          "price_net": 74.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 74.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-12",
+          "price_net": 74.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 53.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-07",
+          "price_net": 53.9,
+          "unit": "kg"
+        }
+      ]
     },
     "ketchup": {
       "name": "Ketchup",
@@ -1431,7 +3455,24 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 21.98,
-      "record_price": 21.98
+      "record_price": 21.98,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "price_net": 21.98,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 32.05,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-24",
+          "price_net": 35.67,
+          "unit": "kg"
+        }
+      ]
     },
     "avfallspasar_sopsackar": {
       "name": "Avfallspåsar (20–30L på rulle)",
@@ -1439,7 +3480,8 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 1.1,
-      "record_price": 0.94
+      "record_price": 0.94,
+      "history": []
     },
     "handdiskmedel": {
       "name": "Handdiskmedel",
@@ -1447,7 +3489,19 @@
       "unit": "L",
       "yield_pct": 100.0,
       "our_best_price": 17.52,
-      "record_price": 17.52
+      "record_price": 17.52,
+      "history": [
+        {
+          "date": "2026-10-11",
+          "price_net": 45.74,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-08",
+          "price_net": 17.52,
+          "unit": "L"
+        }
+      ]
     },
     "maskindiskmedel": {
       "name": "Maskindiskmedel (Tabletter)",
@@ -1455,7 +3509,19 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 1.69,
-      "record_price": 1.6
+      "record_price": 1.6,
+      "history": [
+        {
+          "date": "2026-10-08",
+          "price_net": 1.6,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-31",
+          "price_net": 1.78,
+          "unit": "st"
+        }
+      ]
     },
     "papper_servetter": {
       "name": "Toalett- & Hushållspapper",
@@ -1463,7 +3529,8 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 32.0,
-      "record_price": 27.2
+      "record_price": 27.2,
+      "history": []
     },
     "flaskkarre": {
       "name": "Fläskkarré",
@@ -1471,7 +3538,34 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 48.9,
-      "record_price": 48.9
+      "record_price": 48.9,
+      "history": [
+        {
+          "date": "2026-09-21",
+          "price_net": 109.15,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-25",
+          "price_net": 49.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-11",
+          "price_net": 49.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-10",
+          "price_net": 90.47,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-07-30",
+          "price_net": 48.9,
+          "unit": "kg"
+        }
+      ]
     },
     "kolsyrat_vatten_33cl": {
       "name": "Kolsyrat Vatten 33cl (Ramlösa / Loka)",
@@ -1479,7 +3573,19 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 2.4,
-      "record_price": 2.4
+      "record_price": 2.4,
+      "history": [
+        {
+          "date": "2026-09-26",
+          "price_net": 2.4,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-26",
+          "price_net": 2.4,
+          "unit": "st"
+        }
+      ]
     },
     "flaskfars": {
       "name": "Fläskfärs & Blandfärs",
@@ -1487,7 +3593,34 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 71.93,
-      "record_price": 58.85
+      "record_price": 58.85,
+      "history": [
+        {
+          "date": "2026-09-21",
+          "price_net": 84.62,
+          "unit": "st"
+        },
+        {
+          "date": "2026-09-21",
+          "price_net": 99.06,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-26",
+          "price_net": 98.11,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-10",
+          "price_net": 58.85,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-10",
+          "price_net": 58.85,
+          "unit": "kg"
+        }
+      ]
     },
     "sopsackar_stora": {
       "name": "Sopsäckar (60–125L)",
@@ -1495,7 +3628,39 @@
       "unit": "st",
       "yield_pct": 100.0,
       "our_best_price": 2.49,
-      "record_price": 1.32
+      "record_price": 1.32,
+      "history": [
+        {
+          "date": "2026-09-12",
+          "price_net": 191.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-29",
+          "price_net": 1.91,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-11",
+          "price_net": 2.49,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-11",
+          "price_net": 2.48,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-08",
+          "price_net": 1.8,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-08",
+          "price_net": 1.32,
+          "unit": "st"
+        }
+      ]
     }
   },
   "manual_campaigns": [

@@ -373,6 +373,16 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
         vat_r = float(item.get("vat_rate") or cfg.get("food_vat_rate", 6.0))
         u_gross = round(u_net * (1.0 + vat_r / 100.0), 2)
         our_best_gross = round(our_best * (1.0 + vat_r / 100.0), 2) if our_best is not None else None
+        raw_hist = (b.get("history") if b else []) or []
+        hist_gross = [
+            {
+                "date": h.get("date") or "",
+                "price_gross": round(float(h.get("price_net") or 0.0) * (1.0 + vat_r / 100.0), 2),
+                "unit": h.get("unit") or canon_unit,
+            }
+            for h in raw_hist[:8]
+            if float(h.get("price_net") or 0.0) > 0
+        ]
 
         results.append(
             {
@@ -390,6 +400,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
                 "unit_price_gross_sek": u_gross,
                 "our_best_price": our_best,
                 "our_best_price_gross": our_best_gross,
+                "history": hist_gross,
                 "diff_pct": diff_pct,
                 "verdict": verdict,
                 "verdict_code": verdict_code,
@@ -450,8 +461,14 @@ def build_html(payload: Dict[str, Any]) -> str:
   .sub {{ font-size:12px; color:#475569; margin-bottom:4px; }}
   .price-line {{ font-size:14px; font-weight:700; color:#0f172a; }}
   .ref-line {{ font-size:12px; color:#15803d; font-weight:600; margin-top:2px; }}
-  .pick-btn {{ border:2px solid #0284c7; background:#fff; color:#0284c7; border-radius:10px; padding:9px 10px; font-weight:700; font-size:13px; cursor:pointer; flex-shrink:0; }}
+  .pick-btn {{ border:2px solid #0284c7; background:#fff; color:#0284c7; border-radius:10px; padding:9px 10px; font-weight:700; font-size:13px; cursor:pointer; width:100%; }}
   .pick-btn.picked {{ background:#16a34a; border-color:#16a34a; color:#fff; }}
+  .actions {{ display:flex; flex-direction:column; gap:6px; flex-shrink:0; min-width:86px; }}
+  .hist-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:8px; padding:6px 8px; font-weight:600; font-size:12px; cursor:pointer; width:100%; }}
+  .hist-btn.open {{ background:#0f172a; color:#fff; border-color:#0f172a; }}
+  .hist-box {{ margin-top:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:12px; color:#334155; }}
+  .hist-row {{ display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dashed #e2e8f0; }}
+  .hist-row:last-child {{ border-bottom:none; }}
 </style>
 </head>
 <body>
@@ -554,6 +571,12 @@ function onProdSelect() {{
   renderAll();
 }}
 
+let openHist = {{}};
+function toggleHist(key) {{
+  openHist[key] = !openHist[key];
+  renderAll();
+}}
+
 function togglePick(key) {{
   picked[key] = !picked[key];
   try {{ localStorage.setItem('kt_cloud_picked', JSON.stringify(picked)); }} catch(e) {{}}
@@ -640,6 +663,16 @@ function renderAll() {{
     const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
     const descShort = c.description ? (c.description.length > 78 ? c.description.slice(0, 75) + '…' : c.description) : '';
     const qtyNote = (c.norm_qty && Math.abs(c.norm_qty - 1) > 0.01) ? ` (för ${{Number(c.norm_qty.toFixed(2))}} ${{c.norm_unit}})` : '';
+    const hist = c.history || [];
+    const isH = !!openHist[key];
+    const histBtnHtml = hist.length
+      ? `<button class="hist-btn ${{isH ? 'open' : ''}}" onclick="toggleHist('${{key}}')">📈 Historik</button>`
+      : '';
+    const histHtml = (isH && hist.length)
+      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Senaste inköpspriser (${{c.canonical_name}}, inkl. moms):</div>` +
+        hist.map(h => `<div class="hist-row"><span>${{h.date}}</span><b>${{Number(h.price_gross).toFixed(2)}} kr/${{h.unit}}</b></div>`).join('') +
+        `</div>`
+      : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
@@ -649,8 +682,12 @@ function renderAll() {{
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
         <div class="price-line">Annonspris: ${{c.price_gross_sek.toFixed(2)}} kr${{qtyNote}}  →  Jfr-pris: ${{unitGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms</div>
         <div class="ref-line">${{ourTxt}}</div>
+        ${{histHtml}}
       </div>
-      <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ Klar' : 'Plocka'}}</button>
+      <div class="actions">
+        <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ Klar' : 'Plocka'}}</button>
+        ${{histBtnHtml}}
+      </div>
     </div>`;
   }}).join('');
 }}
