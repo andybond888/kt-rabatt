@@ -629,10 +629,10 @@ const STORE_LOCATIONS = {{
   "Supergrossen": "Skärholmen / Vårby",
   "Willys": "Länna / Flemingsberg / Sköndal",
   "Willys Hemma": "Huddinge / Hornstull",
-  "ÖoB": "Länna / Kungens Kurva"
+  "ÖoB": "Skärholmen / Haninge"
 }};
 
-const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen"]);
+const FAR_STORES = new Set(["Costco", "Matvärlden", "Matcenter", "Din Mat", "Supergrossen", "ÖoB"]);
 
 function storeLoc(name) {{
   return STORE_LOCATIONS[name] || '';
