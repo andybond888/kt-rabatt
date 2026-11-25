@@ -505,6 +505,10 @@ def build_html(payload: Dict[str, Any]) -> str:
       <button id="btnVaror" class="cfg-btn" onclick="toggleVaruPanel()">⚙️ Välj varor</button>
     </div>
 
+    <div class="row-flex">
+      <input id="originInput" class="search-input" type="text" placeholder="Startadress (t.ex. Arrendatorsvägen 1, Huddinge)" oninput="onOriginChange()">
+    </div>
+
     <div id="varuPanel" class="varu-panel">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
         <strong style="font-size:13px">Kryssa i vilka varor du vill se i listan:</strong>
@@ -663,6 +667,16 @@ const ROUTE_TIMES = {{
   "ÖoB": "29 min"
 }};
 let activeArea = 'near';
+const DEFAULT_ORIGIN = 'Arrendatorsvägen 1, 141 62 Huddinge';
+let userOrigin = DEFAULT_ORIGIN;
+try {{ userOrigin = localStorage.getItem('kt_cloud_origin') || DEFAULT_ORIGIN; }} catch(e) {{}}
+document.getElementById('originInput').value = userOrigin;
+
+function onOriginChange() {{
+  userOrigin = (document.getElementById('originInput').value || '').trim() || DEFAULT_ORIGIN;
+  try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
+  renderAll();
+}}
 
 function storeLocs(name) {{
   return STORE_LOCATIONS[name] || [];
@@ -796,7 +810,7 @@ function renderAll() {{
         `</div>`
       : '';
     const locs = storeLocs(c.store_name);
-    const homeAddr = 'Arrendatorsvägen 1, 141 62 Huddinge';
+    const homeAddr = userOrigin || DEFAULT_ORIGIN;
     const locPills = locs.map(l => {{
       const cleanD = l.replace(/\\s*\\([^)]*\\)/g, '').trim();
       const qDest = c.store_name + (cleanD ? ' ' + cleanD : '');
