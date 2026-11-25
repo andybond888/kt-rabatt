@@ -636,6 +636,29 @@ const ROUTE_STORES = new Set([
   "ICA Kvantum", "Hemköp", "Lidl", "Matdax", "Stora Coop",
   "Willys Hemma", "Coop", "ICA Supermarket", "ICA Nära"
 ]);
+const ROUTE_TIMES = {{
+  "City Gross": "~25 min",
+  "Coop": "~20 min",
+  "Costco": "~55 min",
+  "Din Mat": "~26 min",
+  "DollarStore": "~25 min",
+  "Hemköp": "~20 min",
+  "ICA Kvantum": "~20 min",
+  "ICA Maxi Stormarknad": "~24 min",
+  "ICA Nära": "~20 min",
+  "ICA Supermarket": "~20 min",
+  "Lidl": "~21 min",
+  "Matcenter": "~28 min",
+  "Matdax": "~21 min",
+  "Matvärlden": "~25 min",
+  "Nya Pulsen": "~24 min",
+  "Rusta": "~25 min",
+  "Stora Coop": "~21 min",
+  "Supergrossen": "~26 min",
+  "Willys": "~25 min",
+  "Willys Hemma": "~21 min",
+  "ÖoB": "~27 min"
+}};
 let activeArea = 'near';
 
 function storeLocs(name) {{
@@ -780,7 +803,8 @@ function renderAll() {{
     const firstClean = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     const firstQuery = c.store_name + (firstClean ? ' ' + firstClean : '');
     const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Skanstull, Stockholm')}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(homeAddr)}}` : '';
-    const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet</a>` : '';
+    const rtTime = ROUTE_TIMES[c.store_name] ? ` (${{ROUTE_TIMES[c.store_name]}})` : '';
+    const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet${{rtTime}}</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
