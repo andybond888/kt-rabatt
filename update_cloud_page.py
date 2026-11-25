@@ -490,6 +490,12 @@ def build_html(payload: Dict[str, Any]) -> str:
   .hist-box {{ margin-top:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:12px; color:#334155; }}
   .hist-row {{ display:flex; justify-content:space-between; padding:2px 0; border-bottom:1px dashed #e2e8f0; }}
   .hist-row:last-child {{ border-bottom:none; }}
+  .addr-wrap {{ position:relative; flex:1; }}
+  .addr-list {{ position:absolute; top:100%; left:0; right:0; background:#fff; border:1px solid #cbd5e1; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.12); z-index:50; max-height:220px; overflow-y:auto; display:none; margin-top:4px; }}
+  .addr-list.open {{ display:block; }}
+  .addr-item {{ padding:9px 12px; font-size:13px; cursor:pointer; border-bottom:1px solid #f1f5f9; color:#0f172a; }}
+  .addr-item:last-child {{ border-bottom:none; }}
+  .addr-item:hover {{ background:#f0f9ff; }}
 </style>
 </head>
 <body>
@@ -513,8 +519,11 @@ def build_html(payload: Dict[str, Any]) -> str:
       </select>
     </div>
     <div id="customOriginRow" class="row-flex" style="display:none">
-      <input id="originInput" class="search-input" type="text" placeholder="Skriv valfri adress i Sverige..." oninput="onOriginChange()">
-      <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna tider</button>
+      <div class="addr-wrap">
+        <input id="originInput" class="search-input" style="width:100%;box-sizing:border-box" type="text" placeholder="Skriv valfri adress i Sverige..." autocomplete="off" oninput="onOriginType()">
+        <div id="addrSuggest" class="addr-list"></div>
+      </div>
+      <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna</button>
       <button class="cfg-btn" onclick="promptApiKey()" title="Ange/ändra Google Maps API-nyckel">🔑</button>
     </div>
     <div id="liveTimeStatus" style="font-size:12px;color:#0369a1;display:none"></div>
@@ -734,6 +743,54 @@ const STORE_LOCATIONS_SKANSTULL = {{
   "ÖoB": ["Skärholmen (12 min)", "Haninge (16 min)"]
 }};
 
+let addrTimer = null;
+function onOriginType() {{
+  onOriginChange();
+  const q = (document.getElementById('originInput').value || '').trim();
+  const box = document.getElementById('addrSuggest');
+  if (addrTimer) clearTimeout(addrTimer);
+  if (q.length < 3) {{ box.classList.remove('open'); box.innerHTML = ''; return; }}
+  addrTimer = setTimeout(async () => {{
+    try {{
+      const u = `https://photon.komoot.io/api/?q=${{encodeURIComponent(q)}}&lat=59.24&lon=17.98&limit=6`;
+      const resp = await fetch(u);
+      const data = await resp.json();
+      const feats = (data.features || []).filter(f => !f.properties.countrycode || f.properties.countrycode === 'SE');
+      if (!feats.length) {{ box.classList.remove('open'); return; }}
+      box.innerHTML = '';
+      feats.forEach(f => {{
+        const p = f.properties || {{}};
+        const parts = [
+          p.street ? (p.housenumber ? `${{p.street}} ${{p.housenumber}}` : p.street) : p.name,
+          p.postcode,
+          p.city || p.town || p.village || p.district
+        ].filter(Boolean);
+        const lbl = parts.join(', ');
+        if (!lbl) return;
+        const div = document.createElement('div');
+        div.className = 'addr-item';
+        div.textContent = '📍 ' + lbl;
+        div.onclick = () => {{
+          document.getElementById('originInput').value = lbl;
+          box.classList.remove('open');
+          userOrigin = lbl;
+          try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
+          fetchLiveTimes();
+        }};
+        box.appendChild(div);
+      }});
+      box.classList.add('open');
+    }} catch(e) {{
+      box.classList.remove('open');
+    }}
+  }}, 250);
+}}
+
+document.addEventListener('click', (e) => {{
+  const box = document.getElementById('addrSuggest');
+  if (box && !e.target.closest('.addr-wrap')) box.classList.remove('open');
+}});
+
 let liveTimesCache = {{}};
 try {{ liveTimesCache = JSON.parse(localStorage.getItem('kt_live_times') || '{{}}'); }} catch(e) {{}}
 
@@ -765,6 +822,8 @@ async function fetchLiveTimes() {{
   const storeNames = Object.keys(STORE_LOCATIONS);
   const resMap = {{}};
   const originFull = addr.toLowerCase().includes('sweden') || addr.toLowerCase().includes('sverige') ? addr : addr + ', Sweden';
+  let okCnt = 0;
+  let lastErr = '';
 
   await Promise.all(storeNames.map(async (st) => {{
     const basePlaces = (STORE_LOCATIONS[st] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
@@ -784,28 +843,38 @@ async function fetchLiveTimes() {{
             travelMode: 'DRIVE'
           }})
         }});
-        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        if (!resp.ok) {{
+          const errTxt = await resp.text();
+          lastErr = `HTTP ${{resp.status}}`;
+          throw new Error(errTxt);
+        }}
         const data = await resp.json();
         const dur = data.routes && data.routes[0] && data.routes[0].duration;
         if (dur) {{
           const mins = Math.round(parseInt(dur.replace('s', ''), 10) / 60);
           outArr.push(`${{p}} (${{mins}} min)`);
+          okCnt++;
         }} else {{
           outArr.push(p);
         }}
       }} catch(e) {{
+        if (!lastErr) lastErr = String(e.message || e);
         outArr.push(p);
       }}
     }}
     resMap[st] = outArr;
   }}));
 
-  liveTimesCache[addr] = resMap;
-  try {{ localStorage.setItem('kt_live_times', JSON.stringify(liveTimesCache)); }} catch(e) {{}}
-  userOrigin = addr;
-  try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
   btn.disabled = false;
-  stEl.textContent = `✅ Live-tider uppdaterade från ${{addr}}`;
+  if (okCnt > 0) {{
+    liveTimesCache[addr] = resMap;
+    try {{ localStorage.setItem('kt_live_times', JSON.stringify(liveTimesCache)); }} catch(e) {{}}
+    userOrigin = addr;
+    try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
+    stEl.textContent = `✅ Live-tider uppdaterade från ${{addr}} (${{okCnt}} platser)`;
+  }} else {{
+    stEl.textContent = `⚠️ Kunde inte hämta tider (${{lastErr || 'kontrollera API-nyckeln med 🔑'}})`;
+  }}
   renderAll();
 }}
 
