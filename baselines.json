@@ -788,14 +788,34 @@
       ]
     },
     {
-      "slug": "citrus_frukt",
+      "slug": "apelsiner",
       "patterns": [
-        "\\bapelsiner?\\b",
-        "\\bcitron(?:er)?\\b",
-        "\\blime\\b",
-        "\\bklementin",
-        "\\bsatsumas",
-        "\\bnektarin"
+        "\\bapelsiner?\\b"
+      ],
+      "negatives": [
+        "juice",
+        "dryck",
+        "jordgubb",
+        "kak",
+        "cookie",
+        "choklad",
+        "diskmedel",
+        "tvål",
+        "läsk",
+        "marmelad",
+        "te ",
+        "mineralvatten",
+        "loka",
+        "ramlösa",
+        "kolsyra",
+        "vatten",
+        "kanderad"
+      ]
+    },
+    {
+      "slug": "citron",
+      "patterns": [
+        "\\bcitron(?:er)?\\b"
       ],
       "negatives": [
         "juice",
@@ -815,7 +835,52 @@
         "loka",
         "ramlösa",
         "kolsyra",
+        "vatten",
+        "kanderad",
+        "servett"
+      ]
+    },
+    {
+      "slug": "lime",
+      "patterns": [
+        "\\blime\\b"
+      ],
+      "negatives": [
+        "juice",
+        "dryck",
+        "jordgubb",
+        "kak",
+        "cookie",
+        "choklad",
+        "diskmedel",
+        "tvål",
+        "läsk",
+        "marmelad",
+        "te ",
+        "mineralvatten",
+        "loka",
+        "ramlösa",
+        "kolsyra",
         "vatten"
+      ]
+    },
+    {
+      "slug": "klementiner",
+      "patterns": [
+        "\\bklementin",
+        "\\bclementin",
+        "\\bsatsumas",
+        "\\bmandarin"
+      ],
+      "negatives": [
+        "juice",
+        "dryck",
+        "kak",
+        "cookie",
+        "choklad",
+        "läsk",
+        "marmelad",
+        "te "
       ]
     },
     {
@@ -3704,65 +3769,6 @@
         }
       ]
     },
-    "citrus_frukt": {
-      "name": "Apelsiner, Citron & Lime",
-      "category": "Frukt & Grönt",
-      "unit": "kg",
-      "yield_pct": 100.0,
-      "our_best_price": 16.0,
-      "record_price": 15.88,
-      "ref_source": "grossist",
-      "history": [
-        {
-          "date": "2026-10-14",
-          "supplier": "Lidl Rågsved",
-          "price_net": 28.21,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-12",
-          "supplier": "Nya Greenish AB",
-          "price_net": 16.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-23",
-          "supplier": "Lidl Rågsved",
-          "price_net": 28.21,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-16",
-          "supplier": "Lidl Rågsved",
-          "price_net": 36.92,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-07",
-          "supplier": "Nya Greenish AB",
-          "price_net": 16.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Nya Greenish AB",
-          "price_net": 16.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Nya Greenish AB",
-          "price_net": 16.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Lidl Rågsved",
-          "price_net": 26.32,
-          "unit": "kg"
-        }
-      ]
-    },
     "isbergssallad_mix": {
       "name": "Isbergssallad",
       "category": "Frukt & Grönt",
@@ -4358,6 +4364,103 @@
           "supplier": "Hemköp",
           "price_net": 5.2,
           "unit": "st"
+        }
+      ]
+    },
+    "apelsiner": {
+      "name": "Apelsiner",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 16.0,
+      "record_price": 15.88,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "supplier": "Nya Greenish AB",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-09-07",
+          "supplier": "Nya Greenish AB",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-31",
+          "supplier": "Nya Greenish AB",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-18",
+          "supplier": "Nya Greenish AB",
+          "price_net": 15.88,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-15",
+          "supplier": "Lidl Medborgarplatsen",
+          "price_net": 20.66,
+          "unit": "kg"
+        }
+      ]
+    },
+    "citron": {
+      "name": "Citron",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 16.0,
+      "record_price": 16.0,
+      "ref_source": "grossist",
+      "history": [
+        {
+          "date": "2026-08-31",
+          "supplier": "Nya Greenish AB",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-18",
+          "supplier": "Nya Greenish AB",
+          "price_net": 16.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-08-16",
+          "supplier": "Lidl Medborgarplatsen",
+          "price_net": 18.68,
+          "unit": "kg"
+        }
+      ]
+    },
+    "lime": {
+      "name": "Lime",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 45.0,
+      "record_price": 38.25,
+      "ref_source": "riktpris",
+      "history": []
+    },
+    "klementiner": {
+      "name": "Klementiner & Satsumas",
+      "category": "Frukt & Grönt",
+      "unit": "kg",
+      "yield_pct": 100.0,
+      "our_best_price": 28.21,
+      "record_price": 28.21,
+      "ref_source": "butik",
+      "history": [
+        {
+          "date": "2026-10-14",
+          "supplier": "Lidl Rågsved",
+          "price_net": 28.21,
+          "unit": "kg"
         }
       ]
     }
