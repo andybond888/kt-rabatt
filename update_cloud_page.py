@@ -514,7 +514,7 @@ def build_html(payload: Dict[str, Any]) -> str:
     <div class="row-flex">
       <select id="originSelect" class="prod-select" style="flex:1" onchange="onOriginSelect()">
         <option value="Arrendatorsvägen 1, 141 62 Huddinge">📍 Start: Arrendatorsvägen 1, 141 62 Huddinge</option>
-        <option value="Skanstull, Stockholm">🏠 Start: Skanstull, Stockholm</option>
+        <option value="Ringvägen 123, 116 61 Stockholm">🏠 Start: Ringvägen 123, 116 61 Stockholm</option>
         <option value="__custom__">✏️ Annan startadress...</option>
       </select>
     </div>
@@ -687,7 +687,8 @@ const ROUTE_TIMES = {{
 }};
 let activeArea = 'near';
 const DEFAULT_ORIGIN = 'Arrendatorsvägen 1, 141 62 Huddinge';
-const PRESET_ORIGINS = new Set(['Arrendatorsvägen 1, 141 62 Huddinge', 'Skanstull, Stockholm']);
+const SKANSTULL_ORIGIN = 'Ringvägen 123, 116 61 Stockholm';
+const PRESET_ORIGINS = new Set([DEFAULT_ORIGIN, SKANSTULL_ORIGIN]);
 let userOrigin = DEFAULT_ORIGIN;
 try {{ userOrigin = localStorage.getItem('kt_cloud_origin') || DEFAULT_ORIGIN; }} catch(e) {{}}
 if (PRESET_ORIGINS.has(userOrigin)) {{
@@ -752,19 +753,17 @@ function onOriginType() {{
   if (q.length < 3) {{ box.classList.remove('open'); box.innerHTML = ''; return; }}
   addrTimer = setTimeout(async () => {{
     try {{
-      const u = `https://photon.komoot.io/api/?q=${{encodeURIComponent(q)}}&lat=59.24&lon=17.98&limit=6`;
-      const resp = await fetch(u);
-      const data = await resp.json();
-      const feats = (data.features || []).filter(f => !f.properties.countrycode || f.properties.countrycode === 'SE');
-      if (!feats.length) {{ box.classList.remove('open'); return; }}
+      const u = `https://nominatim.openstreetmap.org/search?format=json&countrycodes=se&addressdetails=1&limit=6&q=${{encodeURIComponent(q)}}`;
+      const resp = await fetch(u, {{ headers: {{ 'Accept-Language': 'sv' }} }});
+      const feats = await resp.json();
+      if (!feats || !feats.length) {{ box.classList.remove('open'); return; }}
       box.innerHTML = '';
       feats.forEach(f => {{
-        const p = f.properties || {{}};
-        const parts = [
-          p.street ? (p.housenumber ? `${{p.street}} ${{p.housenumber}}` : p.street) : p.name,
-          p.postcode,
-          p.city || p.town || p.village || p.district
-        ].filter(Boolean);
+        const a = f.address || {{}};
+        const road = a.road || a.pedestrian || a.footway || '';
+        const hnr = a.house_number ? ` ${{a.house_number}}` : '';
+        const city = a.city || a.town || a.village || a.municipality || a.suburb || '';
+        const parts = [road ? (road + hnr) : (f.display_name || '').split(',')[0], a.postcode, city].filter(Boolean);
         const lbl = parts.join(', ');
         if (!lbl) return;
         const div = document.createElement('div');
@@ -775,7 +774,7 @@ function onOriginType() {{
           box.classList.remove('open');
           userOrigin = lbl;
           try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
-          fetchLiveTimes();
+          fetchLiveTimes(Number(f.lon), Number(f.lat));
         }};
         box.appendChild(div);
       }});
@@ -783,7 +782,7 @@ function onOriginType() {{
     }} catch(e) {{
       box.classList.remove('open');
     }}
-  }}, 250);
+  }}, 300);
 }}
 
 document.addEventListener('click', (e) => {{
@@ -825,7 +824,7 @@ const PLACE_COORDS = {{
   "Arninge, Täby": [18.1355, 59.4570]
 }};
 
-async function fetchLiveTimes() {{
+async function fetchLiveTimes(oLonArg, oLatArg) {{
   const addr = (document.getElementById('originInput').value || '').trim();
   if (!addr) {{ alert('Skriv in en startadress först.'); return; }}
   const stEl = document.getElementById('liveTimeStatus');
@@ -835,13 +834,14 @@ async function fetchLiveTimes() {{
   btn.disabled = true;
 
   try {{
-    const gResp = await fetch(`https://photon.komoot.io/api/?q=${{encodeURIComponent(addr)}}&lat=59.24&lon=17.98&limit=1`);
-    const gData = await gResp.json();
-    const feat = gData.features && gData.features[0];
-    if (!feat || !feat.geometry || !feat.geometry.coordinates) {{
-      throw new Error('Hittade inte adressen');
+    let oLon = oLonArg, oLat = oLatArg;
+    if (typeof oLon !== 'number' || typeof oLat !== 'number' || isNaN(oLon) || isNaN(oLat)) {{
+      const gResp = await fetch(`https://nominatim.openstreetmap.org/search?format=json&countrycodes=se&limit=1&q=${{encodeURIComponent(addr)}}`, {{ headers: {{ 'Accept-Language': 'sv' }} }});
+      const gData = await gResp.json();
+      if (!gData || !gData[0]) throw new Error('Hittade inte adressen');
+      oLon = Number(gData[0].lon);
+      oLat = Number(gData[0].lat);
     }}
-    const [oLon, oLat] = feat.geometry.coordinates;
     const placeNames = Object.keys(PLACE_COORDS);
     const coordsStr = [`${{oLon}},${{oLat}}`, ...placeNames.map(p => `${{PLACE_COORDS[p][0]}},${{PLACE_COORDS[p][1]}}`)].join(';');
     const osrmUrl = `https://router.project-osrm.org/table/v1/driving/${{coordsStr}}?sources=0&annotations=duration`;
@@ -874,7 +874,7 @@ async function fetchLiveTimes() {{
 }}
 
 function storeLocs(name) {{
-  if (userOrigin === 'Skanstull, Stockholm') return STORE_LOCATIONS_SKANSTULL[name] || [];
+  if (userOrigin === SKANSTULL_ORIGIN) return STORE_LOCATIONS_SKANSTULL[name] || [];
   if (userOrigin === DEFAULT_ORIGIN) return STORE_LOCATIONS[name] || [];
   if (liveTimesCache[userOrigin] && liveTimesCache[userOrigin][name]) return liveTimesCache[userOrigin][name];
   return (STORE_LOCATIONS[name] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
@@ -1017,7 +1017,7 @@ function renderAll() {{
     }}).join('');
     const firstClean = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     const firstQuery = c.store_name + (firstClean ? ' ' + firstClean : '');
-    const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent('Skanstull, Stockholm')}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(homeAddr)}}` : '';
+    const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(SKANSTULL_ORIGIN)}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(DEFAULT_ORIGIN)}}` : '';
     const rtTime = ROUTE_TIMES[c.store_name] ? ` (${{ROUTE_TIMES[c.store_name]}})` : '';
     const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet${{rtTime}}</a>` : '';
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
