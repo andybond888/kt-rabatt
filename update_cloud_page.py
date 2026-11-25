@@ -195,10 +195,10 @@ def normalize_offer(
             norm_qty = max(1.0, pieces_from)
         norm_unit = "st"
         unit_price_net = price_net / norm_qty
-    elif slug in ("engangshandskar", "avfallspasar_sopsackar", "sopsackar_stora", "plastpasar_matfilm", "maskindiskmedel") and re.search(
-        r"\b(\d{2,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I
+    elif slug in ("agg", "engangshandskar", "avfallspasar_sopsackar", "sopsackar_stora", "plastpasar_matfilm", "maskindiskmedel") and re.search(
+        r"\b(\d{1,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I
     ):
-        m_hp = re.search(r"\b(\d{2,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I)
+        m_hp = re.search(r"\b(\d{1,3})\s*-?\s*(?:pack|p|st|tab)\b", full_txt, re.I)
         per_box = float(m_hp.group(1)) if m_hp else 100.0
         boxes = pieces_from if pieces_from < 20 else 1.0
         norm_qty = boxes * per_box

@@ -432,11 +432,20 @@
       "slug": "agg",
       "patterns": [
         "ägg\\s*platta",
-        "\\bägg\\s*\\d+\\s*p",
         "frigående\\s*ägg",
-        "\\bägg\\b.*st"
+        "\\bägg\\b"
       ],
-      "negatives": []
+      "negatives": [
+        "kinder",
+        "choklad",
+        "påskägg",
+        "överraskningsägg",
+        "äggnudlar",
+        "äggula",
+        "majonnäs",
+        "sallad",
+        "kaviar"
+      ]
     },
     {
       "slug": "kolsyrat_vatten_33cl",
@@ -1179,7 +1188,7 @@
       "category": "Mejeri & Ägg",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 1.73,
+      "our_best_price": 2.17,
       "record_price": 1.73
     },
     "lask_vatten_33cl": {
