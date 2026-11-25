@@ -475,8 +475,11 @@ def build_html(payload: Dict[str, Any]) -> str:
   .save-tag {{ display:inline-block; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; background:#dcfce7; color:#14532d; }}
   .title {{ font-weight:700; font-size:15px; margin:4px 0 2px; }}
   .sub {{ font-size:12px; color:#475569; margin-bottom:4px; }}
-  .price-line {{ font-size:14px; font-weight:700; color:#0f172a; }}
-  .ref-line {{ font-size:12px; color:#15803d; font-weight:600; margin-top:2px; }}
+  .price-line {{ display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-top:4px; }}
+  .price-main {{ font-size:17px; font-weight:800; color:#0f172a; }}
+  .price-qty {{ font-size:12px; font-weight:600; color:#475569; }}
+  .price-unit {{ font-size:12px; font-weight:700; color:#0369a1; background:#f0f9ff; border:1px solid #bae6fd; padding:1px 7px; border-radius:999px; }}
+  .ref-line {{ font-size:12px; color:#15803d; font-weight:600; margin-top:3px; }}
   .pick-btn {{ border:2px solid #0284c7; background:#fff; color:#0284c7; border-radius:10px; padding:9px 10px; font-weight:700; font-size:13px; cursor:pointer; width:100%; }}
   .pick-btn.picked {{ background:#16a34a; border-color:#16a34a; color:#fff; }}
   .actions {{ display:flex; flex-direction:column; gap:6px; flex-shrink:0; min-width:86px; }}
@@ -707,12 +710,22 @@ function renderAll() {{
     const refLbl = c.ref_source === 'grossist'
       ? 'Vårt grossistpris'
       : (c.ref_source === 'butik' ? 'Vårt snittpris (butik)' : 'Riktpris (saknar egna köp)');
+    const fmtKr = (v, dropZero) => {{
+      const n = Number(v || 0);
+      if (dropZero && Math.abs(n - Math.round(n)) < 0.005) return `${{Math.round(n)}} kr`;
+      return `${{n.toFixed(2).replace('.', ',')}} kr`;
+    }};
+    const fmtQty = (q) => String(Number((q || 1).toFixed(2))).replace('.', ',');
+    const qtyVal = Number(c.norm_qty || 1);
+    const samePrice = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
+    const priceBlockHtml = samePrice
+      ? `<span class="price-main">${{fmtKr(c.price_gross_sek, true)}}/${{c.norm_unit}}</span><span class="price-qty">inkl. moms</span>`
+      : `<span class="price-main">${{fmtKr(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQty(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtKr(unitGross, false)}}/${{c.norm_unit}}</span>`;
     const ourTxt = ourGross != null
-      ? `${{refLbl}}: ${{ourGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms`
+      ? `${{refLbl}}: ${{fmtKr(ourGross, false)}}/${{c.norm_unit}} inkl. moms`
       : '';
     const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
     const descShort = c.description ? (c.description.length > 78 ? c.description.slice(0, 75) + '…' : c.description) : '';
-    const qtyNote = ` (${{Number((c.norm_qty || 1).toFixed(2))}} ${{c.norm_unit}})`;
     const hist = c.history || [];
     const isH = !!openHist[key];
     const histBtnHtml = hist.length
@@ -733,7 +746,7 @@ function renderAll() {{
         <div class="title">${{c.heading}}</div>
         ${{descShort ? `<div class="sub" style="color:#334155">${{descShort}}</div>` : ''}}
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
-        <div class="price-line">Annonspris: ${{c.price_gross_sek.toFixed(2)}} kr${{qtyNote}}  →  Jfr-pris: ${{unitGross.toFixed(2)}} kr/${{c.norm_unit}} inkl. moms</div>
+        <div class="price-line">${{priceBlockHtml}}</div>
         <div class="ref-line">${{ourTxt}}</div>
         ${{histHtml}}
       </div>
