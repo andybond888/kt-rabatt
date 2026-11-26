@@ -445,7 +445,8 @@ def build_html(payload: Dict[str, Any]) -> str:
   .lang-bar {{ display:flex; gap:4px; flex-shrink:0; }}
   .lang-btn {{ border:1px solid #334155; background:#1e293b; color:#e2e8f0; border-radius:8px; padding:5px 8px; font-size:12px; font-weight:700; cursor:pointer; }}
   .lang-btn.active {{ background:#0284c7; border-color:#38bdf8; color:#fff; }}
-  .goog-te-banner-frame, .skiptranslate > iframe {{ display:none !important; }}
+  .goog-te-banner-frame, .skiptranslate, #goog-gt-tt, .goog-te-balloon-frame, .goog-tooltip, .VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf {{ display:none !important; visibility:hidden !important; }}
+  .goog-text-highlight {{ background:transparent !important; box-shadow:none !important; }}
   body {{ top:0 !important; }}
   .wrap {{ padding:12px; max-width:660px; margin:0 auto; width:100%; }}
   .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
