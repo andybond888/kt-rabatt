@@ -70,6 +70,29 @@ GLOBAL_HEADING_EXCLUSIONS = (
 )
 
 
+GENERAL_CATEGORIES = (
+    ("Kött & Chark", ("skinka", "julskinka", "korv", "salami", "kött", "kyckling", "kalkon", "bacon", "färs", "kotlett", "karré", "entrecôte", "ryggbiff", "oxfilé", "fläsk", "lamm", "leverpastej", "pålägg", "revben", "köttbull", "prinskorv")),
+    ("Fisk & Skaldjur", ("lax", "torsk", "sill", "räkor", "kräftor", "tonfisk", "fisk", "makrill", "skaldjur", "musslor", "kaviar", "rom")),
+    ("Frukt & Grönt", ("äpple", "päron", "kaki", "apelsin", "clementin", "klementin", "satsumas", "banan", "druvor", "melon", "mango", "ananas", "kiwi", "avokado", "tomat", "gurka", "paprika", "sallad", "lök", "potatis", "morot", "morötter", "broccoli", "kål", "svamp", "bär", "hallon", "blåbär", "jordgubb", "citron", "lime", "fikon", "dadlar")),
+    ("Mejeri & Ost", ("ost", "yoghurt", "kvarg", "filmjölk", "gräddfil", "crème fraiche", "creme fraiche", "mjölk", "smör", "bregott", "ägg", "grädde", "keso", "mozzarella", "feta", "brie", "cheddar", "parmesan", "halloumi")),
+    ("Bröd & Bageri", ("bröd", "limpa", "fralla", "croissant", "bulle", "bullar", "kaka", "kakor", "tårta", "pepparkak", "lusse", "kex", "knäcke", "tortilla", "pita", "baguette", "muffins", "munk", "donut", "bakverk", "våffl", "pannkak")),
+    ("Fryst & Glass", ("glass", "pizza", "pommes", "fryst", "lasagne", "paj", "nuggets", "fiskpinnar", "färdigrätt", "pytt")),
+    ("Snacks & Godis", ("chips", "choklad", "godis", "pralin", "popcorn", "ostbågar", "lakrits", "nötter", "mandel", "cashew", "jordnöt", "snacks", "marabou", "aladdin", "paradis", "julkalender", "skumtomt")),
+    ("Dryck", ("läsk", "cola", "pepsi", "fanta", "sprite", "julmust", "glögg", "juice", "vatten", "kaffe", "te ", "tepåsar", "energidryck", "red bull", "monster", "nocco", "cider", "öl", "saft", "smoothie", "dryck")),
+    ("Skafferi & Pasta", ("pasta", "spaghetti", "makaron", "ris", "nudlar", "mjöl", "socker", "olja", "sås", "ketchup", "senap", "majonnäs", "krydda", "konserv", "sylt", "marmelad", "müsli", "flingor", "gröt", "soppa", "bönor", "linser", "honung", "nutella")),
+    ("Hushåll & Hygien", ("toalettpapper", "hushållspapper", "tvättmedel", "diskmedel", "sköljmedel", "schampo", "balsam", "tvål", "tandkräm", "tandborst", "blöjor", "städ", "servett", "avfallspås", "fryspås", "folie", "bakplåtspapper", "deodorant", "hudkräm", "kattmat", "hundmat")),
+    ("Hem & Fritid", ("köksmaskin", "stekpanna", "kastrull", "leksak", "jacka", "tröja", "byxa", "strumpor", "filt", "kudde", "lampa", "ljusslinga", "advents", "julstjärna", "julgran", "julpynt", "verktyg", "väggfäste", "batteri", "blockljus", "värmeljus", "blomma", "julstjärna", "amaryllis", "hyacint")),
+)
+
+
+def guess_general_category(text: str) -> str:
+    low = (text or "").lower()
+    for cat, kws in GENERAL_CATEGORIES:
+        if any(k in low for k in kws):
+            return cat
+    return "Övrigt"
+
+
 def match_slug(text: str, rules: List[Dict[str, Any]]) -> Optional[str]:
     low = re.sub(r"\s+", " ", (text or "")).lower().strip()
     if not low or low == "pant" or low.startswith("pant ") or "rabatt" in low:
@@ -143,7 +166,7 @@ def normalize_offer(
             slug = None
 
     is_rest = bool(slug and slug in baselines)
-    b_info = baselines[slug] if is_rest else {"name": "Övrig kampanj", "category": "Övrigt", "unit": "st", "yield_pct": 100.0}
+    b_info = baselines[slug] if is_rest else {"name": "Övrig kampanj", "category": guess_general_category(full_txt), "unit": "st", "yield_pct": 100.0}
     canon_unit = b_info["unit"]
     default_yield = float(b_info.get("yield_pct", 100.0))
 
