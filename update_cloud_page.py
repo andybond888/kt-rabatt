@@ -515,16 +515,19 @@ def build_html(payload: Dict[str, Any]) -> str:
       <button id="btnVaror" class="cfg-btn" onclick="toggleVaruPanel()">⚙️ Välj varor</button>
     </div>
 
-    <div id="shopPanel" class="varu-panel">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
-        <strong style="font-size:14px">🛒 Min inköpslista</strong>
+    <div id="shopPanel" style="display:none">
+      <div class="card" style="justify-content:space-between;align-items:center;flex-wrap:wrap;background:#f0fdf4;border-color:#86efac">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <button class="mini-btn" style="background:#0f172a;color:#fff;border-color:#0f172a" onclick="toggleShopPanel()">← Tillbaka</button>
+          <strong style="font-size:15px">🛒 Min inköpslista</strong>
+        </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <button id="btnShopRoute" class="mini-btn" onclick="openShopRoute()">🗺️ Kör rutt</button>
+          <button id="btnShopRoute" class="mini-btn" style="background:#dcfce7;border-color:#86efac;color:#14532d" onclick="openShopRoute()">🗺️ Kör rutt</button>
           <button class="mini-btn" onclick="copyShopList()">📤 Kopiera</button>
           <button class="mini-btn" onclick="clearShopList()">🗑️ Rensa</button>
         </div>
       </div>
-      <div id="shopBody" style="margin-top:6px"></div>
+      <div id="shopBody"></div>
     </div>
 
     <div class="row-flex">
@@ -585,11 +588,21 @@ let hiddenProds = {{}};
 try {{ picked = JSON.parse(localStorage.getItem('kt_cloud_picked') || '{{}}'); }} catch(e) {{}}
 try {{ hiddenProds = JSON.parse(localStorage.getItem('kt_cloud_hidden_prods') || '{{}}'); }} catch(e) {{}}
 
+let shopPageOpen = false;
 function toggleShopPanel() {{
+  shopPageOpen = !shopPageOpen;
   const p = document.getElementById('shopPanel');
   const b = document.getElementById('btnShop');
-  p.classList.toggle('open');
-  b.classList.toggle('active');
+  const deals = document.getElementById('dealsContainer');
+  const filters = document.querySelectorAll('.filters > :not(#shopPanel)');
+  p.style.display = shopPageOpen ? 'block' : 'none';
+  deals.style.display = shopPageOpen ? 'none' : 'block';
+  filters.forEach(el => {{
+    if (el.id !== 'shopPanel') el.style.display = shopPageOpen ? 'none' : '';
+  }});
+  b.classList.toggle('active', shopPageOpen);
+  if (shopPageOpen) window.scrollTo(0, 0);
+  renderShopList();
 }}
 
 function getPickedItems() {{
@@ -602,7 +615,7 @@ function renderShopList() {{
   btn.textContent = `🛒 Lista (${{items.length}})`;
   const body = document.getElementById('shopBody');
   if (!items.length) {{
-    body.innerHTML = '<div style="font-size:13px;color:#64748b;padding:6px 0">Klicka på <b>Plocka</b> på valfria klipp nedan för att lägga till dem i din inköpslista.</div>';
+    body.innerHTML = '<div class="card">Inköpslistan är tom. Klicka på <b>← Tillbaka</b> och tryck <b>Plocka</b> på de klipp du vill handla.</div>';
     return;
   }}
   const byStore = {{}};
@@ -610,14 +623,43 @@ function renderShopList() {{
     if (!byStore[c.store_name]) byStore[c.store_name] = [];
     byStore[c.store_name].push(c);
   }});
-  const fmtS = (v) => Math.abs(v - Math.round(v)) < 0.005 ? `${{Math.round(v)}} kr` : `${{Number(v).toFixed(2).replace('.', ',')}} kr`;
+  const fmtS = (v, dropZ) => {{
+    const n = Number(v || 0);
+    if (dropZ && Math.abs(n - Math.round(n)) < 0.005) return `${{Math.round(n)}} kr`;
+    return `${{n.toFixed(2).replace('.', ',')}} kr`;
+  }};
+  const fmtQ = (q) => String(Number((q || 1).toFixed(2))).replace('.', ',');
   body.innerHTML = Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).map(st => {{
-    const rowsHtml = byStore[st].map(c => `
-      <div class="shop-row">
-        <span><b>${{c.heading}}</b> <span style="color:#475569">(${{fmtS(c.price_gross_sek)}})</span></span>
-        <button class="shop-rm" onclick="togglePick('c_${{c.id}}')" title="Ta bort">✕</button>
-      </div>`).join('');
-    return `<div class="shop-store">🏪 ${{st}} (${{byStore[st].length}})</div>${{rowsHtml}}`;
+    const locs = storeLocs(st);
+    const homeAddr = userOrigin || DEFAULT_ORIGIN;
+    const locPills = locs.map(l => {{
+      const cleanD = l.replace(/\\s*\\([^)]*\\)/g, '').trim();
+      const qDest = st + (cleanD ? ' ' + cleanD : '');
+      const uDir = `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(qDest)}}`;
+      return `<a class="loc-tag" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
+    }}).join('');
+    const cardsHtml = byStore[st].map(c => {{
+      const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="">` : '';
+      const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
+      const qtyVal = Number(c.norm_qty || 1);
+      const sameP = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
+      const pHtml = sameP
+        ? `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}/${{c.norm_unit}}</span>`
+        : `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQ(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`;
+      const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
+      return `<div class="card green">
+        ${{imgHtml}}
+        <div class="info">
+          <div class="title" style="margin-top:0">${{c.heading}}</div>
+          <div class="sub">${{c.canonical_name}}${{lim}}</div>
+          <div class="price-line">${{pHtml}}</div>
+        </div>
+        <div class="actions">
+          <button class="pick-btn picked" onclick="togglePick('c_${{c.id}}')">✕ Ta bort</button>
+        </div>
+      </div>`;
+    }}).join('');
+    return `<div class="shop-store" style="margin-top:12px;font-size:15px">🏪 ${{st}} (${{byStore[st].length}}) ${{locPills}}</div>${{cardsHtml}}`;
   }}).join('');
 }}
 
