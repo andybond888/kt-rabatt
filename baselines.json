@@ -687,7 +687,9 @@
         "vaniljglass",
         "tri\\s+glass\\s+5l",
         "gräddglass\\s*[125]",
-        "glass\\s+2\\s*l"
+        "glass\\s+2\\s*l",
+        "glass\\s+storpack",
+        "^(?:grädd)?glass$"
       ],
       "negatives": [
         "flerpack",
@@ -701,7 +703,14 @@
         "bägare 4",
         "8-pack",
         "6-pack",
-        "10-pack"
+        "10-pack",
+        "häagen",
+        "nick's",
+        "pralin",
+        "dessert",
+        "båtar",
+        "trä",
+        "4-pack"
       ]
     },
     {
