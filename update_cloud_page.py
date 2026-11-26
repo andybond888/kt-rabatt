@@ -2209,6 +2209,7 @@ def main() -> None:
     slug_dir = PUBLIC_DIR / str(cfg.get("secret_slug") or "lista")
     slug_dir.mkdir(parents=True, exist_ok=True)
     (PUBLIC_DIR / ".nojekyll").write_text("", encoding="utf-8")
+    (PUBLIC_DIR / ".gitattributes").write_text("*.pdf binary\n*.jpg binary\n*.jpeg binary\n*.png binary\n", encoding="utf-8")
     (PUBLIC_DIR / "index.html").write_text(
         "<!doctype html><html><head><meta name='robots' content='noindex'></head><body>OK</body></html>",
         encoding="utf-8",
