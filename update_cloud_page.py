@@ -2272,14 +2272,20 @@ function renderB2B() {{
     const isH = !!openHist[x.id];
     const curQ = Number(invQty[x.id] || 0);
     const isCustom = String(x.id).startsWith('cust_');
-    const histRows = activeSup === 'Alla'
+    const chosenSupplier = chosenSup[x.id];
+    const historySupplier = activeSup === 'Alla' && supsList.some(s => s.grossist === chosenSupplier)
+      ? chosenSupplier
+      : activeSup;
+    const histRows = historySupplier === 'Alla'
       ? (x.history || [])
-      : (x.history || []).filter(h => h.supplier === activeSup);
-
-    const totalPurchases = purchaseCount(x, activeSup);
+      : (x.history || []).filter(h => h.supplier === historySupplier);
+    const totalPurchases = purchaseCount(x, historySupplier);
     const histCount = totalPurchases > histRows.length
       ? `${{histRows.length}} av ${{totalPurchases}}`
       : String(histRows.length);
+    const histTitle = historySupplier === 'Alla'
+      ? 'Prishistorik'
+      : `Prishistorik för ${{esc(historySupplier)}}`;
 
     let supHtml = '';
     if (isMulti && activeSup === 'Alla') {{
@@ -2296,8 +2302,8 @@ function renderB2B() {{
       supHtml = `<div class="sub"><span class="sup-tag notranslate">${{esc(p.supName)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
     }}
 
-    const histHtml = (isH && histRows.length)
-      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Prishistorik – klicka på en rad för att öppna fakturan (${{vatLbl}}):</div>` +
+    const histHtml = isH
+      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">${{histTitle}} (${{vatLbl}})</div>` +
         histRows.map(h => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
           const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
@@ -2306,7 +2312,7 @@ function renderB2B() {{
             `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
             `<b class="notranslate" style="white-space:nowrap">${{fmtSv(hp)}} kr/${{esc(h.unit)}}</b>` +
           `</div>`;
-        }}).join('') +
+        }}).join('') + (histRows.length ? '' : '<div>Inga tillgängliga historikrader.</div>') +
         `</div>`
       : '';
 
