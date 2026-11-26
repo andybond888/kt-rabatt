@@ -466,6 +466,9 @@ def build_html(payload: Dict[str, Any]) -> str:
   .top {{ background:#0f172a; color:#fff; padding:12px 16px; position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center; gap:8px; }}
   .top h1 {{ margin:0; font-size:18px; }}
   .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
+  .sg-timer {{ display:inline-block; margin-top:4px; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; background:#1e293b; color:#38bdf8; border:1px solid #334155; }}
+  .sg-timer.warn {{ background:#78350f; color:#fde68a; border-color:#f59e0b; }}
+  .sg-timer.expired {{ background:#7f1d1d; color:#fecaca; border-color:#ef4444; }}
   .lang-bar {{ display:flex; gap:4px; flex-shrink:0; }}
   .lang-btn {{ border:1px solid #334155; background:#1e293b; color:#e2e8f0; border-radius:8px; padding:5px 8px; font-size:12px; font-weight:700; cursor:pointer; }}
   .lang-btn.active {{ background:#0284c7; border-color:#38bdf8; color:#fff; }}
@@ -558,6 +561,7 @@ def build_html(payload: Dict[str, Any]) -> str:
   <div>
     <h1>🔥 Veckans Rabattlista</h1>
     <p id="metaLbl">Uppdaterad: —</p>
+    <div id="sgTimer" class="sg-timer" style="display:none"></div>
   </div>
   <div class="lang-bar notranslate">
     <button class="lang-btn" id="langSv" onclick="setLang('sv')">🇸🇪 SV</button>
@@ -1456,7 +1460,42 @@ function googleTranslateElementInit() {{
   }}
 }})();
 
+function renderSgTimer() {{
+  const el = document.getElementById('sgTimer');
+  if (!el) return;
+  const sgDates = (DATA.campaigns || [])
+    .filter(c => (c.store_name || '').toLowerCase().includes('snabbgross') && c.valid_until)
+    .map(c => c.valid_until)
+    .sort();
+  if (!sgDates.length) {{
+    el.style.display = 'inline-block';
+    el.className = 'sg-timer expired';
+    el.textContent = '🔴 Snabbgross-kampanj saknas/utgången – lägg in ny!';
+    return;
+  }}
+  const latest = sgDates[sgDates.length - 1];
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const exp = new Date(latest + 'T00:00:00');
+  const diffDays = Math.round((exp - today) / 86400000);
+  el.style.display = 'inline-block';
+  if (diffDays < 0) {{
+    el.className = 'sg-timer expired';
+    el.textContent = `🔴 Snabbgross gick ut ${{latest}} – lägg in ny kampanj!`;
+  }} else if (diffDays === 0) {{
+    el.className = 'sg-timer warn';
+    el.textContent = `⚠️ Snabbgross: Sista dagen idag (${{latest}}) – lägg in ny imorgon!`;
+  }} else if (diffDays <= 2) {{
+    el.className = 'sg-timer warn';
+    el.textContent = `⏳ Snabbgross: ${{diffDays}} ${{diffDays === 1 ? 'dag' : 'dagar'}} kvar (t.o.m. ${{latest}})`;
+  }} else {{
+    el.className = 'sg-timer';
+    el.textContent = `⏳ Snabbgross: ${{diffDays}} dagar kvar (t.o.m. ${{latest}})`;
+  }}
+}}
+
 buildVaruCheckboxes();
+renderSgTimer();
 renderAll();
 if (PRESET_COORDS[userOrigin] && !liveTimesCache[userOrigin]) {{
   fetchLiveTimes(PRESET_COORDS[userOrigin][0], PRESET_COORDS[userOrigin][1], userOrigin);
