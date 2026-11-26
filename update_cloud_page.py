@@ -1336,8 +1336,11 @@ function renderAll() {{
     const isAct = st === 'Alla' ? activeStores.size === 0 : activeStores.has(st);
     b.className = 'chip' + (isAct ? ' active' : '') + (st === 'Alla' ? '' : ' notranslate');
     const locs = storeLocs(st);
-    const shortLoc = locs.length ? locs[0].trim() : '';
-    b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
+    const firstLoc = locs.length ? locs[0].trim() : '';
+    const mTime = firstLoc.match(/\\(([^)]+)\\)/);
+    const timePrefix = mTime ? `${{mTime[1]}} · ` : '';
+    const shortLoc = firstLoc.replace(/\\s*\\([^)]*\\)/g, '').trim();
+    b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{timePrefix}}${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
     b.onclick = () => {{
       if (st === 'Alla') {{
         activeStores.clear();
