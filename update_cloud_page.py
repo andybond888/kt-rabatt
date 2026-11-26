@@ -1984,29 +1984,27 @@ function openInvoiceModal(docId, lineId) {{
   }} else {{
     pdfBtn.style.display = 'none';
   }}
-  const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
   const bodyEl = document.getElementById('docBody');
   const rowsHtml = doc.lines.map(ln => {{
     const isHl = Number(ln.line_id) === Number(lineId);
     const bQty = ln.qty_billed != null ? ln.qty_billed : 1;
     const bUnit = ln.unit_billed || ln.unit || 'st';
-    const bPrice = showInclVat ? (ln.billed_gross != null ? ln.billed_gross : ln.unit_gross) : (ln.billed_net != null ? ln.billed_net : ln.unit_net);
-    const uP = showInclVat ? ln.unit_gross : ln.unit_net;
-    const tP = showInclVat ? ln.total_gross : ln.total_net;
-    const showSubUnit = Math.abs(bPrice - uP) > 0.05 || bUnit.toLowerCase() !== String(ln.unit || '').toLowerCase();
-    const subUnitHtml = showSubUnit ? `<div style="font-size:10.5px;color:#0284c7;font-weight:600">(${{fmtSv(uP)}} kr/${{esc(ln.unit)}})</div>` : '';
+    const bNet = ln.billed_net != null ? ln.billed_net : ln.unit_net;
+    const vatPct = ln.vat_rate != null ? Number(ln.vat_rate) : 6;
+    const subUnitHtml = `<div style="font-size:10.5px;color:#0284c7;font-weight:600">(${{fmtSv(ln.unit_gross)}} kr/${{esc(ln.unit)}} inkl.)</div>`;
     const qtyFmt = Number(bQty).toLocaleString('sv-SE', {{ maximumFractionDigits: 3 }});
     return `<tr id="dln_${{ln.line_id}}" class="${{isHl ? 'hl' : ''}}">` +
       `<td><div>${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
         `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div></td>` +
       `<td class="num notranslate">${{qtyFmt}}</td>` +
       `<td class="cnt notranslate">${{esc(bUnit)}}</td>` +
-      `<td class="num notranslate">${{fmtSv(bPrice)}} kr${{subUnitHtml}}</td>` +
-      `<td class="num notranslate" style="font-weight:700">${{fmtSv(tP)}} kr</td>` +
+      `<td class="num notranslate">${{fmtSv(bNet)}} kr${{subUnitHtml}}</td>` +
+      `<td class="cnt notranslate">${{vatPct}}%</td>` +
+      `<td class="num notranslate" style="font-weight:700">${{fmtSv(ln.total_net)}} kr</td>` +
     `</tr>`;
   }}).join('');
   bodyEl.innerHTML = `<table class="doc-tbl">` +
-    `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Enhetspris (${{vatLbl}})</th><th class="num">Summa (${{vatLbl}})</th></tr></thead>` +
+    `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Enhetspris (exkl.)</th><th class="cnt">Moms</th><th class="num">Belopp (exkl.)</th></tr></thead>` +
     `<tbody>${{rowsHtml}}</tbody></table>`;
   document.getElementById('docFoot').innerHTML =
     `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
