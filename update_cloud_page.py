@@ -1336,7 +1336,7 @@ function renderAll() {{
     const isAct = st === 'Alla' ? activeStores.size === 0 : activeStores.has(st);
     b.className = 'chip' + (isAct ? ' active' : '') + (st === 'Alla' ? '' : ' notranslate');
     const locs = storeLocs(st);
-    const shortLoc = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
+    const shortLoc = locs.length ? locs[0].trim() : '';
     b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
     b.onclick = () => {{
       if (st === 'Alla') {{
