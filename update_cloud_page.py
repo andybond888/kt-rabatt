@@ -1411,7 +1411,7 @@ function renderAll() {{
     const rtTime = ROUTE_TIMES[c.store_name] ? ` (${{ROUTE_TIMES[c.store_name]}})` : '';
     const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet${{rtTime}}</a>` : '';
     let validHtml = `Gäller t.o.m. ${{c.valid_until || 'söndag'}}`;
-    if (c.valid_until && /^\\d{4}-\\d{2}-\\d{2}$/.test(c.valid_until)) {{
+    if (c.valid_until && /^\\d{{4}}-\\d{{2}}-\\d{{2}}$/.test(c.valid_until)) {{
       const td = new Date(); td.setHours(0, 0, 0, 0);
       const ex = new Date(c.valid_until + 'T00:00:00');
       const dl = Math.round((ex - td) / 86400000);
