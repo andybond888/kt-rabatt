@@ -1013,6 +1013,7 @@ const ROUTE_STORES = new Set([
   "ICA Kvantum", "Hemköp", "Lidl", "Matdax", "Stora Coop",
   "Willys Hemma", "Coop", "ICA Supermarket", "ICA Nära"
 ]);
+const SKANSTULL_STORES = new Set(["ICA Supermarket", "Hemköp", "ICA Kvantum"]);
 const ROUTE_TIMES = {{
   "City Gross": "33 min",
   "Coop": "20 min",
@@ -1230,6 +1231,7 @@ function renderAll() {{
   const areaBox = document.getElementById('areaChips');
   const areaOpts = [
     ['near', '📍 Nära Arrendatorsvägen'],
+    ['skanstull', '🏠 I Skanstull'],
     ['route', '🚗 Skanstull → Jobbet'],
     ['all', '🗺️ Alla butiker']
   ];
@@ -1251,6 +1253,7 @@ function renderAll() {{
     if (hiddenProds[c.canonical_name]) return false;
     if (onlyG && c.verdict_code !== 'GREEN') return false;
     if (activeArea === 'near' && FAR_STORES.has(c.store_name)) return false;
+    if (activeArea === 'skanstull' && !SKANSTULL_STORES.has(c.store_name)) return false;
     if (activeArea === 'route' && !ROUTE_STORES.has(c.store_name)) return false;
     const loc = storeLoc(c.store_name).toLowerCase();
     if (q && !(c.heading.toLowerCase().includes(q) || c.canonical_name.toLowerCase().includes(q) || (c.category || '').toLowerCase().includes(q) || c.store_name.toLowerCase().includes(q) || loc.includes(q))) return false;
