@@ -462,7 +462,6 @@ def build_html(payload: Dict[str, Any]) -> str:
   .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; gap:10px; align-items:flex-start; }}
   .card.green {{ border-left:6px solid #16a34a; background:#f0fdf4; }}
   .card.yellow {{ border-left:6px solid #eab308; }}
-  .card.done {{ opacity:0.45; }}
   .thumb {{ width:70px; height:70px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; }}
   .info {{ flex:1; min-width:0; }}
   .store-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
@@ -1159,7 +1158,7 @@ function renderAll() {{
         ${{histHtml}}
       </div>
       <div class="actions">
-        <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ Klar' : 'Plocka'}}</button>
+        <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ I listan' : 'Plocka'}}</button>
         ${{histBtnHtml}}
       </div>
     </div>`;
