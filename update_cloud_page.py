@@ -1551,6 +1551,10 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .inv-top {{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }}
   .inv-tot-main {{ font-size:17px; font-weight:800; color:#0f172a; }}
   .inv-tot-sub {{ font-size:12px; color:#475569; font-weight:600; margin-top:2px; }}
+  .inv-period {{ display:flex; align-items:center; flex-wrap:wrap; gap:6px 10px; margin-bottom:10px; font-size:13px; font-weight:700; }}
+  .inv-period input {{ font:inherit; color:inherit; background:#fff; border:1px solid #94a3b8; border-radius:8px; padding:6px 8px; }}
+  .inv-save-status {{ color:#475569; font-size:12px; font-weight:600; }}
+  .inv-save-status.error {{ color:#b91c1c; }}
   .inv-btns {{ display:flex; gap:6px; flex-wrap:wrap; margin-top:9px; }}
   .mini-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#0f172a; border-radius:8px; padding:7px 10px; font-size:12.5px; font-weight:700; cursor:pointer; }}
   .mini-btn.primary {{ background:#0284c7; border-color:#0284c7; color:#fff; }}
@@ -1605,16 +1609,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .doc-pdf-btn {{ display:inline-block; text-decoration:none; background:#16a34a; color:#fff; border-radius:8px; padding:6px 11px; font-size:12.5px; font-weight:800; white-space:nowrap; }}
   .doc-pdf-btn:hover {{ background:#15803d; }}
   .doc-close {{ border:none; background:#334155; color:#fff; border-radius:8px; padding:6px 11px; font-size:13px; font-weight:800; cursor:pointer; }}
-  .doc-body {{ padding:0; overflow-y:auto; overflow-x:hidden; flex:1; }}
-  .doc-desk-wrap {{ display:block; overflow-x:auto; }}
-  .doc-mob-list {{ display:none; padding:8px 10px; }}
-  .doc-m-card {{ padding:9px 10px; border-bottom:1px solid #e2e8f0; border-radius:8px; margin-bottom:4px; background:#fff; }}
-  .doc-m-card.hl {{ background:#fef9c3; border:1.5px solid #facc15; }}
-  .doc-m-top {{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; font-size:13.5px; font-weight:700; color:#0f172a; }}
-  .doc-m-note {{ font-size:11px; color:#64748b; margin-top:2px; }}
-  .doc-m-grid {{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }}
-  .doc-m-pill {{ font-size:11.5px; background:#f1f5f9; color:#334155; padding:3px 7px; border-radius:5px; font-weight:600; }}
-  .doc-m-pill.blue {{ background:#e0f2fe; color:#0369a1; font-weight:700; }}
+  .doc-body {{ padding:0; overflow:auto; flex:1; }}
   .doc-tbl {{ width:100%; border-collapse:collapse; font-size:12.5px; }}
   .doc-tbl th {{ position:sticky; top:0; background:#f1f5f9; color:#334155; font-size:11px; text-transform:uppercase; letter-spacing:0.3px; padding:8px 10px; border-bottom:1.5px solid #cbd5e1; text-align:left; white-space:nowrap; z-index:2; }}
   .doc-tbl th.num, .doc-tbl td.num {{ text-align:right; white-space:nowrap; }}
@@ -1627,15 +1622,18 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .form-row {{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }}
   .form-inp {{ flex:1; min-width:110px; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; }}
   @media (max-width: 680px) {{
-    .card {{ flex-direction:column; }}
-    .actions {{ width:100%; flex-direction:row; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:4px; }}
-    .hist-btn {{ width:auto; padding:8px 12px; }}
-    .doc-overlay {{ padding:0; align-items:flex-end; }}
-    .doc-dialog {{ max-width:100%; max-height:93vh; border-radius:14px 14px 0 0; }}
-    .doc-head {{ flex-direction:column; align-items:stretch; gap:8px; padding:11px 12px; }}
-    .doc-head-btns {{ width:100%; justify-content:space-between; }}
-    .doc-desk-wrap {{ display:none; }}
-    .doc-mob-list {{ display:block; }}
+    .wrap {{ padding:9px; }}
+    .card {{ padding:10px; gap:8px; }}
+    .card .info {{ overflow-wrap:anywhere; }}
+    .actions {{ min-width:84px; max-width:34%; }}
+    .p-main {{ font-size:13px; }}
+    .hist-btn {{ padding:6px; }}
+    .doc-overlay {{ padding:8px; }}
+    .doc-dialog {{ max-height:calc(100dvh - 16px); }}
+    .doc-head {{ flex-wrap:wrap; gap:8px; padding:9px 10px; }}
+    .doc-head-btns {{ flex-shrink:1; }}
+    .doc-tbl {{ min-width:530px; font-size:12px; }}
+    .doc-tbl th, .doc-tbl td {{ padding:6px 7px; }}
     .doc-foot {{ font-size:12px; padding:9px 12px; }}
   }}
 </style>
@@ -1656,6 +1654,11 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
 
 <div class="wrap">
   <div class="inv-bar">
+    <div class="inv-period">
+      <label for="invMonth">Inventeringsmånad</label>
+      <input id="invMonth" type="month" placeholder="ÅÅÅÅ-MM" pattern="[0-9]{{4}}-(0[1-9]|1[0-2])" onchange="changeInventoryMonth(this)">
+      <span id="invSaveStatus" class="inv-save-status" role="status"></span>
+    </div>
     <div class="inv-top">
       <div>
         <div class="inv-tot-main" id="invTotMain">📦 Förrådsvärde: 0,00 kr</div>
@@ -1723,12 +1726,17 @@ let openHist = {{}};
 let onlyStock = false;
 let showInclVat = false;
 
+const inventoryPrefix = 'kt_b2b_inventory:';
+const currentMonth = new Intl.DateTimeFormat('sv-SE', {{
+  year: 'numeric', month: '2-digit', timeZone: 'Europe/Stockholm'
+}}).format(new Date());
+const monthPattern = /^[0-9]{{4}}-(0[1-9]|1[0-2])$/;
+const requestedMonth = new URLSearchParams(location.search).get('month') || '';
+let inventoryMonth = monthPattern.test(requestedMonth) ? requestedMonth : currentMonth;
 let invQty = {{}};
 let chosenSup = {{}};
 let customItems = [];
-try {{ invQty = JSON.parse(localStorage.getItem('kt_b2b_inv_qty') || '{{}}'); }} catch(e) {{}}
-try {{ chosenSup = JSON.parse(localStorage.getItem('kt_b2b_chosen_sup') || '{{}}'); }} catch(e) {{}}
-try {{ customItems = JSON.parse(localStorage.getItem('kt_b2b_custom_items') || '[]'); }} catch(e) {{}}
+let inventoryItems = {{}};
 try {{
   const savedVat = localStorage.getItem('kt_b2b_vat_v2');
   if (savedVat !== null) showInclVat = savedVat === '1';
@@ -1743,11 +1751,21 @@ function fmtSv(n) {{
   return r.toLocaleString('sv-SE', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
 }}
 
-function allItems() {{
+function catalogItems() {{
   return [...customItems, ...(B2B.items || [])];
 }}
 
+function allItems() {{
+  const items = catalogItems();
+  const ids = new Set(items.map(x => x.id));
+  return [...items, ...Object.values(inventoryItems).filter(x => !ids.has(x.id))];
+}}
+
 function getUnitPrices(x) {{
+  return inventoryItems[x.id]?.prices || getCatalogPrices(x);
+}}
+
+function getCatalogPrices(x) {{
   const sups = x.suppliers || [];
   let sObj = null;
   if (chosenSup[x.id]) sObj = sups.find(s => s.grossist === chosenSup[x.id]);
@@ -1762,9 +1780,93 @@ function getUnitPrices(x) {{
   return {{ gross, net, avgG, avgN, supName }};
 }}
 
-function saveInv() {{
-  try {{ localStorage.setItem('kt_b2b_inv_qty', JSON.stringify(invQty)); }} catch(e) {{}}
+function captureInventoryItem(x) {{
+  const prices = getCatalogPrices(x);
+  inventoryItems[x.id] = {{
+    id: x.id, vara: x.vara, category: x.category, unit: x.unit,
+    latest_supplier: prices.supName, latest_date: x.latest_date, prices,
+    suppliers: [{{ grossist: prices.supName, latest_net: prices.net, latest_gross: prices.gross }}]
+  }};
+}}
+
+function inventoryStatus(message, error = false) {{
+  const el = document.getElementById('invSaveStatus');
+  el.textContent = message;
+  el.classList.toggle('error', error);
+}}
+
+function loadInventory() {{
+  const saved = JSON.parse(localStorage.getItem(inventoryPrefix + inventoryMonth));
+  ({{ invQty = {{}}, chosenSup = {{}}, customItems = [], inventoryItems = {{}} }} = saved || {{}});
+  return saved;
+}}
+
+function migrateInventory() {{
+  const marker = inventoryPrefix + 'migrated';
+  if (localStorage.getItem(marker)) return;
+  if (!localStorage.getItem(inventoryPrefix + currentMonth)) {{
+    invQty = JSON.parse(localStorage.getItem('kt_b2b_inv_qty')) || {{}};
+    chosenSup = JSON.parse(localStorage.getItem('kt_b2b_chosen_sup')) || {{}};
+    customItems = JSON.parse(localStorage.getItem('kt_b2b_custom_items')) || [];
+    catalogItems().forEach(x => {{ if (invQty[x.id] > 0) captureInventoryItem(x); }});
+    if (Object.keys(invQty).length || Object.keys(chosenSup).length || customItems.length) saveInventory(currentMonth);
+  }}
+  localStorage.setItem(marker, '1');
+}}
+
+function showInventoryMonth() {{
+  document.getElementById('invMonth').value = inventoryMonth;
+  invQty = {{}};
+  chosenSup = {{}};
+  customItems = [];
+  inventoryItems = {{}};
+  try {{
+    const saved = loadInventory();
+    inventoryStatus(saved ? 'Sparat i den här webbläsaren' : 'Sparas automatiskt i den här webbläsaren');
+  }} catch(e) {{
+    inventoryStatus('Kunde inte läsa inventeringen i den här webbläsaren.', true);
+  }}
+  renderB2B();
   updateSummaryBar();
+}}
+
+function changeInventoryMonth(input) {{
+  if (!monthPattern.test(input.value)) {{
+    input.value = inventoryMonth;
+    return;
+  }}
+  inventoryMonth = input.value;
+  const url = new URL(location.href);
+  url.searchParams.set('month', inventoryMonth);
+  history.replaceState(null, '', url);
+  showInventoryMonth();
+}}
+
+function saveInventory(month) {{
+  localStorage.setItem(inventoryPrefix + month, JSON.stringify({{ invQty, chosenSup, customItems, inventoryItems }}));
+}}
+
+function saveInv() {{
+  try {{
+    saveInventory(inventoryMonth);
+    inventoryStatus('Sparat i den här webbläsaren');
+  }} catch(e) {{
+    inventoryStatus('Kunde inte spara inventeringen i den här webbläsaren.', true);
+  }}
+  updateSummaryBar();
+}}
+
+function setInventoryQty(id, quantity) {{
+  if (quantity > 0) {{
+    invQty[id] = quantity;
+    if (!inventoryItems[id]) {{
+      const item = catalogItems().find(x => x.id === id);
+      if (item) captureInventoryItem(item);
+    }}
+  }} else {{
+    delete invQty[id];
+    delete inventoryItems[id];
+  }}
 }}
 
 function updateSummaryBar() {{
@@ -1795,11 +1897,7 @@ function updateSummaryBar() {{
 function onQtyInput(id, rawVal) {{
   const cleaned = String(rawVal || '').replace(',', '.');
   const v = parseFloat(cleaned);
-  if (!isNaN(v) && v > 0) {{
-    invQty[id] = Math.round(v * 1000) / 1000;
-  }} else {{
-    delete invQty[id];
-  }}
+  setInventoryQty(id, Number.isFinite(v) ? Math.round(v * 1000) / 1000 : 0);
   saveInv();
   updateCardInPlace(id);
 }}
@@ -1807,8 +1905,7 @@ function onQtyInput(id, rawVal) {{
 function stepQty(id, delta) {{
   const cur = Number(invQty[id] || 0);
   const next = Math.max(0, Math.round((cur + delta) * 1000) / 1000);
-  if (next > 0) invQty[id] = next;
-  else delete invQty[id];
+  setInventoryQty(id, next);
   const inp = document.getElementById('qinp_' + id);
   if (inp) inp.value = next > 0 ? String(next) : '';
   saveInv();
@@ -1838,8 +1935,9 @@ function updateCardInPlace(id) {{
 
 function selectSupForVara(id, supName) {{
   chosenSup[id] = supName;
-  try {{ localStorage.setItem('kt_b2b_chosen_sup', JSON.stringify(chosenSup)); }} catch(e) {{}}
-  updateSummaryBar();
+  const item = inventoryItems[id] && catalogItems().find(x => x.id === id);
+  if (item) captureInventoryItem(item);
+  saveInv();
   renderB2B();
 }}
 
@@ -1892,8 +1990,7 @@ function addCustomItem() {{
     history: [{{ date: today, supplier: 'Egen inmatning', artikel: name, forp: '', price_net: pNet, price_gross: pGross, unit: u }}]
   }};
   customItems.unshift(newItem);
-  try {{ localStorage.setItem('kt_b2b_custom_items', JSON.stringify(customItems)); }} catch(e) {{}}
-  if (!isNaN(q) && q > 0) invQty[id] = q;
+  if (Number.isFinite(q) && q > 0) setInventoryQty(id, q);
   document.getElementById('cName').value = '';
   document.getElementById('cQty').value = '';
   document.getElementById('cPrice').value = '';
@@ -1904,15 +2001,15 @@ function addCustomItem() {{
 
 function deleteCustomItem(id) {{
   customItems = customItems.filter(x => x.id !== id);
-  delete invQty[id];
-  try {{ localStorage.setItem('kt_b2b_custom_items', JSON.stringify(customItems)); }} catch(e) {{}}
+  setInventoryQty(id, 0);
   saveInv();
   renderB2B();
 }}
 
 function clearInventory() {{
-  if (!confirm('Vill du nollställa alla inmatade förrådsmängder?')) return;
+  if (!confirm(`Vill du nollställa förrådsmängderna för ${{inventoryMonth}}?`)) return;
   invQty = {{}};
+  inventoryItems = {{}};
   saveInv();
   renderB2B();
 }}
@@ -1923,9 +2020,8 @@ function copyInventoryReport() {{
     alert('Inga varor har mängd > 0 i förrådet ännu.');
     return;
   }}
-  const today = new Date().toISOString().slice(0, 10);
   let totG = 0, totN = 0;
-  const lines = [`📦 LAGERINVENTERING (${{today}})`, '----------------------------------------'];
+  const lines = [`📦 LAGERINVENTERING (${{inventoryMonth}})`, '----------------------------------------'];
   counted.forEach(x => {{
     const q = Number(invQty[x.id]);
     const p = getUnitPrices(x);
@@ -1954,7 +2050,6 @@ function exportInventoryCsv() {{
     alert('Inga varor har mängd > 0 i förrådet ännu.');
     return;
   }}
-  const today = new Date().toISOString().slice(0, 10);
   const rows = [['Vara', 'Kategori', 'Grossist', 'Mängd', 'Enhet', 'À-pris exkl moms', 'À-pris inkl moms', 'Värde exkl moms', 'Värde inkl moms']];
   let totG = 0, totN = 0;
   counted.forEach(x => {{
@@ -1976,7 +2071,7 @@ function exportInventoryCsv() {{
   const blob = new Blob([csv], {{ type: 'text/csv;charset=utf-8;' }});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = `lagerinventering_${{today}}.csv`;
+  a.download = `lagerinventering_${{inventoryMonth}}.csv`;
   a.click();
 }}
 
@@ -2016,9 +2111,8 @@ function openInvoiceModal(docId, lineId) {{
   renderInvoiceModalBody();
   document.getElementById('docOverlay').classList.add('open');
   setTimeout(() => {{
-    const isMob = window.innerWidth <= 680;
-    const hlEl = document.getElementById((isMob ? 'dln_mob_' : 'dln_') + lineId);
-    if (hlEl) hlEl.scrollIntoView({{ block: 'center', behavior: 'smooth' }});
+    const hlEl = document.getElementById('dln_' + lineId);
+    if (hlEl) hlEl.scrollIntoView({{ block: 'center', inline: 'nearest', behavior: 'smooth' }});
   }}, 60);
 }}
 
@@ -2030,7 +2124,6 @@ function renderInvoiceModalBody() {{
   document.getElementById('docVatBtn').textContent = docInclVat ? '💰 Visar: Inkl. moms' : '💰 Visar: Exkl. moms';
   const bodyEl = document.getElementById('docBody');
   const rowsHtml = [];
-  const mobHtml = [];
   doc.lines.forEach(ln => {{
     const isHl = Number(ln.line_id) === Number(curLineId);
     const bQty = ln.qty_billed != null ? ln.qty_billed : 1;
@@ -2054,27 +2147,11 @@ function renderInvoiceModalBody() {{
         `<td class="num notranslate" style="font-weight:700">${{fmtSv(tPrice)}} kr</td>` +
       `</tr>`
     );
-    mobHtml.push(
-      `<div id="dln_mob_${{ln.line_id}}" class="doc-m-card ${{isHl ? 'hl' : ''}}">` +
-        `<div class="doc-m-top">` +
-          `<div style="min-width:0">${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
-          `<div class="notranslate" style="white-space:nowrap">${{fmtSv(tPrice)}} kr</div>` +
-        `</div>` +
-        `<div class="doc-m-note">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div>` +
-        `<div class="doc-m-grid notranslate">` +
-          `<span class="doc-m-pill">Antal: ${{qtyFmt}} ${{esc(bUnit)}}</span>` +
-          `<span class="doc-m-pill blue">Jfr: ${{fmtSv(uPrice)}} kr/${{esc(ln.unit)}}</span>` +
-          `<span class="doc-m-pill">À-pris: ${{fmtSv(bPrice)}} kr</span>` +
-          `<span class="doc-m-pill">Moms: ${{vatPct}}%</span>` +
-        `</div>` +
-      `</div>`
-    );
   }});
   bodyEl.innerHTML =
-    `<div class="doc-desk-wrap"><table class="doc-tbl">` +
+    `<table class="doc-tbl">` +
       `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Pris/kg (${{vLbl}})</th><th class="num">Enhetspris (${{vLbl}})</th><th class="cnt">Moms</th><th class="num">Belopp (${{vLbl}})</th></tr></thead>` +
-      `<tbody>${{rowsHtml.join('')}}</tbody></table></div>` +
-    `<div class="doc-mob-list">${{mobHtml.join('')}}</div>`;
+      `<tbody>${{rowsHtml.join('')}}</tbody></table>`;
   document.getElementById('docFoot').innerHTML =
     `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
     `<span>Moms: <b class="notranslate">${{fmtSv(doc.vat_total)}} kr</b></span>` +
@@ -2179,8 +2256,8 @@ function renderB2B() {{
         `</div>`;
       }}).join('') + `</div>`;
     }} else {{
-      const s = supsList.find(st => st.grossist === p.supName) || supsList[0] || {{}};
-      supHtml = `<div class="sub"><span class="sup-tag notranslate">${{esc(s.grossist || x.latest_supplier)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
+      const s = supsList.find(st => st.grossist === p.supName) || {{}};
+      supHtml = `<div class="sub"><span class="sup-tag notranslate">${{esc(p.supName)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
     }}
 
     const histHtml = (isH && histRows.length)
@@ -2260,8 +2337,13 @@ function googleTranslateElementInit() {{
   }}
 }})();
 
-updateSummaryBar();
-renderB2B();
+let migrationFailed = false;
+try {{ migrateInventory(); }} catch(e) {{ migrationFailed = true; }}
+showInventoryMonth();
+if (migrationFailed) inventoryStatus('Kunde inte föra över den tidigare inventeringen.', true);
+window.addEventListener('storage', e => {{
+  if (e.storageArea === localStorage && (e.key === inventoryPrefix + inventoryMonth || e.key === null)) showInventoryMonth();
+}});
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
