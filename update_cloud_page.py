@@ -646,10 +646,10 @@ function copyShopList() {{
   const fmtS = (v) => Math.abs(v - Math.round(v)) < 0.005 ? `${{Math.round(v)}} kr` : `${{Number(v).toFixed(2).replace('.', ',')}} kr`;
   const lines = ['🛒 Inköpslista:'];
   Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).forEach(st => {{
-    lines.push(`\n${{st}}:`);
+    lines.push('\\n' + st + ':');
     byStore[st].forEach(c => lines.push(`- ${{c.heading}} (${{fmtS(c.price_gross_sek)}})`));
   }});
-  const txt = lines.join('\n');
+  const txt = lines.join('\\n');
   if (navigator.clipboard && navigator.clipboard.writeText) {{
     navigator.clipboard.writeText(txt).then(() => alert('Inköpslistan kopierad!'));
   }} else {{
