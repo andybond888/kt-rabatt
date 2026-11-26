@@ -711,7 +711,7 @@ function buildCardPriceHtml(c, pQty) {{
 function buildPickCtrlHtml(key, pQty) {{
   return pQty > 0
     ? `<div class="qty-ctrl notranslate"><button class="qty-btn" onclick="changePickQty('${{key}}', -1)">−</button><span class="qty-num">${{pQty}}</span><button class="qty-btn" onclick="changePickQty('${{key}}', 1)">+</button></div>`
-    : `<button class="pick-btn" onclick="changePickQty('${{key}}', 1)">Plocka</button>`;
+    : `<button class="pick-btn" onclick="changePickQty('${{key}}', 1)">+ Lägg till</button>`;
 }}
 
 const SB_URL = 'https://gexlvtootcsqyypvxfsy.supabase.co/rest/v1/shared_shopping_list';
@@ -800,7 +800,7 @@ function renderShopList() {{
   btn.textContent = `🛒 Lista (${{totalUnits}})`;
   const body = document.getElementById('shopBody');
   if (!items.length) {{
-    body.innerHTML = '<div class="card">Inköpslistan är tom. Klicka på <b>← Tillbaka</b> och tryck <b>Plocka</b> på de klipp du vill handla.</div>';
+    body.innerHTML = '<div class="card">Inköpslistan är tom. Klicka på <b>← Tillbaka</b> och tryck <b>+ Lägg till</b> på de klipp du vill handla.</div>';
     return;
   }}
   const byStore = {{}};
