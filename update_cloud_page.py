@@ -1275,8 +1275,9 @@ function renderAll() {{
     return true;
   }});
 
+  const forCatCounts = activeStores.size === 0 ? visibleBase : visibleBase.filter(c => activeStores.has(c.store_name));
   const catCounts = {{}};
-  visibleBase.forEach(c => {{
+  forCatCounts.forEach(c => {{
     const cat = c.category || 'Övrigt';
     catCounts[cat] = (catCounts[cat] || 0) + 1;
   }});
@@ -1287,7 +1288,7 @@ function renderAll() {{
   cats.forEach(ct => {{
     const b = document.createElement('button');
     b.className = 'chip cat-chip' + (ct === activeCat ? ' active' : '');
-    b.textContent = ct === 'Alla' ? `Alla (${{visibleBase.length}})` : `${{ct}} (${{catCounts[ct]}})`;
+    b.textContent = ct === 'Alla' ? `Alla (${{forCatCounts.length}})` : `${{ct}} (${{catCounts[ct]}})`;
     b.onclick = () => {{ activeCat = ct; activeProd = 'Alla'; renderAll(); }};
     catBox.appendChild(b);
   }});
