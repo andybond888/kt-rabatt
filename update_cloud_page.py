@@ -1216,7 +1216,7 @@ async function fetchLiveTimes(oLonArg, oLatArg) {{
 }}
 
 function storeLocs(name) {{
-  if (userOrigin === SKANSTULL_ORIGIN) return STORE_LOCATIONS_SKANSTULL[name] || [];
+  if (activeArea === 'skanstull' || userOrigin === SKANSTULL_ORIGIN) return STORE_LOCATIONS_SKANSTULL[name] || [];
   if (userOrigin === DEFAULT_ORIGIN) return STORE_LOCATIONS[name] || [];
   if (liveTimesCache[userOrigin] && liveTimesCache[userOrigin][name]) return liveTimesCache[userOrigin][name];
   return (STORE_LOCATIONS[name] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
