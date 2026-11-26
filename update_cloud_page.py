@@ -675,8 +675,9 @@ function renderShopList() {{
       const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
       const qtyVal = Number(c.norm_qty || 1);
       const sameP = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
+      const totalQtyVal = qtyVal * q;
       const pHtml = q > 1
-        ? `<span class="price-main">${{fmtS(lineSum, true)}}</span><span class="price-qty">${{q}} × ${{fmtS(c.price_gross_sek, true)}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`
+        ? `<span class="price-main">${{fmtS(lineSum, true)}}</span><span class="price-qty">för ${{fmtQ(totalQtyVal)}} ${{c.norm_unit}} (${{q}} × ${{fmtS(c.price_gross_sek, true)}})</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`
         : (sameP
             ? `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}/${{c.norm_unit}}</span>`
             : `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQ(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`);
