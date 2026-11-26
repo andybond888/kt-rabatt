@@ -1037,7 +1037,7 @@ const ROUTE_TIMES = {{
   "Willys Hemma": "23 min",
   "ÖoB": "29 min"
 }};
-let activeArea = 'near';
+let activeArea = 'all';
 const DEFAULT_ORIGIN = 'Arrendatorsvägen 1, 141 62 Huddinge';
 const SKANSTULL_ORIGIN = 'Ringvägen 123, 116 61 Stockholm';
 const PRESET_ORIGINS = new Set([DEFAULT_ORIGIN, SKANSTULL_ORIGIN]);
@@ -1230,10 +1230,10 @@ function renderAll() {{
   renderShopList();
   const areaBox = document.getElementById('areaChips');
   const areaOpts = [
+    ['all', '🗺️ Alla butiker'],
     ['near', '📍 Nära Arrendatorsvägen'],
     ['skanstull', '🏠 I Skanstull'],
-    ['route', '🚗 Skanstull → Jobbet'],
-    ['all', '🗺️ Alla butiker']
+    ['route', '🚗 Skanstull → Jobbet']
   ];
   areaBox.innerHTML = '';
   areaOpts.forEach(([val, lbl]) => {{
