@@ -1563,7 +1563,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
   .search {{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
   .sec-lbl {{ font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.4px; margin-top:2px; }}
-  .chips {{ display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; }}
+  .chips {{ display:flex; flex-wrap:wrap; gap:6px; padding-bottom:4px; }}
   .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:6px 12px; font-size:13px; font-weight:700; white-space:nowrap; cursor:pointer; color:#1e293b; }}
   .chip.active {{ background:#ea580c; color:#fff; border-color:#ea580c; }}
   .chip.cat-chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
@@ -1630,7 +1630,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
     .actions {{ min-width:84px; max-width:34%; }}
     .p-main {{ font-size:13px; }}
     .hist-btn {{ padding:6px; }}
-    .chips {{ flex-wrap:wrap; gap:4px; }}
+    .chips {{ gap:4px; }}
     .chip {{ max-width:100%; padding:4px 7px; font-size:11.5px; white-space:normal; overflow-wrap:anywhere; }}
     .search, .qty-inp, .form-inp, .inv-period input {{ font-size:16px; }}
     .form-inp {{ box-sizing:border-box; max-width:100%; }}
