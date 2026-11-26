@@ -1645,7 +1645,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
         <div class="inv-tot-main" id="invTotMain">📦 Förrådsvärde: 0,00 kr</div>
         <div class="inv-tot-sub" id="invTotSub">0 inventerade varor • Skriv in mängd (kg / L / st) nedan</div>
       </div>
-      <button id="btnVatMode" class="mini-btn" onclick="toggleVatMode()">Visar: Inkl. moms</button>
+      <button id="btnVatMode" class="mini-btn" onclick="toggleVatMode()">Visar: Exkl. moms</button>
     </div>
     <div class="inv-btns">
       <button id="btnOnlyStock" class="mini-btn primary" onclick="toggleOnlyStock()">📦 Visa förrådslista (0)</button>
@@ -1666,7 +1666,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
         <option value="L">L</option>
         <option value="st">st</option>
       </select>
-      <input id="cPrice" class="form-inp" style="max-width:120px" type="number" step="any" placeholder="À-pris inkl. moms">
+      <input id="cPrice" class="form-inp" style="max-width:120px" type="number" step="any" placeholder="À-pris exkl. moms">
       <button class="mini-btn green" onclick="addCustomItem()">Spara</button>
     </div>
   </div>
@@ -1704,7 +1704,7 @@ let activeCat = 'Alla';
 let activeSup = 'Alla';
 let openHist = {{}};
 let onlyStock = false;
-let showInclVat = true;
+let showInclVat = false;
 
 let invQty = {{}};
 let chosenSup = {{}};
@@ -1713,7 +1713,7 @@ try {{ invQty = JSON.parse(localStorage.getItem('kt_b2b_inv_qty') || '{{}}'); }}
 try {{ chosenSup = JSON.parse(localStorage.getItem('kt_b2b_chosen_sup') || '{{}}'); }} catch(e) {{}}
 try {{ customItems = JSON.parse(localStorage.getItem('kt_b2b_custom_items') || '[]'); }} catch(e) {{}}
 try {{
-  const savedVat = localStorage.getItem('kt_b2b_incl_vat');
+  const savedVat = localStorage.getItem('kt_b2b_vat_v2');
   if (savedVat !== null) showInclVat = savedVat === '1';
 }} catch(e) {{}}
 
@@ -1827,7 +1827,7 @@ function selectSupForVara(id, supName) {{
 
 function toggleVatMode() {{
   showInclVat = !showInclVat;
-  try {{ localStorage.setItem('kt_b2b_incl_vat', showInclVat ? '1' : '0'); }} catch(e) {{}}
+  try {{ localStorage.setItem('kt_b2b_vat_v2', showInclVat ? '1' : '0'); }} catch(e) {{}}
   updateSummaryBar();
   renderB2B();
 }}
@@ -1846,13 +1846,13 @@ function addCustomItem() {{
   const name = (document.getElementById('cName').value || '').trim();
   const q = parseFloat(String(document.getElementById('cQty').value || '0').replace(',', '.'));
   const u = document.getElementById('cUnit').value || 'kg';
-  const pGross = parseFloat(String(document.getElementById('cPrice').value || '0').replace(',', '.'));
-  if (!name || isNaN(pGross) || pGross <= 0) {{
+  const pNet = parseFloat(String(document.getElementById('cPrice').value || '0').replace(',', '.'));
+  if (!name || isNaN(pNet) || pNet <= 0) {{
     alert('Ange både varunamn och à-pris!');
     return;
   }}
   const id = 'cust_' + Date.now();
-  const pNet = Math.round((pGross / 1.06) * 100) / 100;
+  const pGross = Math.round((pNet * 1.06) * 100) / 100;
   const today = new Date().toISOString().slice(0, 10);
   const newItem = {{
     id,
