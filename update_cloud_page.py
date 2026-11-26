@@ -1013,7 +1013,7 @@ const ROUTE_STORES = new Set([
   "ICA Kvantum", "Hemköp", "Lidl", "Matdax", "Stora Coop",
   "Willys Hemma", "Coop", "ICA Supermarket", "ICA Nära"
 ]);
-const SKANSTULL_STORES = new Set(["ICA Supermarket", "Hemköp", "ICA Kvantum"]);
+const SKANSTULL_STORES = new Set(["ICA Supermarket", "Hemköp"]);
 const ROUTE_TIMES = {{
   "City Gross": "33 min",
   "Coop": "20 min",
