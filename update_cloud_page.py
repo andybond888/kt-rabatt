@@ -463,7 +463,11 @@ def build_html(payload: Dict[str, Any]) -> str:
   .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; gap:10px; align-items:flex-start; }}
   .card.green {{ border-left:6px solid #16a34a; background:#f0fdf4; }}
   .card.yellow {{ border-left:6px solid #eab308; }}
-  .thumb {{ width:70px; height:70px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; }}
+  .thumb {{ width:70px; height:70px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; cursor:zoom-in; }}
+  .img-modal {{ display:none; position:fixed; inset:0; background:rgba(15,23,42,0.88); z-index:100; align-items:center; justify-content:center; flex-direction:column; padding:20px; cursor:zoom-out; }}
+  .img-modal.open {{ display:flex; }}
+  .img-modal img {{ max-width:92vw; max-height:78vh; object-fit:contain; background:#fff; border-radius:12px; padding:8px; box-shadow:0 12px 32px rgba(0,0,0,0.4); }}
+  .img-modal-cap {{ color:#fff; font-size:15px; font-weight:700; margin-top:12px; text-align:center; max-width:90vw; }}
   .info {{ flex:1; min-width:0; }}
   .store-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
   .loc-tag {{ display:inline-block; background:#fef3c7; color:#92400e; font-size:11px; font-weight:600; padding:2px 7px; border-radius:5px; margin-left:4px; text-decoration:none; }}
@@ -585,6 +589,11 @@ def build_html(payload: Dict[str, Any]) -> str:
   <div id="dealsContainer"></div>
 </div>
 
+<div id="imgModal" class="img-modal" onclick="closeImg()">
+  <img id="imgModalEl" src="" alt="">
+  <div id="imgModalCap" class="img-modal-cap"></div>
+</div>
+
 <script>
 const DATA = {json_blob};
 let activeCat = 'Alla';
@@ -594,6 +603,19 @@ let picked = {{}};
 let hiddenProds = {{}};
 try {{ picked = JSON.parse(localStorage.getItem('kt_cloud_picked') || '{{}}'); }} catch(e) {{}}
 try {{ hiddenProds = JSON.parse(localStorage.getItem('kt_cloud_hidden_prods') || '{{}}'); }} catch(e) {{}}
+
+function openImg(src, title) {{
+  if (!src) return;
+  document.getElementById('imgModalEl').src = src;
+  document.getElementById('imgModalCap').textContent = title || '';
+  document.getElementById('imgModal').classList.add('open');
+}}
+
+function closeImg() {{
+  document.getElementById('imgModal').classList.remove('open');
+}}
+
+document.addEventListener('keydown', (e) => {{ if (e.key === 'Escape') closeImg(); }});
 
 let shopPageOpen = false;
 function toggleShopPanel() {{
@@ -671,7 +693,7 @@ function renderShopList() {{
       const key = 'c_' + c.id;
       const q = getPickQty(key);
       const lineSum = q * Number(c.price_gross_sek || 0);
-      const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="">` : '';
+      const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="${{(c.heading || '').replace(/"/g, '&quot;')}}" onclick="openImg(this.src, this.alt)">` : '';
       const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
       const qtyVal = Number(c.norm_qty || 1);
       const sameP = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
@@ -1158,7 +1180,7 @@ function renderAll() {{
     const pQty = getPickQty(key);
     const isP = pQty > 0;
     const cls = c.verdict_code === 'GREEN' ? 'green' : (c.verdict_code === 'YELLOW' ? 'yellow' : '');
-    const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="">` : '';
+    const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="${{(c.heading || '').replace(/"/g, '&quot;')}}" onclick="openImg(this.src, this.alt)">` : '';
     const savePct = (c.diff_pct != null && c.diff_pct < 0) ? ` (${{Math.round(c.diff_pct)}}%)` : '';
     const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
     const ourGross = c.our_best_price_gross != null ? c.our_best_price_gross : (c.our_best_price != null ? c.our_best_price * (1 + (c.vat_rate || 6) / 100) : null);
