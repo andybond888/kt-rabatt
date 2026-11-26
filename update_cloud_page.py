@@ -1590,9 +1590,22 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .hist-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:8px; padding:6px 9px; font-weight:600; font-size:12px; cursor:pointer; width:100%; }}
   .hist-btn.open {{ background:#0f172a; color:#fff; border-color:#0f172a; }}
   .hist-box {{ margin-top:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:12px; color:#334155; }}
-  .hist-row {{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; padding:4px 0; border-bottom:1px dashed #e2e8f0; }}
+  .hist-row {{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; padding:6px 6px; border-bottom:1px dashed #e2e8f0; border-radius:6px; cursor:pointer; transition:background 0.12s; }}
+  .hist-row:hover {{ background:#e0f2fe; }}
   .hist-row:last-child {{ border-bottom:none; }}
   .hist-art {{ font-size:11px; color:#64748b; }}
+  .inv-link-pill {{ display:inline-block; font-size:10.5px; font-weight:700; color:#0284c7; background:#e0f2fe; padding:1px 6px; border-radius:4px; margin-left:4px; }}
+  .doc-overlay {{ position:fixed; inset:0; background:rgba(15,23,42,0.65); z-index:100; display:none; align-items:center; justify-content:center; padding:12px; }}
+  .doc-overlay.open {{ display:flex; }}
+  .doc-dialog {{ background:#fff; border-radius:14px; max-width:680px; width:100%; max-height:88vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,0.28); }}
+  .doc-head {{ background:#0f172a; color:#fff; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }}
+  .doc-head h3 {{ margin:0; font-size:16px; }}
+  .doc-head p {{ margin:3px 0 0; font-size:12px; color:#cbd5e1; }}
+  .doc-close {{ border:none; background:#334155; color:#fff; border-radius:8px; padding:6px 11px; font-size:13px; font-weight:800; cursor:pointer; }}
+  .doc-body {{ padding:12px 15px; overflow-y:auto; flex:1; }}
+  .doc-line {{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:7px 8px; border-bottom:1px solid #f1f5f9; border-radius:6px; font-size:12.5px; }}
+  .doc-line.hl {{ background:#fef9c3; border:1.5px solid #facc15; font-weight:700; }}
+  .doc-foot {{ background:#f8fafc; border-top:1px solid #cbd5e1; padding:10px 15px; font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }}
   .modal-box {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; margin-bottom:12px; display:none; }}
   .modal-box.open {{ display:block; }}
   .form-row {{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }}
@@ -1660,6 +1673,20 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   </div>
 
   <div id="listBox"></div>
+</div>
+
+<div id="docOverlay" class="doc-overlay" onclick="if(event.target===this)closeInvoiceModal()">
+  <div class="doc-dialog">
+    <div class="doc-head">
+      <div>
+        <h3 id="docTitle">Faktura</h3>
+        <p id="docSub"></p>
+      </div>
+      <button class="doc-close" onclick="closeInvoiceModal()">✕ Stäng</button>
+    </div>
+    <div id="docBody" class="doc-body"></div>
+    <div id="docFoot" class="doc-foot"></div>
+  </div>
 </div>
 <script>
 const B2B = {json_blob};
@@ -1930,6 +1957,45 @@ function toggleHist(id) {{
   renderB2B();
 }}
 
+function openInvoiceModal(docId, lineId) {{
+  const invMap = B2B.invoices || {{}};
+  const doc = invMap[String(docId)];
+  if (!doc) {{
+    alert('Fakturaspecifikation saknas för denna rad.');
+    return;
+  }}
+  document.getElementById('docTitle').textContent = `📄 ${{doc.doc_type}} – ${{doc.supplier}}`;
+  document.getElementById('docSub').textContent = `Datum: ${{doc.date}} • ${{doc.lines.length}} varurader`;
+  const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
+  const bodyEl = document.getElementById('docBody');
+  bodyEl.innerHTML = doc.lines.map(ln => {{
+    const isHl = Number(ln.line_id) === Number(lineId);
+    const uP = showInclVat ? ln.unit_gross : ln.unit_net;
+    const tP = showInclVat ? ln.total_gross : ln.total_net;
+    return `<div id="dln_${{ln.line_id}}" class="doc-line ${{isHl ? 'hl' : ''}}">` +
+      `<div style="min-width:0">` +
+        `<div>${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
+        `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}} • ${{fmtSv(uP)}} kr/${{esc(ln.unit)}} (${{vatLbl}})${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div>` +
+      `</div>` +
+      `<div class="notranslate" style="white-space:nowrap;font-weight:700">${{fmtSv(tP)}} kr</div>` +
+    `</div>`;
+  }}).join('');
+  document.getElementById('docFoot').innerHTML =
+    `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
+    `<span>Moms: <b class="notranslate">${{fmtSv(doc.vat_total)}} kr</b></span>` +
+    `<span>Totalt (inkl. moms): <b class="notranslate">${{fmtSv(doc.gross_total)}} kr</b></span>`;
+  document.getElementById('docOverlay').classList.add('open');
+  setTimeout(() => {{
+    const hlEl = document.getElementById('dln_' + lineId);
+    if (hlEl) hlEl.scrollIntoView({{ block: 'center', behavior: 'smooth' }});
+  }}, 60);
+}}
+
+function closeInvoiceModal() {{
+  document.getElementById('docOverlay').classList.remove('open');
+}}
+document.addEventListener('keydown', e => {{ if (e.key === 'Escape') closeInvoiceModal(); }});
+
 function matchesQuery(x, q) {{
   if (!q) return true;
   if ((x.vara || '').toLowerCase().includes(q)) return true;
@@ -2028,11 +2094,13 @@ function renderB2B() {{
     }}
 
     const histHtml = (isH && histRows.length)
-      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Prishistorik (${{esc(x.vara)}}, ${{vatLbl}}):</div>` +
+      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Prishistorik – klicka på en rad för att öppna fakturan (${{vatLbl}}):</div>` +
         histRows.map(h => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
-          return `<div class="hist-row">` +
-            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b></div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
+          const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
+          const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
+          return `<div class="hist-row" ${{clickAttr}}>` +
+            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
             `<b class="notranslate" style="white-space:nowrap">${{fmtSv(hp)}} kr/${{esc(h.unit)}}</b>` +
           `</div>`;
         }}).join('') +
