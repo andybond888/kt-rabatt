@@ -2192,6 +2192,12 @@ function matchesQuery(x, q) {{
   return false;
 }}
 
+function purchaseCount(item, supplier) {{
+  if (supplier === 'Alla') return item.kop ?? (item.history || []).length;
+  const supplierInfo = (item.suppliers || []).find(s => s.grossist === supplier);
+  return supplierInfo?.kop ?? (item.history || []).filter(h => h.supplier === supplier).length;
+}}
+
 function renderB2B() {{
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
   const base = allItems().filter(x => {{
@@ -2236,9 +2242,14 @@ function renderB2B() {{
     chipBox.appendChild(b);
   }});
 
-  const rows = activeSup === 'Alla'
-    ? afterCat
-    : afterCat.filter(x => (x.suppliers || []).some(s => s.grossist === activeSup));
+  const rows = afterCat.filter(x =>
+    activeSup === 'Alla' || (x.suppliers || []).some(s => s.grossist === activeSup)
+  );
+  rows.sort((a, b) =>
+    purchaseCount(b, activeSup) - purchaseCount(a, activeSup)
+    || a.vara.localeCompare(b.vara, 'sv')
+    || a.unit.localeCompare(b.unit, 'sv')
+  );
 
   const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
   document.getElementById('metaLbl').textContent =
@@ -2264,6 +2275,11 @@ function renderB2B() {{
     const histRows = activeSup === 'Alla'
       ? (x.history || [])
       : (x.history || []).filter(h => h.supplier === activeSup);
+
+    const totalPurchases = purchaseCount(x, activeSup);
+    const histCount = totalPurchases > histRows.length
+      ? `${{histRows.length}} av ${{totalPurchases}}`
+      : String(histRows.length);
 
     let supHtml = '';
     if (isMulti && activeSup === 'Alla') {{
@@ -2320,7 +2336,7 @@ function renderB2B() {{
           <div class="p-main notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}}</div>
           <div class="p-avg notranslate">Snitt: ${{fmtSv(avgPrice)}} kr/${{esc(x.unit)}}</div>
         </div>
-        <button class="hist-btn ${{isH ? 'open' : ''}}" onclick="toggleHist('${{x.id}}')">📈 Historik (${{histRows.length}})</button>
+        <button class="hist-btn ${{isH ? 'open' : ''}}" onclick="toggleHist('${{x.id}}')">📈 Historik (${{histCount}})</button>
       </div>
     </div>`;
   }}).join('');
