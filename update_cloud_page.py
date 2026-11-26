@@ -499,6 +499,9 @@ def build_html(payload: Dict[str, Any]) -> str:
   .shop-row {{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding:4px 0; font-size:13px; }}
   .shop-rm {{ border:none; background:none; color:#94a3b8; font-weight:700; cursor:pointer; font-size:14px; padding:2px 6px; }}
   .shop-rm:hover {{ color:#dc2626; }}
+  .qty-ctrl {{ display:flex; align-items:center; justify-content:space-between; border:2px solid #16a34a; border-radius:10px; background:#f0fdf4; overflow:hidden; width:100%; }}
+  .qty-btn {{ border:none; background:#16a34a; color:#fff; font-weight:800; font-size:16px; width:28px; height:34px; cursor:pointer; padding:0; }}
+  .qty-num {{ font-weight:800; font-size:14px; color:#14532d; min-width:24px; text-align:center; }}
 </style>
 </head>
 <body>
@@ -609,14 +612,31 @@ function toggleShopPanel() {{
   renderShopList();
 }}
 
+function getPickQty(key) {{
+  const v = picked[key];
+  if (v === true) return 1;
+  const n = Number(v || 0);
+  return n > 0 ? Math.floor(n) : 0;
+}}
+
+function changePickQty(key, delta) {{
+  const next = getPickQty(key) + delta;
+  if (next <= 0) delete picked[key];
+  else picked[key] = next;
+  try {{ localStorage.setItem('kt_cloud_picked', JSON.stringify(picked)); }} catch(e) {{}}
+  renderAll();
+}}
+
 function getPickedItems() {{
-  return (DATA.campaigns || []).filter(c => !!picked['c_' + c.id]);
+  return (DATA.campaigns || []).filter(c => getPickQty('c_' + c.id) > 0);
 }}
 
 function renderShopList() {{
   const items = getPickedItems();
+  const totalUnits = items.reduce((acc, c) => acc + getPickQty('c_' + c.id), 0);
+  const grandTotal = items.reduce((acc, c) => acc + getPickQty('c_' + c.id) * Number(c.price_gross_sek || 0), 0);
   const btn = document.getElementById('btnShop');
-  btn.textContent = `🛒 Lista (${{items.length}})`;
+  btn.textContent = `🛒 Lista (${{totalUnits}})`;
   const body = document.getElementById('shopBody');
   if (!items.length) {{
     body.innerHTML = '<div class="card">Inköpslistan är tom. Klicka på <b>← Tillbaka</b> och tryck <b>Plocka</b> på de klipp du vill handla.</div>';
@@ -633,7 +653,11 @@ function renderShopList() {{
     return `${{n.toFixed(2).replace('.', ',')}} kr`;
   }};
   const fmtQ = (q) => String(Number((q || 1).toFixed(2))).replace('.', ',');
-  body.innerHTML = Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).map(st => {{
+  const totalBanner = `<div class="card" style="background:#0f172a;color:#fff;border-color:#0f172a;justify-content:space-between;align-items:center">
+    <span style="font-size:14px;font-weight:600">Totalt (${{totalUnits}} st)</span>
+    <span style="font-size:20px;font-weight:800;color:#4ade80">${{fmtS(grandTotal, true)}}</span>
+  </div>`;
+  body.innerHTML = totalBanner + Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).map(st => {{
     const locs = storeLocs(st);
     const homeAddr = userOrigin || DEFAULT_ORIGIN;
     const locPills = locs.map(l => {{
@@ -642,14 +666,20 @@ function renderShopList() {{
       const uDir = `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(qDest)}}`;
       return `<a class="loc-tag" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
     }}).join('');
+    const storeSum = byStore[st].reduce((acc, c) => acc + getPickQty('c_' + c.id) * Number(c.price_gross_sek || 0), 0);
     const cardsHtml = byStore[st].map(c => {{
+      const key = 'c_' + c.id;
+      const q = getPickQty(key);
+      const lineSum = q * Number(c.price_gross_sek || 0);
       const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="">` : '';
       const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
       const qtyVal = Number(c.norm_qty || 1);
       const sameP = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
-      const pHtml = sameP
-        ? `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}/${{c.norm_unit}}</span>`
-        : `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQ(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`;
+      const pHtml = q > 1
+        ? `<span class="price-main">${{fmtS(lineSum, true)}}</span><span class="price-qty">${{q}} × ${{fmtS(c.price_gross_sek, true)}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`
+        : (sameP
+            ? `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}/${{c.norm_unit}}</span>`
+            : `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQ(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`);
       const lim = c.max_limit_note ? ` • ⚠️ ${{c.max_limit_note}}` : '';
       return `<div class="card green">
         ${{imgHtml}}
@@ -659,11 +689,15 @@ function renderShopList() {{
           <div class="price-line">${{pHtml}}</div>
         </div>
         <div class="actions">
-          <button class="pick-btn picked" onclick="togglePick('c_${{c.id}}')">✕ Ta bort</button>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changePickQty('${{key}}', -1)">−</button>
+            <span class="qty-num">${{q}}</span>
+            <button class="qty-btn" onclick="changePickQty('${{key}}', 1)">+</button>
+          </div>
         </div>
       </div>`;
     }}).join('');
-    return `<div class="shop-store" style="margin-top:12px;font-size:15px">🏪 ${{st}} (${{byStore[st].length}}) ${{locPills}}</div>${{cardsHtml}}`;
+    return `<div class="shop-store" style="margin-top:12px;font-size:15px">🏪 ${{st}} • ${{fmtS(storeSum, true)}} ${{locPills}}</div>${{cardsHtml}}`;
   }}).join('');
 }}
 
@@ -690,10 +724,16 @@ function copyShopList() {{
     byStore[c.store_name].push(c);
   }});
   const fmtS = (v) => Math.abs(v - Math.round(v)) < 0.005 ? `${{Math.round(v)}} kr` : `${{Number(v).toFixed(2).replace('.', ',')}} kr`;
-  const lines = ['🛒 Inköpslista:'];
+  const grandTotal = items.reduce((acc, c) => acc + getPickQty('c_' + c.id) * Number(c.price_gross_sek || 0), 0);
+  const lines = [`🛒 Inköpslista (Totalt: ${{fmtS(grandTotal)}}):`];
   Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).forEach(st => {{
-    lines.push('\\n' + st + ':');
-    byStore[st].forEach(c => lines.push(`- ${{c.heading}} (${{fmtS(c.price_gross_sek)}})`));
+    const sSum = byStore[st].reduce((acc, c) => acc + getPickQty('c_' + c.id) * Number(c.price_gross_sek || 0), 0);
+    lines.push('\\n' + st + ` (${{fmtS(sSum)}}):`);
+    byStore[st].forEach(c => {{
+      const q = getPickQty('c_' + c.id);
+      const lSum = q * Number(c.price_gross_sek || 0);
+      lines.push(`- ${{q}}x ${{c.heading}} (${{fmtS(lSum)}})`);
+    }});
   }});
   const txt = lines.join('\\n');
   if (navigator.clipboard && navigator.clipboard.writeText) {{
@@ -1114,7 +1154,8 @@ function renderAll() {{
 
   cont.innerHTML = rows.map(c => {{
     const key = 'c_' + c.id;
-    const isP = !!picked[key];
+    const pQty = getPickQty(key);
+    const isP = pQty > 0;
     const cls = c.verdict_code === 'GREEN' ? 'green' : (c.verdict_code === 'YELLOW' ? 'yellow' : '');
     const imgHtml = c.image_url ? `<img class="thumb" src="${{c.image_url}}" loading="lazy" alt="">` : '';
     const savePct = (c.diff_pct != null && c.diff_pct < 0) ? ` (${{Math.round(c.diff_pct)}}%)` : '';
@@ -1174,7 +1215,9 @@ function renderAll() {{
         ${{histHtml}}
       </div>
       <div class="actions">
-        <button class="pick-btn ${{isP ? 'picked' : ''}}" onclick="togglePick('${{key}}')">${{isP ? '✓ I listan' : 'Plocka'}}</button>
+        ${{pQty > 0
+          ? `<div class="qty-ctrl"><button class="qty-btn" onclick="changePickQty('${{key}}', -1)">−</button><span class="qty-num">${{pQty}}</span><button class="qty-btn" onclick="changePickQty('${{key}}', 1)">+</button></div>`
+          : `<button class="pick-btn" onclick="changePickQty('${{key}}', 1)">Plocka</button>`}}
         ${{histBtnHtml}}
       </div>
     </div>`;
