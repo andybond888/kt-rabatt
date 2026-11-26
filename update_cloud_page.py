@@ -1597,7 +1597,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .inv-link-pill {{ display:inline-block; font-size:10.5px; font-weight:700; color:#0284c7; background:#e0f2fe; padding:1px 6px; border-radius:4px; margin-left:4px; }}
   .doc-overlay {{ position:fixed; inset:0; background:rgba(15,23,42,0.65); z-index:100; display:none; align-items:center; justify-content:center; padding:12px; }}
   .doc-overlay.open {{ display:flex; }}
-  .doc-dialog {{ background:#fff; border-radius:14px; max-width:680px; width:100%; max-height:88vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,0.28); }}
+  .doc-dialog {{ background:#fff; border-radius:14px; max-width:800px; width:100%; max-height:88vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 12px 32px rgba(0,0,0,0.28); }}
   .doc-head {{ background:#0f172a; color:#fff; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }}
   .doc-head h3 {{ margin:0; font-size:16px; }}
   .doc-head p {{ margin:3px 0 0; font-size:12px; color:#cbd5e1; }}
@@ -1605,9 +1605,13 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .doc-pdf-btn {{ display:inline-block; text-decoration:none; background:#16a34a; color:#fff; border-radius:8px; padding:6px 11px; font-size:12.5px; font-weight:800; white-space:nowrap; }}
   .doc-pdf-btn:hover {{ background:#15803d; }}
   .doc-close {{ border:none; background:#334155; color:#fff; border-radius:8px; padding:6px 11px; font-size:13px; font-weight:800; cursor:pointer; }}
-  .doc-body {{ padding:12px 15px; overflow-y:auto; flex:1; }}
-  .doc-line {{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:7px 8px; border-bottom:1px solid #f1f5f9; border-radius:6px; font-size:12.5px; }}
-  .doc-line.hl {{ background:#fef9c3; border:1.5px solid #facc15; font-weight:700; }}
+  .doc-body {{ padding:0; overflow-y:auto; overflow-x:auto; flex:1; }}
+  .doc-tbl {{ width:100%; border-collapse:collapse; font-size:12.5px; }}
+  .doc-tbl th {{ position:sticky; top:0; background:#f1f5f9; color:#334155; font-size:11px; text-transform:uppercase; letter-spacing:0.3px; padding:8px 10px; border-bottom:1.5px solid #cbd5e1; text-align:left; white-space:nowrap; z-index:2; }}
+  .doc-tbl th.num, .doc-tbl td.num {{ text-align:right; white-space:nowrap; }}
+  .doc-tbl th.cnt, .doc-tbl td.cnt {{ text-align:center; white-space:nowrap; }}
+  .doc-tbl td {{ padding:7px 10px; border-bottom:1px solid #f1f5f9; vertical-align:top; }}
+  .doc-tbl tr.hl td {{ background:#fef9c3; font-weight:700; border-top:1.5px solid #facc15; border-bottom:1.5px solid #facc15; }}
   .doc-foot {{ background:#f8fafc; border-top:1px solid #cbd5e1; padding:10px 15px; font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }}
   .modal-box {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; margin-bottom:12px; display:none; }}
   .modal-box.open {{ display:block; }}
@@ -1982,18 +1986,28 @@ function openInvoiceModal(docId, lineId) {{
   }}
   const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
   const bodyEl = document.getElementById('docBody');
-  bodyEl.innerHTML = doc.lines.map(ln => {{
+  const rowsHtml = doc.lines.map(ln => {{
     const isHl = Number(ln.line_id) === Number(lineId);
+    const bQty = ln.qty_billed != null ? ln.qty_billed : 1;
+    const bUnit = ln.unit_billed || ln.unit || 'st';
+    const bPrice = showInclVat ? (ln.billed_gross != null ? ln.billed_gross : ln.unit_gross) : (ln.billed_net != null ? ln.billed_net : ln.unit_net);
     const uP = showInclVat ? ln.unit_gross : ln.unit_net;
     const tP = showInclVat ? ln.total_gross : ln.total_net;
-    return `<div id="dln_${{ln.line_id}}" class="doc-line ${{isHl ? 'hl' : ''}}">` +
-      `<div style="min-width:0">` +
-        `<div>${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
-        `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}} • ${{fmtSv(uP)}} kr/${{esc(ln.unit)}} (${{vatLbl}})${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div>` +
-      `</div>` +
-      `<div class="notranslate" style="white-space:nowrap;font-weight:700">${{fmtSv(tP)}} kr</div>` +
-    `</div>`;
+    const showSubUnit = Math.abs(bPrice - uP) > 0.05 || bUnit.toLowerCase() !== String(ln.unit || '').toLowerCase();
+    const subUnitHtml = showSubUnit ? `<div style="font-size:10.5px;color:#0284c7;font-weight:600">(${{fmtSv(uP)}} kr/${{esc(ln.unit)}})</div>` : '';
+    const qtyFmt = Number(bQty).toLocaleString('sv-SE', {{ maximumFractionDigits: 3 }});
+    return `<tr id="dln_${{ln.line_id}}" class="${{isHl ? 'hl' : ''}}">` +
+      `<td><div>${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
+        `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div></td>` +
+      `<td class="num notranslate">${{qtyFmt}}</td>` +
+      `<td class="cnt notranslate">${{esc(bUnit)}}</td>` +
+      `<td class="num notranslate">${{fmtSv(bPrice)}} kr${{subUnitHtml}}</td>` +
+      `<td class="num notranslate" style="font-weight:700">${{fmtSv(tP)}} kr</td>` +
+    `</tr>`;
   }}).join('');
+  bodyEl.innerHTML = `<table class="doc-tbl">` +
+    `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Enhetspris (${{vatLbl}})</th><th class="num">Summa (${{vatLbl}})</th></tr></thead>` +
+    `<tbody>${{rowsHtml}}</tbody></table>`;
   document.getElementById('docFoot').innerHTML =
     `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
     `<span>Moms: <b class="notranslate">${{fmtSv(doc.vat_total)}} kr</b></span>` +
