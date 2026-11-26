@@ -519,7 +519,7 @@ def build_html(payload: Dict[str, Any]) -> str:
     <div class="row-flex">
       <input id="qInput" class="search-input" type="search" placeholder="Sök vara eller butik..." oninput="renderAll()">
       <button id="btnShop" class="shop-btn" onclick="toggleShopPanel()">🛒 Lista (0)</button>
-      <button id="btnFilter" class="cfg-btn" onclick="toggleFilterPanel()">🎛️ Filter</button>
+      <button id="btnFilter" class="cfg-btn active" onclick="toggleFilterPanel()">🎛️ Filter</button>
     </div>
 
     <div class="chips" id="areaChips" style="padding-bottom:2px"></div>
@@ -539,7 +539,7 @@ def build_html(payload: Dict[str, Any]) -> str:
       <div id="shopBody"></div>
     </div>
 
-    <div id="filterPanel" class="varu-panel" style="flex-direction:column;gap:8px">
+    <div id="filterPanel" class="varu-panel" style="display:flex;flex-direction:column;gap:8px">
       <div class="row-flex">
         <select id="originSelect" class="prod-select" style="flex:1" onchange="onOriginSelect()">
           <option value="Arrendatorsvägen 1, 141 62 Huddinge">📍 Start: Arrendatorsvägen 1, 141 62 Huddinge</option>
@@ -575,7 +575,7 @@ def build_html(payload: Dict[str, Any]) -> str:
       </div>
 
       <label class="toggle-lbl">
-        <input id="onlyGreen" type="checkbox" checked onchange="renderAll()">
+        <input id="onlyGreen" type="checkbox" onchange="renderAll()">
         Visa bara klipp som slår våra priser
       </label>
 
