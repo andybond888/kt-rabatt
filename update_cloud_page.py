@@ -684,6 +684,64 @@ function buildPickCtrlHtml(key, pQty) {{
     : `<button class="pick-btn" onclick="changePickQty('${{key}}', 1)">Plocka</button>`;
 }}
 
+const SB_URL = 'https://gexlvtootcsqyypvxfsy.supabase.co/rest/v1/shared_shopping_list';
+const SB_KEY = 'sb_publishable_MmjmtFAK1jIeVtayakbNFg_nxM4W1T3';
+const SB_LIST_ID = 're1e475f9';
+let sbSaving = false;
+let lastSyncedJson = '';
+
+async function syncFromCloud(initial) {{
+  if (sbSaving) return;
+  try {{
+    const resp = await fetch(`${{SB_URL}}?list_id=eq.${{SB_LIST_ID}}&select=items`, {{
+      headers: {{ 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }}
+    }});
+    if (!resp.ok) return;
+    const rows = await resp.json();
+    if (!rows || !rows[0] || typeof rows[0].items !== 'object') return;
+    const remoteItems = rows[0].items || {{}};
+    const remoteJson = JSON.stringify(remoteItems);
+    if (remoteJson !== lastSyncedJson) {{
+      lastSyncedJson = remoteJson;
+      picked = remoteItems;
+      try {{ localStorage.setItem('kt_cloud_picked', remoteJson); }} catch(e) {{}}
+      if (initial) {{
+        renderAll();
+      }} else {{
+        // Patch visible cards in-place without forcing Google Translate re-render
+        (DATA.campaigns || []).forEach(c => {{
+          const key = 'c_' + c.id;
+          const q = getPickQty(key);
+          const actEl = document.getElementById('pick_' + key);
+          if (actEl) actEl.innerHTML = buildPickCtrlHtml(key, q);
+          const prcEl = document.getElementById('prc_' + key);
+          if (prcEl) prcEl.innerHTML = buildCardPriceHtml(c, q);
+        }});
+        renderShopList();
+      }}
+    }}
+  }} catch(e) {{}}
+}}
+
+async function pushPickedToCloud() {{
+  sbSaving = true;
+  const payload = JSON.stringify(picked);
+  lastSyncedJson = payload;
+  try {{
+    await fetch(`${{SB_URL}}?list_id=eq.${{SB_LIST_ID}}`, {{
+      method: 'PATCH',
+      headers: {{
+        'apikey': SB_KEY,
+        'Authorization': 'Bearer ' + SB_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      }},
+      body: JSON.stringify({{ items: picked, updated_at: new Date().toISOString() }})
+    }});
+  }} catch(e) {{}}
+  sbSaving = false;
+}}
+
 function changePickQty(key, delta) {{
   const next = getPickQty(key) + delta;
   if (next <= 0) delete picked[key];
@@ -697,6 +755,7 @@ function changePickQty(key, delta) {{
     if (item) prcEl.innerHTML = buildCardPriceHtml(item, next > 0 ? next : 0);
   }}
   renderShopList();
+  pushPickedToCloud();
 }}
 
 function getPickedItems() {{
@@ -821,6 +880,7 @@ function clearShopList() {{
   picked = {{}};
   try {{ localStorage.setItem('kt_cloud_picked', JSON.stringify(picked)); }} catch(e) {{}}
   renderAll();
+  pushPickedToCloud();
 }}
 
 function toggleFilterPanel() {{
@@ -1324,6 +1384,8 @@ function googleTranslateElementInit() {{
 
 buildVaruCheckboxes();
 renderAll();
+syncFromCloud(true);
+setInterval(() => {{ if (!document.hidden) syncFromCloud(false); }}, 5000);
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
