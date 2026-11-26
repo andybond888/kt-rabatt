@@ -439,9 +439,14 @@ def build_html(payload: Dict[str, Any]) -> str:
 <style>
   *, *::before, *::after {{ box-sizing:border-box; }}
   html, body {{ margin:0; max-width:100%; overflow-x:hidden; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:44px; }}
-  .top {{ background:#0f172a; color:#fff; padding:14px 16px; position:sticky; top:0; z-index:20; }}
+  .top {{ background:#0f172a; color:#fff; padding:12px 16px; position:sticky; top:0; z-index:20; display:flex; justify-content:space-between; align-items:center; gap:8px; }}
   .top h1 {{ margin:0; font-size:18px; }}
   .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
+  .lang-bar {{ display:flex; gap:4px; flex-shrink:0; }}
+  .lang-btn {{ border:1px solid #334155; background:#1e293b; color:#e2e8f0; border-radius:8px; padding:5px 8px; font-size:12px; font-weight:700; cursor:pointer; }}
+  .lang-btn.active {{ background:#0284c7; border-color:#38bdf8; color:#fff; }}
+  .goog-te-banner-frame, .skiptranslate > iframe {{ display:none !important; }}
+  body {{ top:0 !important; }}
   .wrap {{ padding:12px; max-width:660px; margin:0 auto; width:100%; }}
   .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
   .row-flex {{ display:flex; gap:6px; align-items:center; width:100%; min-width:0; }}
@@ -510,9 +515,17 @@ def build_html(payload: Dict[str, Any]) -> str:
 </head>
 <body>
 <div class="top">
-  <h1>🔥 Veckans Rabattlista</h1>
-  <p id="metaLbl">Uppdaterad: —</p>
+  <div>
+    <h1>🔥 Veckans Rabattlista</h1>
+    <p id="metaLbl">Uppdaterad: —</p>
+  </div>
+  <div class="lang-bar notranslate">
+    <button class="lang-btn" id="langSv" onclick="setLang('sv')">🇸🇪 SV</button>
+    <button class="lang-btn" id="langZh" onclick="setLang('zh-CN')">🇨🇳 中文</button>
+    <button class="lang-btn" id="langHr" onclick="setLang('hr')">🇭🇷 HR</button>
+  </div>
 </div>
+<div id="google_translate_element" style="display:none"></div>
 
 <div class="wrap">
   <div class="filters">
@@ -1250,9 +1263,41 @@ function renderAll() {{
   }}).join('');
 }}
 
+function setLang(lang) {{
+  if (lang === 'sv') {{
+    document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'googtrans=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }} else {{
+    document.cookie = 'googtrans=/sv/' + lang + '; path=/';
+    document.cookie = 'googtrans=/sv/' + lang + '; path=/; domain=' + location.hostname;
+  }}
+  try {{ localStorage.setItem('kt_cloud_lang', lang); }} catch(e) {{}}
+  location.reload();
+}}
+
+function googleTranslateElementInit() {{
+  new google.translate.TranslateElement({{
+    pageLanguage: 'sv',
+    includedLanguages: 'zh-CN,hr',
+    autoDisplay: false
+  }}, 'google_translate_element');
+}}
+
+(function() {{
+  let curLang = 'sv';
+  try {{ curLang = localStorage.getItem('kt_cloud_lang') || 'sv'; }} catch(e) {{}}
+  const map = {{ 'sv': 'langSv', 'zh-CN': 'langZh', 'hr': 'langHr' }};
+  const el = document.getElementById(map[curLang] || 'langSv');
+  if (el) el.classList.add('active');
+  if (curLang !== 'sv') {{
+    document.cookie = 'googtrans=/sv/' + curLang + '; path=/';
+  }}
+}})();
+
 buildVaruCheckboxes();
 renderAll();
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>"""
 
