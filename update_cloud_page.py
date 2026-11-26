@@ -677,7 +677,7 @@ function renderShopList() {{
       const sameP = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
       const totalQtyVal = qtyVal * q;
       const pHtml = q > 1
-        ? `<span class="price-main">${{fmtS(lineSum, true)}}</span><span class="price-qty">för ${{fmtQ(totalQtyVal)}} ${{c.norm_unit}} (${{q}} × ${{fmtS(c.price_gross_sek, true)}})</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`
+        ? `<span class="price-main">${{fmtS(lineSum, true)}}</span><span class="price-qty">för ${{fmtQ(totalQtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`
         : (sameP
             ? `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}/${{c.norm_unit}}</span>`
             : `<span class="price-main">${{fmtS(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQ(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtS(unitGross, false)}}/${{c.norm_unit}}</span>`);
@@ -1172,10 +1172,13 @@ function renderAll() {{
     }};
     const fmtQty = (q) => String(Number((q || 1).toFixed(2))).replace('.', ',');
     const qtyVal = Number(c.norm_qty || 1);
-    const samePrice = Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
+    const mult = pQty > 1 ? pQty : 1;
+    const dispPrice = c.price_gross_sek * mult;
+    const dispQty = qtyVal * mult;
+    const samePrice = mult === 1 && Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
     const priceBlockHtml = samePrice
-      ? `<span class="price-main">${{fmtKr(c.price_gross_sek, true)}}/${{c.norm_unit}}</span><span class="price-qty">inkl. moms</span>`
-      : `<span class="price-main">${{fmtKr(c.price_gross_sek, true)}}</span><span class="price-qty">för ${{fmtQty(qtyVal)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtKr(unitGross, false)}}/${{c.norm_unit}}</span>`;
+      ? `<span class="price-main">${{fmtKr(dispPrice, true)}}/${{c.norm_unit}}</span><span class="price-qty">inkl. moms</span>`
+      : `<span class="price-main">${{fmtKr(dispPrice, true)}}</span><span class="price-qty">för ${{fmtQty(dispQty)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtKr(unitGross, false)}}/${{c.norm_unit}}</span>`;
     const ourTxt = ourGross != null
       ? `${{refLbl}}: ${{fmtKr(ourGross, false)}}/${{c.norm_unit}} inkl. moms`
       : '';
