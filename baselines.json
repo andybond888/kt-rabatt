@@ -1186,10 +1186,16 @@
       "category": "Ris & Nudlar",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 14.45,
-      "record_price": 14.45,
+      "our_best_price": 13.95,
+      "record_price": 13.95,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 13.95,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-07",
           "supplier": "Madam Hong Import Export",
@@ -1351,10 +1357,46 @@
       "category": "Fisk & Skaldjur",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 115.0,
-      "record_price": 84.86,
+      "our_best_price": 111.0,
+      "record_price": 70.0,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-11-11",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 111.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-11-09",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 112.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-11-02",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 70.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-11-02",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 110.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-26",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 149.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-26",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 113.0,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-19",
           "supplier": "Magnussons Fisk AB",
@@ -1366,42 +1408,6 @@
           "supplier": "Magnussons Fisk AB",
           "price_net": 115.0,
           "unit": "kg"
-        },
-        {
-          "date": "2026-10-12",
-          "supplier": "Magnussons Fisk AB",
-          "price_net": 111.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-08",
-          "supplier": "Matdax Högdalen",
-          "price_net": 84.86,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-08",
-          "supplier": "Matdax Högdalen",
-          "price_net": 84.86,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-08",
-          "supplier": "Matdax Högdalen",
-          "price_net": 84.86,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-08",
-          "supplier": "Matdax Högdalen",
-          "price_net": 84.86,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-05",
-          "supplier": "Magnussons Fisk AB",
-          "price_net": 112.0,
-          "unit": "kg"
         }
       ]
     },
@@ -1410,10 +1416,16 @@
       "category": "Fisk & Skaldjur",
       "unit": "kg",
       "yield_pct": 80.0,
-      "our_best_price": 130.0,
-      "record_price": 111.12,
+      "our_best_price": 98.75,
+      "record_price": 98.75,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 98.75,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-13",
           "supplier": "Madam Hong Import Export",
@@ -1452,12 +1464,6 @@
         },
         {
           "date": "2026-09-16",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 145.83,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-08",
           "supplier": "Madam Hong Import Export",
           "price_net": 145.83,
           "unit": "kg"
@@ -1556,6 +1562,18 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 46.5,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 46.5,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
           "price_net": 46.5,
@@ -1589,18 +1607,6 @@
           "date": "2026-09-30",
           "supplier": "Madam Hong Import Export",
           "price_net": 46.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-30",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 46.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-28",
-          "supplier": "Sinli Trading AB",
-          "price_net": 45.9,
           "unit": "kg"
         }
       ]
@@ -1726,6 +1732,12 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 86.9,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
           "price_net": 86.9,
@@ -1759,12 +1771,6 @@
           "date": "2026-09-25",
           "supplier": "Madam Hong Import Export",
           "price_net": 86.9,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-16",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 85.0,
           "unit": "kg"
         },
         {
@@ -1844,6 +1850,12 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 33.22,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
           "price_net": 32.11,
@@ -1884,12 +1896,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 32.11,
           "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 32.11,
-          "unit": "kg"
         }
       ]
     },
@@ -1902,6 +1908,12 @@
       "record_price": 59.83,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 33.9,
+          "unit": "st"
+        },
         {
           "date": "2026-09-30",
           "supplier": "Madam Hong Import Export",
@@ -1943,12 +1955,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 59.83,
           "unit": "kg"
-        },
-        {
-          "date": "2026-08-28",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 73.17,
-          "unit": "kg"
         }
       ]
     },
@@ -1961,6 +1967,12 @@
       "record_price": 5.9,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 6.9,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2002,12 +2014,6 @@
           "supplier": "Nya Greenish AB",
           "price_net": 6.67,
           "unit": "kg"
-        },
-        {
-          "date": "2026-08-04",
-          "supplier": "Nya Greenish AB",
-          "price_net": 25.0,
-          "unit": "kg"
         }
       ]
     },
@@ -2020,6 +2026,12 @@
       "record_price": 7.0,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 18.9,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2054,12 +2066,6 @@
           "date": "2026-10-07",
           "supplier": "Madam Hong Import Export",
           "price_net": 10.9,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-30",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 21.9,
           "unit": "kg"
         },
         {
@@ -2121,6 +2127,18 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 25.9,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 25.9,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
           "price_net": 28.9,
@@ -2155,18 +2173,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 23.9,
           "unit": "kg"
-        },
-        {
-          "date": "2026-09-07",
-          "supplier": "Nya Greenish AB",
-          "price_net": 22.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Nya Greenish AB",
-          "price_net": 21.0,
-          "unit": "kg"
         }
       ]
     },
@@ -2175,10 +2181,16 @@
       "category": "Frukt & Grönt",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 31.9,
+      "our_best_price": 25.9,
       "record_price": 16.0,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 25.9,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2220,12 +2232,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 28.9,
           "unit": "kg"
-        },
-        {
-          "date": "2026-09-30",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 22.9,
-          "unit": "kg"
         }
       ]
     },
@@ -2238,6 +2244,12 @@
       "record_price": 9.33,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 13.9,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2270,12 +2282,6 @@
         },
         {
           "date": "2026-09-25",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 13.9,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-16",
           "supplier": "Madam Hong Import Export",
           "price_net": 13.9,
           "unit": "kg"
@@ -2357,6 +2363,12 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 38.33,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
           "price_net": 38.33,
@@ -2397,12 +2409,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 38.33,
           "unit": "kg"
-        },
-        {
-          "date": "2026-09-07",
-          "supplier": "Nya Greenish AB",
-          "price_net": 40.0,
-          "unit": "kg"
         }
       ]
     },
@@ -2415,6 +2421,18 @@
       "record_price": 4.72,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 11.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 11.77,
+          "unit": "st"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2450,18 +2468,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 11.77,
           "unit": "st"
-        },
-        {
-          "date": "2026-09-30",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 11.77,
-          "unit": "st"
-        },
-        {
-          "date": "2026-09-16",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 11.77,
-          "unit": "st"
         }
       ]
     },
@@ -2474,6 +2480,12 @@
       "record_price": 31.96,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 31.96,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2512,12 +2524,6 @@
         },
         {
           "date": "2026-08-28",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 31.96,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-26",
           "supplier": "Madam Hong Import Export",
           "price_net": 31.96,
           "unit": "kg"
@@ -2647,10 +2653,16 @@
       "category": "Såser & Konserver",
       "unit": "kg",
       "yield_pct": 100.0,
-      "our_best_price": 25.5,
+      "our_best_price": 44.9,
       "record_price": 25.5,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 78.9,
+          "unit": "kg"
+        },
         {
           "date": "2026-10-23",
           "supplier": "Madam Hong Import Export",
@@ -2692,12 +2704,6 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 78.9,
           "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 105.0,
-          "unit": "kg"
         }
       ]
     },
@@ -2710,6 +2716,12 @@
       "record_price": 18.28,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 35.71,
+          "unit": "L"
+        },
         {
           "date": "2026-09-28",
           "supplier": "Sinli Trading AB",
@@ -2750,12 +2762,6 @@
           "date": "2026-07-29",
           "supplier": "Madam Hong Import Export",
           "price_net": 25.62,
-          "unit": "L"
-        },
-        {
-          "date": "2026-07-25",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 35.92,
           "unit": "L"
         }
       ]
@@ -3079,6 +3085,18 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-31",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 78.99,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-20",
           "supplier": "Madam Hong Import Export",
           "price_net": 78.99,
@@ -3112,18 +3130,6 @@
           "date": "2026-08-31",
           "supplier": "Madam Hong Import Export",
           "price_net": 78.99,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-28",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 78.99,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-12",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 92.64,
           "unit": "kg"
         }
       ]
@@ -3653,6 +3659,12 @@
       "ref_source": "grossist",
       "history": [
         {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 16.5,
+          "unit": "kg"
+        },
+        {
           "date": "2026-10-21",
           "supplier": "Lidl Rågsved",
           "price_net": 13.56,
@@ -3692,12 +3704,6 @@
           "date": "2026-09-07",
           "supplier": "Nya Greenish AB",
           "price_net": 7.2,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-08-31",
-          "supplier": "Nya Greenish AB",
-          "price_net": 8.0,
           "unit": "kg"
         }
       ]
@@ -3973,6 +3979,12 @@
       "record_price": 48.9,
       "ref_source": "grossist",
       "history": [
+        {
+          "date": "2026-10-30",
+          "supplier": "Madam Hong Import Export",
+          "price_net": 48.9,
+          "unit": "kg"
+        },
         {
           "date": "2026-09-21",
           "supplier": "Lidl Medborgarplatsen",
