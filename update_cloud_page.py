@@ -1616,6 +1616,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .doc-tbl th.cnt, .doc-tbl td.cnt {{ text-align:center; white-space:nowrap; }}
   .doc-tbl td {{ padding:7px 10px; border-bottom:1px solid #f1f5f9; vertical-align:top; }}
   .doc-tbl tr.hl td {{ background:#fef9c3; font-weight:700; border-top:1.5px solid #facc15; border-bottom:1.5px solid #facc15; }}
+  .doc-col-short {{ display:none; }}
   .doc-foot {{ background:#f8fafc; border-top:1px solid #cbd5e1; padding:10px 15px; font-size:13px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }}
   .modal-box {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; margin-bottom:12px; display:none; }}
   .modal-box.open {{ display:block; }}
@@ -1623,17 +1624,33 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .form-inp {{ flex:1; min-width:110px; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; }}
   @media (max-width: 680px) {{
     .wrap {{ padding:9px; }}
+    .top > div:first-child {{ min-width:0; overflow-wrap:anywhere; }}
     .card {{ padding:10px; gap:8px; }}
     .card .info {{ overflow-wrap:anywhere; }}
     .actions {{ min-width:84px; max-width:34%; }}
     .p-main {{ font-size:13px; }}
     .hist-btn {{ padding:6px; }}
-    .doc-overlay {{ padding:8px; }}
+    .chips {{ flex-wrap:wrap; gap:4px; }}
+    .chip {{ max-width:100%; padding:4px 7px; font-size:11.5px; white-space:normal; overflow-wrap:anywhere; }}
+    .search, .qty-inp, .form-inp, .inv-period input {{ font-size:16px; }}
+    .form-inp {{ box-sizing:border-box; max-width:100%; }}
+    .doc-overlay {{ padding:6px; }}
     .doc-dialog {{ max-height:calc(100dvh - 16px); }}
     .doc-head {{ flex-wrap:wrap; gap:8px; padding:9px 10px; }}
     .doc-head-btns {{ flex-shrink:1; }}
-    .doc-tbl {{ min-width:530px; font-size:12px; }}
-    .doc-tbl th, .doc-tbl td {{ padding:6px 7px; }}
+    .doc-tbl {{ table-layout:fixed; font-size:11px; }}
+    .doc-tbl th, .doc-tbl td {{ padding:5px 3px; overflow-wrap:anywhere; }}
+    .doc-tbl th {{ font-size:10px; text-transform:none; letter-spacing:0; }}
+    .doc-tbl th, .doc-tbl .num, .doc-tbl .cnt {{ white-space:normal; }}
+    .doc-tbl th:nth-child(1) {{ width:25%; }}
+    .doc-tbl th:nth-child(2) {{ width:12%; }}
+    .doc-tbl th:nth-child(3), .doc-tbl th:nth-child(6) {{ width:8%; }}
+    .doc-tbl th:nth-child(4), .doc-tbl th:nth-child(5) {{ width:15%; }}
+    .doc-tbl th:nth-child(7) {{ width:17%; }}
+    .doc-tbl th {{ box-sizing:border-box; }}
+    .doc-col-long, .doc-currency {{ display:none; }}
+    .doc-col-short {{ display:inline; }}
+    .doc-price-unit {{ display:block; font-size:10px; }}
     .doc-foot {{ font-size:12px; padding:9px 12px; }}
   }}
 </style>
@@ -2141,16 +2158,19 @@ function renderInvoiceModalBody() {{
           `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div></td>` +
         `<td class="num notranslate">${{qtyFmt}}</td>` +
         `<td class="cnt notranslate">${{esc(bUnit)}}</td>` +
-        `<td class="num notranslate" style="color:#0369a1;font-weight:700">${{fmtSv(uPrice)}} kr/${{esc(ln.unit)}}</td>` +
-        `<td class="num notranslate">${{fmtSv(bPrice)}} kr</td>` +
+        `<td class="num notranslate" style="color:#0369a1;font-weight:700">${{fmtSv(uPrice)}}<span class="doc-price-unit"> kr/${{esc(ln.unit)}}</span></td>` +
+        `<td class="num notranslate">${{fmtSv(bPrice)}}<span class="doc-currency"> kr</span></td>` +
         `<td class="cnt notranslate">${{vatPct}}%</td>` +
-        `<td class="num notranslate" style="font-weight:700">${{fmtSv(tPrice)}} kr</td>` +
+        `<td class="num notranslate" style="font-weight:700">${{fmtSv(tPrice)}}<span class="doc-currency"> kr</span></td>` +
       `</tr>`
     );
   }});
   bodyEl.innerHTML =
     `<table class="doc-tbl">` +
-      `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Pris/kg (${{vLbl}})</th><th class="num">Enhetspris (${{vLbl}})</th><th class="cnt">Moms</th><th class="num">Belopp (${{vLbl}})</th></tr></thead>` +
+      `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th>` +
+      `<th class="num"><span class="doc-col-long">Pris/kg (${{vLbl}})</span><span class="doc-col-short">Jfr-pris</span></th>` +
+      `<th class="num"><span class="doc-col-long">Enhetspris (${{vLbl}})</span><span class="doc-col-short">À-pris</span></th>` +
+      `<th class="cnt">Moms</th><th class="num"><span class="doc-col-long">Belopp (${{vLbl}})</span><span class="doc-col-short">Belopp</span></th></tr></thead>` +
       `<tbody>${{rowsHtml.join('')}}</tbody></table>`;
   document.getElementById('docFoot').innerHTML =
     `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
