@@ -1410,13 +1410,22 @@ function renderAll() {{
     const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(SKANSTULL_ORIGIN)}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(DEFAULT_ORIGIN)}}` : '';
     const rtTime = ROUTE_TIMES[c.store_name] ? ` (${{ROUTE_TIMES[c.store_name]}})` : '';
     const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet${{rtTime}}</a>` : '';
+    let validHtml = `Gäller t.o.m. ${{c.valid_until || 'söndag'}}`;
+    if (c.valid_until && /^\\d{4}-\\d{2}-\\d{2}$/.test(c.valid_until)) {{
+      const td = new Date(); td.setHours(0, 0, 0, 0);
+      const ex = new Date(c.valid_until + 'T00:00:00');
+      const dl = Math.round((ex - td) / 86400000);
+      if (dl <= 0) validHtml = `<span style="color:#dc2626;font-weight:800">⏰ Sista dagen idag (${{c.valid_until}})!</span>`;
+      else if (dl === 1) validHtml = `<span style="color:#dc2626;font-weight:700">⏰ Går ut imorgon (${{c.valid_until}})</span>`;
+      else if (dl === 2) validHtml = `<span style="color:#d97706;font-weight:700">⏳ Gäller t.o.m. ${{c.valid_until}} (2 dagar kvar)</span>`;
+    }}
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
         <div><span class="store-tag notranslate">${{c.store_name}}</span>${{locHtml}}<span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
         <div class="title">${{wrapBrands(c.heading)}}</div>
         ${{descShort ? `<div class="sub" style="color:#334155">${{wrapBrands(descShort)}}</div>` : ''}}
-        <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
+        <div class="sub">${{c.canonical_name}} • ${{validHtml}}${{lim}}</div>
         <div class="price-line" id="prc_${{key}}">${{priceBlockHtml}}</div>
         <div class="ref-line">${{ourTxt}}</div>
         ${{histHtml}}
