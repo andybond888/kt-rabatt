@@ -1528,6 +1528,93 @@ setInterval(() => {{ if (!document.hidden) syncFromCloud(false); }}, 5000);
 </html>"""
 
 
+def build_b2b_html(payload: Dict[str, Any]) -> str:
+    json_blob = json.dumps(payload, ensure_ascii=False).replace("</", "<\\/")
+    return f"""<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>B2B Prislista – Grossister</title>
+<style>
+  body {{ margin:0; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:44px; }}
+  .top {{ background:#0f172a; color:#fff; padding:14px 16px; position:sticky; top:0; z-index:20; }}
+  .top h1 {{ margin:0; font-size:18px; }}
+  .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
+  .wrap {{ padding:12px; max-width:720px; margin:0 auto; }}
+  .search {{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; margin-bottom:8px; }}
+  .chips {{ display:flex; gap:6px; overflow-x:auto; padding-bottom:8px; }}
+  .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:6px 12px; font-size:13px; font-weight:700; white-space:nowrap; cursor:pointer; color:#1e293b; }}
+  .chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
+  .card {{ background:#fff; border-radius:10px; padding:11px 12px; margin-bottom:8px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; gap:10px; align-items:center; }}
+  .sup {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
+  .bas {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; }}
+  .art {{ font-weight:700; font-size:14px; margin:4px 0 2px; }}
+  .sub {{ font-size:12px; color:#475569; }}
+  .price-box {{ text-align:right; flex-shrink:0; }}
+  .p-main {{ font-size:15px; font-weight:800; color:#0f172a; }}
+  .p-avg {{ font-size:11px; color:#64748b; }}
+</style>
+</head>
+<body>
+<div class="top">
+  <h1>📋 B2B Prislista (Grossister)</h1>
+  <p id="metaLbl">Laddar...</p>
+</div>
+<div class="wrap">
+  <input id="qInput" class="search" type="search" placeholder="Sök artikel, grossist eller basvara..." oninput="renderB2B()">
+  <div class="chips" id="supChips"></div>
+  <div id="listBox"></div>
+</div>
+<script>
+const B2B = {json_blob};
+let activeSup = 'Alla';
+function renderB2B() {{
+  const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
+  const items = B2B.items || [];
+  const counts = {{}};
+  items.forEach(x => {{
+    if (q && !(x.artikel.toLowerCase().includes(q) || x.grossist.toLowerCase().includes(q) || x.basvara.toLowerCase().includes(q))) return;
+    counts[x.grossist] = (counts[x.grossist] || 0) + 1;
+  }});
+  if (activeSup !== 'Alla' && !counts[activeSup]) activeSup = 'Alla';
+  const sups = ['Alla', ...Object.keys(counts).sort()];
+  const chipBox = document.getElementById('supChips');
+  chipBox.innerHTML = '';
+  sups.forEach(s => {{
+    const b = document.createElement('button');
+    b.className = 'chip' + (s === activeSup ? ' active' : '');
+    const tot = Object.values(counts).reduce((a, c) => a + c, 0);
+    b.textContent = s === 'Alla' ? `Alla grossister (${{tot}})` : `${{s}} (${{counts[s]}})`;
+    b.onclick = () => {{ activeSup = s; renderB2B(); }};
+    chipBox.appendChild(b);
+  }});
+  const rows = items.filter(x => {{
+    if (activeSup !== 'Alla' && x.grossist !== activeSup) return false;
+    if (q && !(x.artikel.toLowerCase().includes(q) || x.grossist.toLowerCase().includes(q) || x.basvara.toLowerCase().includes(q))) return false;
+    return true;
+  }});
+  document.getElementById('metaLbl').textContent = `Uppdaterad: ${{B2B.generated_at || ''}} • ${{rows.length}} artiklar (inkl. moms)`;
+  const box = document.getElementById('listBox');
+  box.innerHTML = rows.map(x => `<div class="card">
+    <div style="min-width:0">
+      <div><span class="sup">${{x.grossist}}</span>${{x.basvara && x.basvara !== '—' ? `<span class="bas">${{x.basvara}}</span>` : ''}}</div>
+      <div class="art">${{x.artikel}}</div>
+      <div class="sub">${{x.forp ? x.forp + ' • ' : ''}}Senast: ${{x.datum}} (${{x.kop}} köp)</div>
+    </div>
+    <div class="price-box">
+      <div class="p-main">${{Number(x.latest_gross).toFixed(2)}} kr/${{x.unit}}</div>
+      <div class="p-avg">Snitt: ${{Number(x.avg_gross).toFixed(2)}} kr/${{x.unit}}</div>
+    </div>
+  </div>`).join('');
+}}
+renderB2B();
+</script>
+</body>
+</html>"""
+
+
 def main() -> None:
     cfg = json.loads(BASELINES_FILE.read_text(encoding="utf-8"))
     now_sv = swedish_now()
@@ -1550,6 +1637,12 @@ def main() -> None:
         encoding="utf-8",
     )
     (slug_dir / "index.html").write_text(html, encoding="utf-8")
+    b2b_file = BASELINES_FILE.parent / "b2b_pricelist.json"
+    if b2b_file.exists():
+        b2b_payload = json.loads(b2b_file.read_text(encoding="utf-8"))
+        b2b_dir = slug_dir / "b2b"
+        b2b_dir.mkdir(parents=True, exist_ok=True)
+        (b2b_dir / "index.html").write_text(build_b2b_html(b2b_payload), encoding="utf-8")
     print(f"Klart! Byggde {len(deals)} kampanjer ({sum(1 for d in deals if d['verdict_code'] == 'GREEN')} gröna klipp) -> {slug_dir / 'index.html'}")
 
 
