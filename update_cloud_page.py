@@ -1601,6 +1601,9 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .doc-head {{ background:#0f172a; color:#fff; padding:12px 15px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }}
   .doc-head h3 {{ margin:0; font-size:16px; }}
   .doc-head p {{ margin:3px 0 0; font-size:12px; color:#cbd5e1; }}
+  .doc-head-btns {{ display:flex; gap:6px; align-items:center; flex-shrink:0; flex-wrap:wrap; }}
+  .doc-pdf-btn {{ display:inline-block; text-decoration:none; background:#16a34a; color:#fff; border-radius:8px; padding:6px 11px; font-size:12.5px; font-weight:800; white-space:nowrap; }}
+  .doc-pdf-btn:hover {{ background:#15803d; }}
   .doc-close {{ border:none; background:#334155; color:#fff; border-radius:8px; padding:6px 11px; font-size:13px; font-weight:800; cursor:pointer; }}
   .doc-body {{ padding:12px 15px; overflow-y:auto; flex:1; }}
   .doc-line {{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; padding:7px 8px; border-bottom:1px solid #f1f5f9; border-radius:6px; font-size:12.5px; }}
@@ -1682,7 +1685,10 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
         <h3 id="docTitle">Faktura</h3>
         <p id="docSub"></p>
       </div>
-      <button class="doc-close" onclick="closeInvoiceModal()">✕ Stäng</button>
+      <div class="doc-head-btns">
+        <a id="docPdfBtn" class="doc-pdf-btn" href="#" target="_blank" rel="noopener" style="display:none">📑 Öppna PDF ↗</a>
+        <button class="doc-close" onclick="closeInvoiceModal()">✕ Stäng</button>
+      </div>
     </div>
     <div id="docBody" class="doc-body"></div>
     <div id="docFoot" class="doc-foot"></div>
@@ -1966,6 +1972,14 @@ function openInvoiceModal(docId, lineId) {{
   }}
   document.getElementById('docTitle').textContent = `📄 ${{doc.doc_type}} – ${{doc.supplier}}`;
   document.getElementById('docSub').textContent = `Datum: ${{doc.date}} • ${{doc.lines.length}} varurader`;
+  const pdfBtn = document.getElementById('docPdfBtn');
+  if (doc.pdf_url) {{
+    pdfBtn.href = doc.pdf_url;
+    pdfBtn.textContent = doc.pdf_url.endsWith('.pdf') ? '📑 Öppna PDF ↗' : '📑 Öppna kvittobild ↗';
+    pdfBtn.style.display = 'inline-block';
+  }} else {{
+    pdfBtn.style.display = 'none';
+  }}
   const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
   const bodyEl = document.getElementById('docBody');
   bodyEl.innerHTML = doc.lines.map(ln => {{
@@ -2202,10 +2216,18 @@ def main() -> None:
     (slug_dir / "index.html").write_text(html, encoding="utf-8")
     b2b_file = BASELINES_FILE.parent / "b2b_pricelist.json"
     if b2b_file.exists():
+        import shutil
         b2b_payload = json.loads(b2b_file.read_text(encoding="utf-8"))
         b2b_dir = slug_dir / "b2b"
         b2b_dir.mkdir(parents=True, exist_ok=True)
         (b2b_dir / "index.html").write_text(build_b2b_html(b2b_payload), encoding="utf-8")
+        src_docs = BASELINES_FILE.parent / "b2b_docs"
+        if src_docs.exists():
+            dst_docs = b2b_dir / "docs"
+            dst_docs.mkdir(parents=True, exist_ok=True)
+            for f in src_docs.iterdir():
+                if f.is_file():
+                    shutil.copy2(f, dst_docs / f.name)
     print(f"Klart! Byggde {len(deals)} kampanjer ({sum(1 for d in deals if d['verdict_code'] == 'GREEN')} gröna klipp) -> {slug_dir / 'index.html'}")
 
 
