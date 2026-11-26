@@ -493,6 +493,12 @@ def build_html(payload: Dict[str, Any]) -> str:
   .addr-item {{ padding:9px 12px; font-size:13px; cursor:pointer; border-bottom:1px solid #f1f5f9; color:#0f172a; }}
   .addr-item:last-child {{ border-bottom:none; }}
   .addr-item:hover {{ background:#f0f9ff; }}
+  .shop-btn {{ border:1px solid #16a34a; background:#f0fdf4; color:#15803d; border-radius:10px; padding:10px 12px; font-weight:700; font-size:13px; cursor:pointer; white-space:nowrap; }}
+  .shop-btn.active {{ background:#16a34a; color:#fff; }}
+  .shop-store {{ font-weight:800; font-size:13px; color:#0f172a; margin:8px 0 4px; padding-bottom:2px; border-bottom:1px solid #e2e8f0; }}
+  .shop-row {{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding:4px 0; font-size:13px; }}
+  .shop-rm {{ border:none; background:none; color:#94a3b8; font-weight:700; cursor:pointer; font-size:14px; padding:2px 6px; }}
+  .shop-rm:hover {{ color:#dc2626; }}
 </style>
 </head>
 <body>
@@ -505,7 +511,20 @@ def build_html(payload: Dict[str, Any]) -> str:
   <div class="filters">
     <div class="row-flex">
       <input id="qInput" class="search-input" type="search" placeholder="Sök vara eller butik..." oninput="renderAll()">
+      <button id="btnShop" class="shop-btn" onclick="toggleShopPanel()">🛒 Lista (0)</button>
       <button id="btnVaror" class="cfg-btn" onclick="toggleVaruPanel()">⚙️ Välj varor</button>
+    </div>
+
+    <div id="shopPanel" class="varu-panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+        <strong style="font-size:14px">🛒 Min inköpslista</strong>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button id="btnShopRoute" class="mini-btn" onclick="openShopRoute()">🗺️ Kör rutt</button>
+          <button class="mini-btn" onclick="copyShopList()">📤 Kopiera</button>
+          <button class="mini-btn" onclick="clearShopList()">🗑️ Rensa</button>
+        </div>
+      </div>
+      <div id="shopBody" style="margin-top:6px"></div>
     </div>
 
     <div class="row-flex">
@@ -565,6 +584,85 @@ let picked = {{}};
 let hiddenProds = {{}};
 try {{ picked = JSON.parse(localStorage.getItem('kt_cloud_picked') || '{{}}'); }} catch(e) {{}}
 try {{ hiddenProds = JSON.parse(localStorage.getItem('kt_cloud_hidden_prods') || '{{}}'); }} catch(e) {{}}
+
+function toggleShopPanel() {{
+  const p = document.getElementById('shopPanel');
+  const b = document.getElementById('btnShop');
+  p.classList.toggle('open');
+  b.classList.toggle('active');
+}}
+
+function getPickedItems() {{
+  return (DATA.campaigns || []).filter(c => !!picked['c_' + c.id]);
+}}
+
+function renderShopList() {{
+  const items = getPickedItems();
+  const btn = document.getElementById('btnShop');
+  btn.textContent = `🛒 Lista (${{items.length}})`;
+  const body = document.getElementById('shopBody');
+  if (!items.length) {{
+    body.innerHTML = '<div style="font-size:13px;color:#64748b;padding:6px 0">Klicka på <b>Plocka</b> på valfria klipp nedan för att lägga till dem i din inköpslista.</div>';
+    return;
+  }}
+  const byStore = {{}};
+  items.forEach(c => {{
+    if (!byStore[c.store_name]) byStore[c.store_name] = [];
+    byStore[c.store_name].push(c);
+  }});
+  const fmtS = (v) => Math.abs(v - Math.round(v)) < 0.005 ? `${{Math.round(v)}} kr` : `${{Number(v).toFixed(2).replace('.', ',')}} kr`;
+  body.innerHTML = Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).map(st => {{
+    const rowsHtml = byStore[st].map(c => `
+      <div class="shop-row">
+        <span><b>${{c.heading}}</b> <span style="color:#475569">(${{fmtS(c.price_gross_sek)}})</span></span>
+        <button class="shop-rm" onclick="togglePick('c_${{c.id}}')" title="Ta bort">✕</button>
+      </div>`).join('');
+    return `<div class="shop-store">🏪 ${{st}} (${{byStore[st].length}})</div>${{rowsHtml}}`;
+  }}).join('');
+}}
+
+function openShopRoute() {{
+  const items = getPickedItems();
+  const stores = Array.from(new Set(items.map(c => c.store_name)));
+  if (!stores.length) {{ alert('Lägg till minst en vara i listan först!'); return; }}
+  const origin = userOrigin || DEFAULT_ORIGIN;
+  const stops = stores.map(st => {{
+    const locs = storeLocs(st);
+    const first = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
+    return st + (first ? ' ' + first : '');
+  }});
+  const url = `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(origin)}}&waypoints=${{encodeURIComponent(stops.join('|'))}}&destination=${{encodeURIComponent(origin)}}`;
+  window.open(url, '_blank', 'noopener');
+}}
+
+function copyShopList() {{
+  const items = getPickedItems();
+  if (!items.length) {{ alert('Inköpslistan är tom.'); return; }}
+  const byStore = {{}};
+  items.forEach(c => {{
+    if (!byStore[c.store_name]) byStore[c.store_name] = [];
+    byStore[c.store_name].push(c);
+  }});
+  const fmtS = (v) => Math.abs(v - Math.round(v)) < 0.005 ? `${{Math.round(v)}} kr` : `${{Number(v).toFixed(2).replace('.', ',')}} kr`;
+  const lines = ['🛒 Inköpslista:'];
+  Object.keys(byStore).sort((a, b) => a.localeCompare(b, 'sv')).forEach(st => {{
+    lines.push(`\n${{st}}:`);
+    byStore[st].forEach(c => lines.push(`- ${{c.heading}} (${{fmtS(c.price_gross_sek)}})`));
+  }});
+  const txt = lines.join('\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {{
+    navigator.clipboard.writeText(txt).then(() => alert('Inköpslistan kopierad!'));
+  }} else {{
+    prompt('Kopiera listan:', txt);
+  }}
+}}
+
+function clearShopList() {{
+  if (!Object.keys(picked).some(k => picked[k])) return;
+  picked = {{}};
+  try {{ localStorage.setItem('kt_cloud_picked', JSON.stringify(picked)); }} catch(e) {{}}
+  renderAll();
+}}
 
 function toggleVaruPanel() {{
   const p = document.getElementById('varuPanel');
@@ -871,6 +969,7 @@ function storeLoc(name) {{
 }}
 
 function renderAll() {{
+  renderShopList();
   const areaBox = document.getElementById('areaChips');
   const areaOpts = [
     ['near', '📍 Nära Arrendatorsvägen'],
