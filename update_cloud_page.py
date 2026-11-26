@@ -142,10 +142,8 @@ def normalize_offer(
         if rule_obj and any(n in low_txt for n in (rule_obj.get("negatives") or [])):
             slug = None
 
-    if not slug or slug not in baselines:
-        return None
-
-    b_info = baselines[slug]
+    is_rest = bool(slug and slug in baselines)
+    b_info = baselines[slug] if is_rest else {"name": "Övrig kampanj", "category": "Övrigt", "unit": "st", "yield_pct": 100.0}
     canon_unit = b_info["unit"]
     default_yield = float(b_info.get("yield_pct", 100.0))
 
@@ -257,7 +255,8 @@ def normalize_offer(
 
     return {
         "id": oid,
-        "slug": slug,
+        "slug": slug or "",
+        "is_restaurant": is_rest,
         "canonical_name": b_info["name"],
         "category": b_info.get("category") or "Övrigt",
         "store_name": store_name,
@@ -351,8 +350,9 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
         b = baselines.get(slug) if slug else None
         u_net = float(item["unit_price_net_sek"])
 
-        verdict = "⚪ ÖVRIG VARA"
-        verdict_code = "NEUTRAL"
+        is_rest = bool(item.get("is_restaurant", bool(slug and slug in baselines)))
+        verdict = "🛍️ KAMPANJ" if not is_rest else "⚪ ÖVRIG VARA"
+        verdict_code = "OTHER" if not is_rest else "NEUTRAL"
         diff_pct = None
         our_best = None
         canon_unit = item["norm_unit"]
@@ -397,6 +397,7 @@ def evaluate_deals(raw_offers: List[Dict[str, Any]], cfg: Dict[str, Any], today_
         results.append(
             {
                 "id": item["id"],
+                "is_restaurant": is_rest,
                 "store_name": item["store_name"],
                 "heading": item["heading"],
                 "description": item.get("description") or "",
@@ -588,10 +589,16 @@ def build_html(payload: Dict[str, Any]) -> str:
         <div id="varuGrid" class="varu-grid"></div>
       </div>
 
-      <label class="toggle-lbl">
-        <input id="onlyGreen" type="checkbox" onchange="renderAll()">
-        Visa bara klipp som slår våra priser
-      </label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <label class="toggle-lbl" style="flex:1">
+          <input id="onlyRest" type="checkbox" checked onchange="renderAll()">
+          🍽️ För restaurangen
+        </label>
+        <label class="toggle-lbl" style="flex:1">
+          <input id="onlyGreen" type="checkbox" onchange="renderAll()">
+          🟢 Slår våra priser
+        </label>
+      </div>
 
       <div class="sec-lbl">Kategori</div>
       <div class="chips" id="catChips"></div>
@@ -961,7 +968,7 @@ const STORE_LOCATIONS = {{
   "ICA Kvantum": ["Farsta (17 min)", "Skanstull (20 min)"],
   "ICA Maxi Stormarknad": ["Flemingsberg (9 min)", "Haninge (24 min)"],
   "ICA Nära": ["Segeltorp (14 min)", "Huddinge (18 min)"],
-  "ICA Supermarket": ["Huddinge (2 min)", "Stuvsta (7 min)"],
+  "ICA Supermarket": ["Huddinge (2 min)", "Ringen, Skanstull (20 min)"],
   "Lidl": ["Rågsved (7 min)", "Huddinge (10 min)"],
   "Matcenter": ["Alby (18 min)"],
   "Matdax": ["Högdalen (10 min)", "Hökarängen (15 min)"],
@@ -1047,11 +1054,11 @@ const STORE_LOCATIONS_SKANSTULL = {{
   "Costco": ["Arninge, Täby (26 min)"],
   "Din Mat": ["Skärholmen (12 min)", "Alby (21 min)"],
   "DollarStore": ["Kungens Kurva (12 min)"],
-  "Hemköp": ["Skanstull (5 min)", "Huddinge (17 min)"],
+  "Hemköp": ["Skanstull (1 min)", "Huddinge (17 min)"],
   "ICA Kvantum": ["Skanstull (1 min)", "Farsta (9 min)"],
   "ICA Maxi Stormarknad": ["Haninge (17 min)", "Flemingsberg (20 min)"],
   "ICA Nära": ["Segeltorp (11 min)", "Huddinge (12 min)"],
-  "ICA Supermarket": ["Stuvsta (14 min)", "Huddinge (15 min)"],
+  "ICA Supermarket": ["Ringen, Skanstull (1 min)", "Huddinge (15 min)"],
   "Lidl": ["Rågsved (12 min)", "Huddinge (21 min)"],
   "Matcenter": ["Alby (18 min)"],
   "Matdax": ["Hökarängen (8 min)", "Högdalen (12 min)"],
@@ -1213,9 +1220,11 @@ function renderAll() {{
   }});
 
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
+  const onlyR = document.getElementById('onlyRest').checked;
   const onlyG = document.getElementById('onlyGreen').checked;
 
   const visibleBase = (DATA.campaigns || []).filter(c => {{
+    if (onlyR && !c.is_restaurant) return false;
     if (hiddenProds[c.canonical_name]) return false;
     if (onlyG && c.verdict_code !== 'GREEN') return false;
     if (activeArea === 'near' && FAR_STORES.has(c.store_name)) return false;
@@ -1285,7 +1294,9 @@ function renderAll() {{
     return;
   }}
 
-  cont.innerHTML = rows.map(c => {{
+  const displayRows = rows.slice(0, 250);
+  const moreNote = rows.length > 250 ? `<div class="card" style="justify-content:center;color:#475569;font-size:13px">Visar 250 av ${{rows.length}} kampanjer — sök eller välj butik/kategori för att se fler.</div>` : '';
+  cont.innerHTML = displayRows.map(c => {{
     const key = 'c_' + c.id;
     const pQty = getPickQty(key);
     const isP = pQty > 0;
@@ -1348,7 +1359,7 @@ function renderAll() {{
         ${{histBtnHtml}}
       </div>
     </div>`;
-  }}).join('');
+  }}).join('') + moreNote;
 }}
 
 function setLang(lang) {{
