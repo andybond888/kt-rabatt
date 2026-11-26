@@ -1358,7 +1358,7 @@
       "unit": "kg",
       "yield_pct": 100.0,
       "our_best_price": 111.0,
-      "record_price": 70.0,
+      "record_price": 84.86,
       "ref_source": "grossist",
       "history": [
         {
@@ -1376,19 +1376,7 @@
         {
           "date": "2026-11-02",
           "supplier": "Magnussons Fisk AB",
-          "price_net": 70.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-11-02",
-          "supplier": "Magnussons Fisk AB",
           "price_net": 110.0,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-10-26",
-          "supplier": "Magnussons Fisk AB",
-          "price_net": 149.0,
           "unit": "kg"
         },
         {
@@ -1408,6 +1396,18 @@
           "supplier": "Magnussons Fisk AB",
           "price_net": 115.0,
           "unit": "kg"
+        },
+        {
+          "date": "2026-10-12",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 111.0,
+          "unit": "kg"
+        },
+        {
+          "date": "2026-10-08",
+          "supplier": "Matdax Högdalen",
+          "price_net": 84.86,
+          "unit": "kg"
         }
       ]
     },
@@ -1425,6 +1425,12 @@
           "supplier": "Madam Hong Import Export",
           "price_net": 98.75,
           "unit": "kg"
+        },
+        {
+          "date": "2026-10-26",
+          "supplier": "Magnussons Fisk AB",
+          "price_net": 186.25,
+          "unit": "st"
         },
         {
           "date": "2026-10-13",
@@ -1460,12 +1466,6 @@
           "date": "2026-09-23",
           "supplier": "CN Food Trading Stockholm AB",
           "price_net": 131.12,
-          "unit": "kg"
-        },
-        {
-          "date": "2026-09-16",
-          "supplier": "Madam Hong Import Export",
-          "price_net": 145.83,
           "unit": "kg"
         }
       ]
