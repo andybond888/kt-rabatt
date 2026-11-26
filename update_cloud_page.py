@@ -536,6 +536,21 @@ def build_html(payload: Dict[str, Any]) -> str:
   .qty-ctrl {{ display:flex; align-items:center; justify-content:space-between; border:2px solid #16a34a; border-radius:10px; background:#f0fdf4; overflow:hidden; width:100%; }}
   .qty-btn {{ border:none; background:#16a34a; color:#fff; font-weight:800; font-size:16px; width:28px; height:34px; cursor:pointer; padding:0; }}
   .qty-num {{ font-weight:800; font-size:14px; color:#14532d; min-width:24px; text-align:center; }}
+  @media (max-width: 560px) {{
+    .card {{ flex-direction:column; gap:10px; padding:14px; }}
+    .thumb {{ width:100%; height:180px; padding:6px; border-radius:10px; }}
+    .info {{ width:100%; }}
+    .title {{ font-size:17px; margin:6px 0 4px; }}
+    .sub {{ font-size:13px; }}
+    .price-main {{ font-size:20px; }}
+    .price-qty, .price-unit, .ref-line {{ font-size:13px; }}
+    .actions {{ flex-direction:row; width:100%; min-width:0; }}
+    .actions > * {{ flex:1; }}
+    .pick-btn {{ padding:11px 12px; font-size:15px; }}
+    .qty-btn {{ width:40px; height:42px; font-size:18px; }}
+    .qty-num {{ font-size:16px; }}
+    .hist-btn {{ padding:10px 12px; font-size:14px; }}
+  }}
 </style>
 </head>
 <body>
