@@ -511,8 +511,10 @@ def build_html(payload: Dict[str, Any]) -> str:
     <div class="row-flex">
       <input id="qInput" class="search-input" type="search" placeholder="Sök vara eller butik..." oninput="renderAll()">
       <button id="btnShop" class="shop-btn" onclick="toggleShopPanel()">🛒 Lista (0)</button>
-      <button id="btnVaror" class="cfg-btn" onclick="toggleVaruPanel()">⚙️ Välj varor</button>
+      <button id="btnFilter" class="cfg-btn" onclick="toggleFilterPanel()">🎛️ Filter</button>
     </div>
+
+    <div class="chips" id="areaChips" style="padding-bottom:2px"></div>
 
     <div id="shopPanel" style="display:none">
       <div class="card" style="justify-content:space-between;align-items:center;flex-wrap:wrap;background:#f0fdf4;border-color:#86efac">
@@ -529,50 +531,52 @@ def build_html(payload: Dict[str, Any]) -> str:
       <div id="shopBody"></div>
     </div>
 
-    <div class="row-flex">
-      <select id="originSelect" class="prod-select" style="flex:1" onchange="onOriginSelect()">
-        <option value="Arrendatorsvägen 1, 141 62 Huddinge">📍 Start: Arrendatorsvägen 1, 141 62 Huddinge</option>
-        <option value="Ringvägen 123, 116 61 Stockholm">🏠 Start: Ringvägen 123, 116 61 Stockholm</option>
-        <option value="__custom__">✏️ Annan startadress...</option>
-      </select>
-    </div>
-    <div id="customOriginRow" class="row-flex" style="display:none">
-      <div class="addr-wrap">
-        <input id="originInput" class="search-input" style="width:100%;box-sizing:border-box" type="text" placeholder="Skriv valfri adress i Sverige..." autocomplete="off" oninput="onOriginType()">
-        <div id="addrSuggest" class="addr-list"></div>
+    <div id="filterPanel" class="varu-panel" style="flex-direction:column;gap:8px">
+      <div class="row-flex">
+        <select id="originSelect" class="prod-select" style="flex:1" onchange="onOriginSelect()">
+          <option value="Arrendatorsvägen 1, 141 62 Huddinge">📍 Start: Arrendatorsvägen 1, 141 62 Huddinge</option>
+          <option value="Ringvägen 123, 116 61 Stockholm">🏠 Start: Ringvägen 123, 116 61 Stockholm</option>
+          <option value="__custom__">✏️ Annan startadress...</option>
+        </select>
       </div>
-      <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna</button>
-    </div>
-    <div id="liveTimeStatus" style="font-size:12px;color:#0369a1;display:none"></div>
-
-    <div id="varuPanel" class="varu-panel">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
-        <strong style="font-size:13px">Kryssa i vilka varor du vill se i listan:</strong>
-        <div style="display:flex;gap:6px">
-          <button class="mini-btn" onclick="setAllHidden(false)">Visa alla</button>
-          <button class="mini-btn" onclick="setAllHidden(true)">Avmarkera alla</button>
+      <div id="customOriginRow" class="row-flex" style="display:none">
+        <div class="addr-wrap">
+          <input id="originInput" class="search-input" style="width:100%;box-sizing:border-box" type="text" placeholder="Skriv valfri adress i Sverige..." autocomplete="off" oninput="onOriginType()">
+          <div id="addrSuggest" class="addr-list"></div>
         </div>
+        <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna</button>
       </div>
-      <div id="varuGrid" class="varu-grid"></div>
-    </div>
+      <div id="liveTimeStatus" style="font-size:12px;color:#0369a1;display:none"></div>
 
-    <select id="prodSelect" class="prod-select" onchange="onProdSelect()">
-      <option value="Alla">Alla valda varor</option>
-    </select>
+      <div class="row-flex">
+        <select id="prodSelect" class="prod-select" style="flex:1" onchange="onProdSelect()">
+          <option value="Alla">Alla valda varor</option>
+        </select>
+        <button id="btnVaror" class="cfg-btn" onclick="toggleVaruPanel()">⚙️ Välj varor</button>
+      </div>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <div id="varuPanel" class="varu-panel" style="margin-bottom:0">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap">
+          <strong style="font-size:13px">Kryssa i vilka varor du vill se i listan:</strong>
+          <div style="display:flex;gap:6px">
+            <button class="mini-btn" onclick="setAllHidden(false)">Visa alla</button>
+            <button class="mini-btn" onclick="setAllHidden(true)">Avmarkera alla</button>
+          </div>
+        </div>
+        <div id="varuGrid" class="varu-grid"></div>
+      </div>
+
       <label class="toggle-lbl">
         <input id="onlyGreen" type="checkbox" checked onchange="renderAll()">
         Visa bara klipp som slår våra priser
       </label>
-      <div class="chips" id="areaChips" style="padding-bottom:0"></div>
+
+      <div class="sec-lbl">Kategori</div>
+      <div class="chips" id="catChips"></div>
+
+      <div class="sec-lbl">Butik</div>
+      <div class="chips" id="storeChips"></div>
     </div>
-
-    <div class="sec-lbl">Kategori</div>
-    <div class="chips" id="catChips"></div>
-
-    <div class="sec-lbl">Butik</div>
-    <div class="chips" id="storeChips"></div>
   </div>
   <div id="dealsContainer"></div>
 </div>
@@ -703,6 +707,14 @@ function clearShopList() {{
   picked = {{}};
   try {{ localStorage.setItem('kt_cloud_picked', JSON.stringify(picked)); }} catch(e) {{}}
   renderAll();
+}}
+
+function toggleFilterPanel() {{
+  const p = document.getElementById('filterPanel');
+  const b = document.getElementById('btnFilter');
+  const open = p.style.display === 'flex';
+  p.style.display = open ? 'none' : 'flex';
+  b.classList.toggle('active', !open);
 }}
 
 function toggleVaruPanel() {{
@@ -1085,6 +1097,9 @@ function renderAll() {{
   }});
 
   const rows = activeStore === 'Alla' ? afterProd : afterProd.filter(c => c.store_name === activeStore);
+  const fBtn = document.getElementById('btnFilter');
+  const fCnt = (activeCat !== 'Alla' ? 1 : 0) + (activeStore !== 'Alla' ? 1 : 0) + (activeProd !== 'Alla' ? 1 : 0) + (!onlyG ? 1 : 0);
+  if (fBtn) fBtn.textContent = fCnt > 0 ? `🎛️ Filter (${{fCnt}})` : '🎛️ Filter';
   const hiddenCnt = Object.keys(hiddenProds).length;
   const hiddenNote = hiddenCnt > 0 ? ` • ${{hiddenCnt}} bortfiltrerade varor` : '';
   document.getElementById('metaLbl').textContent =
