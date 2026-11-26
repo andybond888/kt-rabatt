@@ -3661,19 +3661,19 @@
         {
           "date": "2026-10-07",
           "supplier": "Lidl Rågsved",
-          "price_net": 13.11,
+          "price_net": 15.82,
           "unit": "kg"
         },
         {
           "date": "2026-10-07",
           "supplier": "Lidl Rågsved",
-          "price_net": 13.11,
+          "price_net": 11.45,
           "unit": "kg"
         },
         {
           "date": "2026-10-07",
           "supplier": "Lidl Rågsved",
-          "price_net": 13.11,
+          "price_net": 11.3,
           "unit": "kg"
         },
         {
@@ -4470,6 +4470,12 @@
           "supplier": "Lidl Rågsved",
           "price_net": 28.21,
           "unit": "kg"
+        },
+        {
+          "date": "2026-09-18",
+          "supplier": "Hemköp",
+          "price_net": 37.69,
+          "unit": "st"
         }
       ]
     }

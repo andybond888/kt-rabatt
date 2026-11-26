@@ -1543,18 +1543,33 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .top h1 {{ margin:0; font-size:18px; }}
   .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
   .wrap {{ padding:12px; max-width:720px; margin:0 auto; }}
-  .search {{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; margin-bottom:8px; }}
-  .chips {{ display:flex; gap:6px; overflow-x:auto; padding-bottom:8px; }}
+  .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
+  .search {{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
+  .sec-lbl {{ font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.4px; margin-top:2px; }}
+  .chips {{ display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; }}
   .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:6px 12px; font-size:13px; font-weight:700; white-space:nowrap; cursor:pointer; color:#1e293b; }}
-  .chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
-  .card {{ background:#fff; border-radius:10px; padding:11px 12px; margin-bottom:8px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; gap:10px; align-items:center; }}
-  .sup {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
-  .bas {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-left:4px; }}
-  .art {{ font-weight:700; font-size:14px; margin:4px 0 2px; }}
-  .sub {{ font-size:12px; color:#475569; }}
-  .price-box {{ text-align:right; flex-shrink:0; }}
-  .p-main {{ font-size:15px; font-weight:800; color:#0f172a; }}
-  .p-avg {{ font-size:11px; color:#64748b; }}
+  .chip.active {{ background:#ea580c; color:#fff; border-color:#ea580c; }}
+  .chip.cat-chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
+  .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }}
+  .card.multi {{ border-left:5px solid #0284c7; }}
+  .info {{ flex:1; min-width:0; }}
+  .sup-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
+  .cat-tag {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-right:4px; }}
+  .multi-tag {{ display:inline-block; background:#dcfce7; color:#14532d; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
+  .title {{ font-weight:800; font-size:15px; margin:5px 0 4px; color:#0f172a; }}
+  .sup-list {{ display:flex; flex-direction:column; gap:3px; margin:4px 0; }}
+  .sup-row {{ display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:12.5px; background:#f8fafc; padding:4px 8px; border-radius:6px; border:1px solid #e2e8f0; }}
+  .sup-row.best {{ background:#f0fdf4; border-color:#bbf7d0; color:#14532d; font-weight:700; }}
+  .sub {{ font-size:12px; color:#475569; margin-top:3px; }}
+  .actions {{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; min-width:105px; }}
+  .p-main {{ font-size:15px; font-weight:800; color:#0f172a; text-align:right; }}
+  .p-avg {{ font-size:11px; color:#64748b; text-align:right; }}
+  .hist-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:8px; padding:6px 9px; font-weight:600; font-size:12px; cursor:pointer; width:100%; }}
+  .hist-btn.open {{ background:#0f172a; color:#fff; border-color:#0f172a; }}
+  .hist-box {{ margin-top:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:12px; color:#334155; }}
+  .hist-row {{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; padding:4px 0; border-bottom:1px dashed #e2e8f0; }}
+  .hist-row:last-child {{ border-bottom:none; }}
+  .hist-art {{ font-size:11px; color:#64748b; }}
 </style>
 </head>
 <body>
@@ -1563,51 +1578,147 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   <p id="metaLbl">Laddar...</p>
 </div>
 <div class="wrap">
-  <input id="qInput" class="search" type="search" placeholder="Sök artikel, grossist eller basvara..." oninput="renderB2B()">
-  <div class="chips" id="supChips"></div>
+  <div class="filters">
+    <input id="qInput" class="search" type="search" placeholder="Sök vara, artikel, kategori eller grossist..." oninput="renderB2B()">
+    <div class="sec-lbl">Kategori</div>
+    <div class="chips" id="catChips"></div>
+    <div class="sec-lbl">Grossist</div>
+    <div class="chips" id="supChips"></div>
+  </div>
   <div id="listBox"></div>
 </div>
 <script>
 const B2B = {json_blob};
+let activeCat = 'Alla';
 let activeSup = 'Alla';
+let openHist = {{}};
+
+function esc(s) {{
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}}
+
+function toggleHist(id) {{
+  openHist[id] = !openHist[id];
+  renderB2B();
+}}
+
+function matchesQuery(x, q) {{
+  if (!q) return true;
+  if ((x.vara || '').toLowerCase().includes(q)) return true;
+  if ((x.category || '').toLowerCase().includes(q)) return true;
+  if ((x.suppliers || []).some(s => s.grossist.toLowerCase().includes(q) || (s.artikel || '').toLowerCase().includes(q))) return true;
+  if ((x.history || []).some(h => (h.artikel || '').toLowerCase().includes(q))) return true;
+  return false;
+}}
+
 function renderB2B() {{
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
-  const items = B2B.items || [];
-  const counts = {{}};
-  items.forEach(x => {{
-    if (q && !(x.artikel.toLowerCase().includes(q) || x.grossist.toLowerCase().includes(q) || x.basvara.toLowerCase().includes(q))) return;
-    counts[x.grossist] = (counts[x.grossist] || 0) + 1;
+  const base = (B2B.items || []).filter(x => matchesQuery(x, q));
+
+  const catCounts = {{}};
+  base.forEach(x => {{
+    const c = x.category || 'Övrigt';
+    catCounts[c] = (catCounts[c] || 0) + 1;
   }});
-  if (activeSup !== 'Alla' && !counts[activeSup]) activeSup = 'Alla';
-  const sups = ['Alla', ...Object.keys(counts).sort()];
+  if (activeCat !== 'Alla' && !catCounts[activeCat]) activeCat = 'Alla';
+  const cats = ['Alla', ...Object.keys(catCounts).sort((a, b) => catCounts[b] - catCounts[a])];
+  const catBox = document.getElementById('catChips');
+  catBox.innerHTML = '';
+  cats.forEach(c => {{
+    const b = document.createElement('button');
+    b.className = 'chip cat-chip' + (c === activeCat ? ' active' : '');
+    b.textContent = c === 'Alla' ? `Alla (${{base.length}})` : `${{c}} (${{catCounts[c]}})`;
+    b.onclick = () => {{ activeCat = c; renderB2B(); }};
+    catBox.appendChild(b);
+  }});
+
+  const afterCat = activeCat === 'Alla' ? base : base.filter(x => (x.category || 'Övrigt') === activeCat);
+
+  const supCounts = {{}};
+  afterCat.forEach(x => {{
+    (x.suppliers || []).forEach(s => {{
+      supCounts[s.grossist] = (supCounts[s.grossist] || 0) + 1;
+    }});
+  }});
+  if (activeSup !== 'Alla' && !supCounts[activeSup]) activeSup = 'Alla';
+  const sups = ['Alla', ...Object.keys(supCounts).sort((a, b) => supCounts[b] - supCounts[a])];
   const chipBox = document.getElementById('supChips');
   chipBox.innerHTML = '';
   sups.forEach(s => {{
     const b = document.createElement('button');
     b.className = 'chip' + (s === activeSup ? ' active' : '');
-    const tot = Object.values(counts).reduce((a, c) => a + c, 0);
-    b.textContent = s === 'Alla' ? `Alla grossister (${{tot}})` : `${{s}} (${{counts[s]}})`;
+    b.textContent = s === 'Alla' ? `Alla grossister (${{afterCat.length}})` : `${{s}} (${{supCounts[s]}})`;
     b.onclick = () => {{ activeSup = s; renderB2B(); }};
     chipBox.appendChild(b);
   }});
-  const rows = items.filter(x => {{
-    if (activeSup !== 'Alla' && x.grossist !== activeSup) return false;
-    if (q && !(x.artikel.toLowerCase().includes(q) || x.grossist.toLowerCase().includes(q) || x.basvara.toLowerCase().includes(q))) return false;
-    return true;
-  }});
-  document.getElementById('metaLbl').textContent = `Uppdaterad: ${{B2B.generated_at || ''}} • ${{rows.length}} artiklar (inkl. moms)`;
+
+  const rows = activeSup === 'Alla'
+    ? afterCat
+    : afterCat.filter(x => (x.suppliers || []).some(s => s.grossist === activeSup));
+
+  document.getElementById('metaLbl').textContent =
+    `Uppdaterad: ${{B2B.generated_at || ''}} • ${{rows.length}} samlade varor (inkl. moms)`;
+
   const box = document.getElementById('listBox');
-  box.innerHTML = rows.map(x => `<div class="card">
-    <div style="min-width:0">
-      <div><span class="sup">${{x.grossist}}</span>${{x.basvara && x.basvara !== '—' ? `<span class="bas">${{x.basvara}}</span>` : ''}}</div>
-      <div class="art">${{x.artikel}}</div>
-      <div class="sub">${{x.forp ? x.forp + ' • ' : ''}}Senast: ${{x.datum}} (${{x.kop}} köp)</div>
-    </div>
-    <div class="price-box">
-      <div class="p-main">${{Number(x.latest_gross).toFixed(2)}} kr/${{x.unit}}</div>
-      <div class="p-avg">Snitt: ${{Number(x.avg_gross).toFixed(2)}} kr/${{x.unit}}</div>
-    </div>
-  </div>`).join('');
+  if (!rows.length) {{
+    box.innerHTML = '<div class="card">Inga B2B-varor matchar sökningen eller filtret.</div>';
+    return;
+  }}
+
+  box.innerHTML = rows.map(x => {{
+    const supsList = x.suppliers || [];
+    const selSupObj = activeSup !== 'Alla' ? supsList.find(s => s.grossist === activeSup) : null;
+    const mainPrice = selSupObj ? selSupObj.latest_gross : x.best_gross;
+    const avgPrice = selSupObj ? selSupObj.avg_gross : x.avg_gross;
+    const isMulti = supsList.length > 1;
+    const isH = !!openHist[x.id];
+    const histRows = activeSup === 'Alla'
+      ? (x.history || [])
+      : (x.history || []).filter(h => h.supplier === activeSup);
+
+    let supHtml = '';
+    if (isMulti && activeSup === 'Alla') {{
+      supHtml = `<div class="sup-list">` + supsList.map((s, idx) =>
+        `<div class="sup-row ${{idx === 0 ? 'best' : ''}}">` +
+          `<span>${{idx === 0 ? '🟢 ' : ''}}${{esc(s.grossist)}} <span style="font-weight:400;color:#64748b">(${{esc(s.datum)}})</span></span>` +
+          `<span>${{Number(s.latest_gross).toFixed(2)}} kr/${{esc(x.unit)}}</span>` +
+        `</div>`
+      ).join('') + `</div>`;
+    }} else {{
+      const s = selSupObj || supsList[0] || {{}};
+      supHtml = `<div class="sub"><span class="sup-tag">${{esc(s.grossist || x.latest_supplier)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
+    }}
+
+    const histHtml = (isH && histRows.length)
+      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Prishistorik (${{esc(x.vara)}}, inkl. moms):</div>` +
+        histRows.map(h =>
+          `<div class="hist-row">` +
+            `<div><div>${{esc(h.date)}} • <b>${{esc(h.supplier)}}</b></div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
+            `<b style="white-space:nowrap">${{Number(h.price_gross).toFixed(2)}} kr/${{esc(h.unit)}}</b>` +
+          `</div>`
+        ).join('') +
+        `</div>`
+      : '';
+
+    return `<div class="card ${{isMulti && activeSup === 'Alla' ? 'multi' : ''}}">
+      <div class="info">
+        <div>
+          <span class="cat-tag">${{esc(x.category || 'Övrigt')}}</span>
+          ${{isMulti ? `<span class="multi-tag">${{supsList.length}} grossister</span>` : ''}}
+        </div>
+        <div class="title">${{esc(x.vara)}}</div>
+        ${{supHtml}}
+        ${{histHtml}}
+      </div>
+      <div class="actions">
+        <div>
+          <div class="p-main">${{Number(mainPrice).toFixed(2)}} kr/${{esc(x.unit)}}</div>
+          <div class="p-avg">Snitt: ${{Number(avgPrice).toFixed(2)}} kr/${{esc(x.unit)}}</div>
+        </div>
+        <button class="hist-btn ${{isH ? 'open' : ''}}" onclick="toggleHist('${{x.id}}')">📈 Historik (${{histRows.length}})</button>
+      </div>
+    </div>`;
+  }}).join('');
 }}
 renderB2B();
 </script>
