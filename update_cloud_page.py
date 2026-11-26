@@ -1723,7 +1723,8 @@ function esc(s) {{
 }}
 
 function fmtSv(n) {{
-  return Number(n || 0).toLocaleString('sv-SE', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+  const r = Math.round((Number(n || 0) + 1e-9) * 100) / 100;
+  return r.toLocaleString('sv-SE', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
 }}
 
 function allItems() {{
