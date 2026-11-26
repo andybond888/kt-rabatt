@@ -554,7 +554,7 @@ def build_html(payload: Dict[str, Any]) -> str:
 
     <div id="filterPanel" class="varu-panel" style="display:flex;flex-direction:column;gap:8px">
       <div class="row-flex">
-        <select id="originSelect" class="prod-select" style="flex:1" onchange="onOriginSelect()">
+        <select id="originSelect" class="prod-select notranslate" style="flex:1" onchange="onOriginSelect()">
           <option value="Arrendatorsvägen 1, 141 62 Huddinge">📍 Start: Arrendatorsvägen 1, 141 62 Huddinge</option>
           <option value="Ringvägen 123, 116 61 Stockholm">🏠 Start: Ringvägen 123, 116 61 Stockholm</option>
           <option value="__custom__">✏️ Annan startadress...</option>
@@ -563,7 +563,7 @@ def build_html(payload: Dict[str, Any]) -> str:
       <div id="customOriginRow" class="row-flex" style="display:none">
         <div class="addr-wrap">
           <input id="originInput" class="search-input" style="width:100%;box-sizing:border-box" type="text" placeholder="Skriv valfri adress i Sverige..." autocomplete="off" oninput="onOriginType()">
-          <div id="addrSuggest" class="addr-list"></div>
+          <div id="addrSuggest" class="addr-list notranslate"></div>
         </div>
         <button id="btnCalcTimes" class="cfg-btn" onclick="fetchLiveTimes()">🚗 Räkna</button>
       </div>
@@ -616,6 +616,11 @@ let picked = {{}};
 let hiddenProds = {{}};
 try {{ picked = JSON.parse(localStorage.getItem('kt_cloud_picked') || '{{}}'); }} catch(e) {{}}
 try {{ hiddenProds = JSON.parse(localStorage.getItem('kt_cloud_hidden_prods') || '{{}}'); }} catch(e) {{}}
+
+const BRAND_RE = /\\b(MATRIKET|ARLA(?:\\s+KÖKET)?|VALIO|COCA-COLA|FANTA|SPRITE|PEPSI|LOKA|RAMLÖSA|GARANT|ELDORADO|SCAN|FELIX|FINDUS|GB\\s+GLACE|SIA(?:\\s+GLASS)?|TRIUMF(?:\\s+GLASS)?|POSEIDON|OCEAN\\s+SEA|STJÄRNÄGG|GOD\\s+MORGON|BELLAROM|KRONFÅGEL|GULDFÅGELN|ARVID\\s+NORDQUIST|ZO[EÉ]GAS|GEVALIA|LÖFBERGS|BARILLA|KNORR|SANTA\\s+MARIA|HEINZ|BREGOTT|MARIESTADS|NORRLANDS(?:\\s+GULD)?|PRIPPS(?:\\s+BLÅ)?|GRÄNGES|ROYAL\\s+GREENLAND|FAVORINA|DELUXE|MILBONA|INSELMEER|AROY-D|ICA(?:\\s+BASIC)?|COOP(?:\\s+X-TRA)?|WILLYS|MATDAX|LIDL)\\b/gi;
+function wrapBrands(str) {{
+  return String(str || '').replace(BRAND_RE, '<span class="notranslate">$1</span>');
+}}
 
 function openImg(src, title) {{
   if (!src) return;
@@ -699,7 +704,7 @@ function renderShopList() {{
       const cleanD = l.replace(/\\s*\\([^)]*\\)/g, '').trim();
       const qDest = st + (cleanD ? ' ' + cleanD : '');
       const uDir = `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(qDest)}}`;
-      return `<a class="loc-tag" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
+      return `<a class="loc-tag notranslate" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
     }}).join('');
     const storeSum = byStore[st].reduce((acc, c) => acc + getPickQty('c_' + c.id) * Number(c.price_gross_sek || 0), 0);
     const cardsHtml = byStore[st].map(c => {{
@@ -720,7 +725,7 @@ function renderShopList() {{
       return `<div class="card green">
         ${{imgHtml}}
         <div class="info">
-          <div class="title" style="margin-top:0">${{c.heading}}</div>
+          <div class="title" style="margin-top:0">${{wrapBrands(c.heading)}}</div>
           <div class="sub">${{c.canonical_name}}${{lim}}</div>
           <div class="price-line">${{pHtml}}</div>
         </div>
@@ -733,7 +738,7 @@ function renderShopList() {{
         </div>
       </div>`;
     }}).join('');
-    return `<div class="shop-store" style="margin-top:12px;font-size:15px">🏪 ${{st}} • ${{fmtS(storeSum, true)}} ${{locPills}}</div>${{cardsHtml}}`;
+    return `<div class="shop-store" style="margin-top:12px;font-size:15px"><span class="notranslate">🏪 ${{st}}</span> • ${{fmtS(storeSum, true)}} ${{locPills}}</div>${{cardsHtml}}`;
   }}).join('');
 }}
 
@@ -1165,7 +1170,7 @@ function renderAll() {{
   chipBox.innerHTML = '';
   stores.forEach(st => {{
     const b = document.createElement('button');
-    b.className = 'chip' + (st === activeStore ? ' active' : '');
+    b.className = 'chip' + (st === activeStore ? ' active' : '') + (st === 'Alla' ? '' : ' notranslate');
     const locs = storeLocs(st);
     const shortLoc = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
@@ -1235,7 +1240,7 @@ function renderAll() {{
       const cleanD = l.replace(/\\s*\\([^)]*\\)/g, '').trim();
       const qDest = c.store_name + (cleanD ? ' ' + cleanD : '');
       const uDir = `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(homeAddr)}}&destination=${{encodeURIComponent(qDest)}}`;
-      return `<a class="loc-tag" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
+      return `<a class="loc-tag notranslate" href="${{uDir}}" target="_blank" rel="noopener">📍 ${{l}}</a>`;
     }}).join('');
     const firstClean = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     const firstQuery = c.store_name + (firstClean ? ' ' + firstClean : '');
@@ -1245,9 +1250,9 @@ function renderAll() {{
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
       <div class="info">
-        <div><span class="store-tag">${{c.store_name}}</span>${{locHtml}}<span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
-        <div class="title">${{c.heading}}</div>
-        ${{descShort ? `<div class="sub" style="color:#334155">${{descShort}}</div>` : ''}}
+        <div><span class="store-tag notranslate">${{c.store_name}}</span>${{locHtml}}<span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
+        <div class="title">${{wrapBrands(c.heading)}}</div>
+        ${{descShort ? `<div class="sub" style="color:#334155">${{wrapBrands(descShort)}}</div>` : ''}}
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
         <div class="price-line">${{priceBlockHtml}}</div>
         <div class="ref-line">${{ourTxt}}</div>
