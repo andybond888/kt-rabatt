@@ -1690,6 +1690,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
         <p id="docSub"></p>
       </div>
       <div class="doc-head-btns">
+        <button id="docVatBtn" class="doc-close" style="background:#0284c7" onclick="toggleDocVat()">💰 Exkl. moms</button>
         <a id="docPdfBtn" class="doc-pdf-btn" href="#" target="_blank" rel="noopener" style="display:none">📑 Öppna PDF ↗</a>
         <button class="doc-close" onclick="closeInvoiceModal()">✕ Stäng</button>
       </div>
@@ -1967,6 +1968,15 @@ function toggleHist(id) {{
   renderB2B();
 }}
 
+let curDocId = null;
+let curLineId = null;
+let docInclVat = false;
+
+function toggleDocVat() {{
+  docInclVat = !docInclVat;
+  if (curDocId !== null) renderInvoiceModalBody();
+}}
+
 function openInvoiceModal(docId, lineId) {{
   const invMap = B2B.invoices || {{}};
   const doc = invMap[String(docId)];
@@ -1974,6 +1984,8 @@ function openInvoiceModal(docId, lineId) {{
     alert('Fakturaspecifikation saknas för denna rad.');
     return;
   }}
+  curDocId = docId;
+  curLineId = lineId;
   document.getElementById('docTitle').textContent = `📄 ${{doc.doc_type}} – ${{doc.supplier}}`;
   document.getElementById('docSub').textContent = `Datum: ${{doc.date}} • ${{doc.lines.length}} varurader`;
   const pdfBtn = document.getElementById('docPdfBtn');
@@ -1984,12 +1996,30 @@ function openInvoiceModal(docId, lineId) {{
   }} else {{
     pdfBtn.style.display = 'none';
   }}
+  renderInvoiceModalBody();
+  document.getElementById('docOverlay').classList.add('open');
+  setTimeout(() => {{
+    const hlEl = document.getElementById('dln_' + lineId);
+    if (hlEl) hlEl.scrollIntoView({{ block: 'center', behavior: 'smooth' }});
+  }}, 60);
+}}
+
+function renderInvoiceModalBody() {{
+  const invMap = B2B.invoices || {{}};
+  const doc = invMap[String(curDocId)];
+  if (!doc) return;
+  const vLbl = docInclVat ? 'inkl.' : 'exkl.';
+  document.getElementById('docVatBtn').textContent = docInclVat ? '💰 Visar: Inkl. moms' : '💰 Visar: Exkl. moms';
   const bodyEl = document.getElementById('docBody');
   const rowsHtml = doc.lines.map(ln => {{
-    const isHl = Number(ln.line_id) === Number(lineId);
+    const isHl = Number(ln.line_id) === Number(curLineId);
     const bQty = ln.qty_billed != null ? ln.qty_billed : 1;
     const bUnit = ln.unit_billed || ln.unit || 'st';
-    const bNet = ln.billed_net != null ? ln.billed_net : ln.unit_net;
+    const bPrice = docInclVat
+      ? (ln.billed_gross != null ? ln.billed_gross : ln.unit_gross)
+      : (ln.billed_net != null ? ln.billed_net : ln.unit_net);
+    const uPrice = docInclVat ? ln.unit_gross : ln.unit_net;
+    const tPrice = docInclVat ? ln.total_gross : ln.total_net;
     const vatPct = ln.vat_rate != null ? Number(ln.vat_rate) : 6;
     const qtyFmt = Number(bQty).toLocaleString('sv-SE', {{ maximumFractionDigits: 3 }});
     return `<tr id="dln_${{ln.line_id}}" class="${{isHl ? 'hl' : ''}}">` +
@@ -1997,24 +2027,19 @@ function openInvoiceModal(docId, lineId) {{
         `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div></td>` +
       `<td class="num notranslate">${{qtyFmt}}</td>` +
       `<td class="cnt notranslate">${{esc(bUnit)}}</td>` +
-      `<td class="num notranslate" style="color:#0369a1;font-weight:700">${{fmtSv(ln.unit_net)}} kr/${{esc(ln.unit)}}</td>` +
-      `<td class="num notranslate">${{fmtSv(bNet)}} kr</td>` +
+      `<td class="num notranslate" style="color:#0369a1;font-weight:700">${{fmtSv(uPrice)}} kr/${{esc(ln.unit)}}</td>` +
+      `<td class="num notranslate">${{fmtSv(bPrice)}} kr</td>` +
       `<td class="cnt notranslate">${{vatPct}}%</td>` +
-      `<td class="num notranslate" style="font-weight:700">${{fmtSv(ln.total_net)}} kr</td>` +
+      `<td class="num notranslate" style="font-weight:700">${{fmtSv(tPrice)}} kr</td>` +
     `</tr>`;
   }}).join('');
   bodyEl.innerHTML = `<table class="doc-tbl">` +
-    `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Pris/kg</th><th class="num">Enhetspris (exkl.)</th><th class="cnt">Moms</th><th class="num">Belopp (exkl.)</th></tr></thead>` +
+    `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Pris/kg (${{vLbl}})</th><th class="num">Enhetspris (${{vLbl}})</th><th class="cnt">Moms</th><th class="num">Belopp (${{vLbl}})</th></tr></thead>` +
     `<tbody>${{rowsHtml}}</tbody></table>`;
   document.getElementById('docFoot').innerHTML =
     `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
     `<span>Moms: <b class="notranslate">${{fmtSv(doc.vat_total)}} kr</b></span>` +
     `<span>Totalt (inkl. moms): <b class="notranslate">${{fmtSv(doc.gross_total)}} kr</b></span>`;
-  document.getElementById('docOverlay').classList.add('open');
-  setTimeout(() => {{
-    const hlEl = document.getElementById('dln_' + lineId);
-    if (hlEl) hlEl.scrollIntoView({{ block: 'center', behavior: 'smooth' }});
-  }}, 60);
 }}
 
 function closeInvoiceModal() {{
