@@ -437,14 +437,15 @@ def build_html(payload: Dict[str, Any]) -> str:
 <meta name="robots" content="noindex,nofollow">
 <title>Veckans Rabattlista – Inköp</title>
 <style>
-  body {{ margin:0; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:44px; }}
+  *, *::before, *::after {{ box-sizing:border-box; }}
+  html, body {{ margin:0; max-width:100%; overflow-x:hidden; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:44px; }}
   .top {{ background:#0f172a; color:#fff; padding:14px 16px; position:sticky; top:0; z-index:20; }}
   .top h1 {{ margin:0; font-size:18px; }}
   .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
-  .wrap {{ padding:12px; max-width:660px; margin:0 auto; }}
+  .wrap {{ padding:12px; max-width:660px; margin:0 auto; width:100%; }}
   .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
-  .row-flex {{ display:flex; gap:8px; align-items:center; }}
-  .search-input {{ flex:1; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
+  .row-flex {{ display:flex; gap:6px; align-items:center; width:100%; min-width:0; }}
+  .search-input {{ flex:1; min-width:0; padding:10px 10px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
   .cfg-btn {{ border:1px solid #0f172a; background:#fff; color:#0f172a; border-radius:8px; padding:10px 11px; font-weight:700; font-size:13px; cursor:pointer; white-space:nowrap; }}
   .cfg-btn.active {{ background:#0f172a; color:#fff; }}
   .prod-select {{ width:100%; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; font-weight:600; background:#fff; color:#0f172a; }}
