@@ -641,7 +641,7 @@ def build_html(payload: Dict[str, Any]) -> str:
 <script>
 const DATA = {json_blob};
 let activeCat = 'Alla';
-let activeStore = 'Alla';
+let activeStores = new Set();
 let activeProd = 'Alla';
 let picked = {{}};
 let hiddenProds = {{}};
@@ -1288,23 +1288,32 @@ function renderAll() {{
 
   const stCounts = {{}};
   afterProd.forEach(c => {{ stCounts[c.store_name] = (stCounts[c.store_name] || 0) + 1; }});
-  if (activeStore !== 'Alla' && !stCounts[activeStore]) activeStore = 'Alla';
+  Array.from(activeStores).forEach(s => {{ if (!stCounts[s]) activeStores.delete(s); }});
   const stores = ['Alla', ...Object.keys(stCounts).sort((a, b) => stCounts[b] - stCounts[a])];
   const chipBox = document.getElementById('storeChips');
   chipBox.innerHTML = '';
   stores.forEach(st => {{
     const b = document.createElement('button');
-    b.className = 'chip' + (st === activeStore ? ' active' : '') + (st === 'Alla' ? '' : ' notranslate');
+    const isAct = st === 'Alla' ? activeStores.size === 0 : activeStores.has(st);
+    b.className = 'chip' + (isAct ? ' active' : '') + (st === 'Alla' ? '' : ' notranslate');
     const locs = storeLocs(st);
     const shortLoc = locs.length ? locs[0].replace(/\\s*\\([^)]*\\)/g, '').trim() : '';
     b.textContent = st === 'Alla' ? `Alla butiker (${{afterProd.length}})` : `${{st}}${{shortLoc ? ' · ' + shortLoc : ''}} (${{stCounts[st]}})`;
-    b.onclick = () => {{ activeStore = st; renderAll(); }};
+    b.onclick = () => {{
+      if (st === 'Alla') {{
+        activeStores.clear();
+      }} else {{
+        if (activeStores.has(st)) activeStores.delete(st);
+        else activeStores.add(st);
+      }}
+      renderAll();
+    }};
     chipBox.appendChild(b);
   }});
 
-  const rows = activeStore === 'Alla' ? afterProd : afterProd.filter(c => c.store_name === activeStore);
+  const rows = activeStores.size === 0 ? afterProd : afterProd.filter(c => activeStores.has(c.store_name));
   const fBtn = document.getElementById('btnFilter');
-  const fCnt = (activeCat !== 'Alla' ? 1 : 0) + (activeStore !== 'Alla' ? 1 : 0) + (activeProd !== 'Alla' ? 1 : 0) + (!onlyG ? 1 : 0);
+  const fCnt = (activeCat !== 'Alla' ? 1 : 0) + activeStores.size + (activeProd !== 'Alla' ? 1 : 0) + (!onlyG ? 1 : 0);
   if (fBtn) fBtn.textContent = fCnt > 0 ? `🎛️ Filter (${{fCnt}})` : '🎛️ Filter';
   const hiddenCnt = Object.keys(hiddenProds).length;
   const hiddenNote = hiddenCnt > 0 ? ` • ${{hiddenCnt}} bortfiltrerade varor` : '';
