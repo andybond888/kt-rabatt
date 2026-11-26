@@ -493,7 +493,7 @@ def build_html(payload: Dict[str, Any]) -> str:
   .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; gap:10px; align-items:flex-start; }}
   .card.green {{ border-left:6px solid #16a34a; background:#f0fdf4; }}
   .card.yellow {{ border-left:6px solid #eab308; }}
-  .thumb {{ width:70px; height:70px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; cursor:zoom-in; }}
+  .thumb {{ width:96px; height:96px; object-fit:contain; background:#fff; border-radius:8px; border:1px solid #e2e8f0; flex-shrink:0; cursor:zoom-in; }}
   .img-modal {{ display:none; position:fixed; inset:0; background:rgba(15,23,42,0.88); z-index:100; align-items:center; justify-content:center; flex-direction:column; padding:20px; cursor:zoom-out; }}
   .img-modal.open {{ display:flex; }}
   .img-modal img {{ max-width:92vw; max-height:78vh; object-fit:contain; background:#fff; border-radius:12px; padding:8px; box-shadow:0 12px 32px rgba(0,0,0,0.4); }}
