@@ -659,12 +659,43 @@ function getPickQty(key) {{
   return n > 0 ? Math.floor(n) : 0;
 }}
 
+function buildCardPriceHtml(c, pQty) {{
+  const unitGross = c.unit_price_gross_sek != null ? c.unit_price_gross_sek : (c.unit_price_net_sek * (1 + (c.vat_rate || 6) / 100));
+  const fmtKr = (v, dropZero) => {{
+    const n = Number(v || 0);
+    if (dropZero && Math.abs(n - Math.round(n)) < 0.005) return `${{Math.round(n)}} kr`;
+    return `${{n.toFixed(2).replace('.', ',')}} kr`;
+  }};
+  const fmtQty = (q) => String(Number((q || 1).toFixed(2))).replace('.', ',');
+  const qtyVal = Number(c.norm_qty || 1);
+  const mult = pQty > 1 ? pQty : 1;
+  const dispPrice = c.price_gross_sek * mult;
+  const dispQty = qtyVal * mult;
+  const samePrice = mult === 1 && Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
+  return samePrice
+    ? `<span class="price-main">${{fmtKr(dispPrice, true)}}/${{c.norm_unit}}</span><span class="price-qty">inkl. moms</span>`
+    : `<span class="price-main">${{fmtKr(dispPrice, true)}}</span><span class="price-qty">för ${{fmtQty(dispQty)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtKr(unitGross, false)}}/${{c.norm_unit}}</span>`;
+}}
+
+function buildPickCtrlHtml(key, pQty) {{
+  return pQty > 0
+    ? `<div class="qty-ctrl notranslate"><button class="qty-btn" onclick="changePickQty('${{key}}', -1)">−</button><span class="qty-num">${{pQty}}</span><button class="qty-btn" onclick="changePickQty('${{key}}', 1)">+</button></div>`
+    : `<button class="pick-btn" onclick="changePickQty('${{key}}', 1)">Plocka</button>`;
+}}
+
 function changePickQty(key, delta) {{
   const next = getPickQty(key) + delta;
   if (next <= 0) delete picked[key];
   else picked[key] = next;
   try {{ localStorage.setItem('kt_cloud_picked', JSON.stringify(picked)); }} catch(e) {{}}
-  renderAll();
+  const actEl = document.getElementById('pick_' + key);
+  if (actEl) actEl.innerHTML = buildPickCtrlHtml(key, next > 0 ? next : 0);
+  const prcEl = document.getElementById('prc_' + key);
+  if (prcEl) {{
+    const item = (DATA.campaigns || []).find(c => ('c_' + c.id) === key);
+    if (item) prcEl.innerHTML = buildCardPriceHtml(item, next > 0 ? next : 0);
+  }}
+  renderShopList();
 }}
 
 function getPickedItems() {{
@@ -1211,14 +1242,7 @@ function renderAll() {{
       return `${{n.toFixed(2).replace('.', ',')}} kr`;
     }};
     const fmtQty = (q) => String(Number((q || 1).toFixed(2))).replace('.', ',');
-    const qtyVal = Number(c.norm_qty || 1);
-    const mult = pQty > 1 ? pQty : 1;
-    const dispPrice = c.price_gross_sek * mult;
-    const dispQty = qtyVal * mult;
-    const samePrice = mult === 1 && Math.abs(qtyVal - 1) < 0.01 && Math.abs(c.price_gross_sek - unitGross) < 0.05;
-    const priceBlockHtml = samePrice
-      ? `<span class="price-main">${{fmtKr(dispPrice, true)}}/${{c.norm_unit}}</span><span class="price-qty">inkl. moms</span>`
-      : `<span class="price-main">${{fmtKr(dispPrice, true)}}</span><span class="price-qty">för ${{fmtQty(dispQty)}} ${{c.norm_unit}}</span><span class="price-unit">${{fmtKr(unitGross, false)}}/${{c.norm_unit}}</span>`;
+    const priceBlockHtml = buildCardPriceHtml(c, pQty);
     const ourTxt = ourGross != null
       ? `${{refLbl}}: ${{fmtKr(ourGross, false)}}/${{c.norm_unit}} inkl. moms`
       : '';
@@ -1254,14 +1278,12 @@ function renderAll() {{
         <div class="title">${{wrapBrands(c.heading)}}</div>
         ${{descShort ? `<div class="sub" style="color:#334155">${{wrapBrands(descShort)}}</div>` : ''}}
         <div class="sub">${{c.canonical_name}} • Gäller t.o.m. ${{c.valid_until || 'söndag'}}${{lim}}</div>
-        <div class="price-line">${{priceBlockHtml}}</div>
+        <div class="price-line" id="prc_${{key}}">${{priceBlockHtml}}</div>
         <div class="ref-line">${{ourTxt}}</div>
         ${{histHtml}}
       </div>
       <div class="actions">
-        ${{pQty > 0
-          ? `<div class="qty-ctrl"><button class="qty-btn" onclick="changePickQty('${{key}}', -1)">−</button><span class="qty-num">${{pQty}}</span><button class="qty-btn" onclick="changePickQty('${{key}}', 1)">+</button></div>`
-          : `<button class="pick-btn" onclick="changePickQty('${{key}}', 1)">Plocka</button>`}}
+        <div id="pick_${{key}}">${{buildPickCtrlHtml(key, pQty)}}</div>
         ${{histBtnHtml}}
       </div>
     </div>`;
