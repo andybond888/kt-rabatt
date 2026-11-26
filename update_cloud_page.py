@@ -1066,6 +1066,11 @@ if (PRESET_ORIGINS.has(userOrigin)) {{
   document.getElementById('originInput').value = userOrigin;
 }}
 
+const PRESET_COORDS = {{
+  'Arrendatorsvägen 1, 141 62 Huddinge': [17.9819, 59.2367],
+  'Ringvägen 123, 116 61 Stockholm': [18.0762, 59.3082]
+}};
+
 function onOriginSelect() {{
   const val = document.getElementById('originSelect').value;
   const row = document.getElementById('customOriginRow');
@@ -1073,12 +1078,18 @@ function onOriginSelect() {{
     row.style.display = 'flex';
     document.getElementById('originInput').focus();
     userOrigin = (document.getElementById('originInput').value || '').trim() || DEFAULT_ORIGIN;
+    renderAll();
   }} else {{
     row.style.display = 'none';
     userOrigin = val;
     try {{ localStorage.setItem('kt_cloud_origin', userOrigin); }} catch(e) {{}}
+    const pc = PRESET_COORDS[val];
+    if (pc && !liveTimesCache[val]) {{
+      fetchLiveTimes(pc[0], pc[1], val);
+    }} else {{
+      renderAll();
+    }}
   }}
-  renderAll();
 }}
 
 function onOriginChange() {{
@@ -1181,8 +1192,8 @@ const PLACE_COORDS = {{
   "Arninge, Täby": [18.1355, 59.4570]
 }};
 
-async function fetchLiveTimes(oLonArg, oLatArg) {{
-  const addr = (document.getElementById('originInput').value || '').trim();
+async function fetchLiveTimes(oLonArg, oLatArg, addrOverride) {{
+  const addr = (addrOverride || document.getElementById('originInput').value || '').trim();
   if (!addr) {{ alert('Skriv in en startadress först.'); return; }}
   const stEl = document.getElementById('liveTimeStatus');
   const btn = document.getElementById('btnCalcTimes');
@@ -1231,9 +1242,10 @@ async function fetchLiveTimes(oLonArg, oLatArg) {{
 }}
 
 function storeLocs(name) {{
+  const keyOrigin = activeArea === 'skanstull' ? SKANSTULL_ORIGIN : userOrigin;
+  if (liveTimesCache[keyOrigin] && liveTimesCache[keyOrigin][name]) return liveTimesCache[keyOrigin][name];
   if (activeArea === 'skanstull' || userOrigin === SKANSTULL_ORIGIN) return STORE_LOCATIONS_SKANSTULL[name] || [];
   if (userOrigin === DEFAULT_ORIGIN) return STORE_LOCATIONS[name] || [];
-  if (liveTimesCache[userOrigin] && liveTimesCache[userOrigin][name]) return liveTimesCache[userOrigin][name];
   return (STORE_LOCATIONS[name] || []).map(l => l.replace(/\\s*\\([^)]*\\)/g, '').trim());
 }}
 
@@ -1446,6 +1458,9 @@ function googleTranslateElementInit() {{
 
 buildVaruCheckboxes();
 renderAll();
+if (PRESET_COORDS[userOrigin] && !liveTimesCache[userOrigin]) {{
+  fetchLiveTimes(PRESET_COORDS[userOrigin][0], PRESET_COORDS[userOrigin][1], userOrigin);
+}}
 syncFromCloud(true);
 setInterval(() => {{ if (!document.hidden) syncFromCloud(false); }}, 5000);
 </script>
