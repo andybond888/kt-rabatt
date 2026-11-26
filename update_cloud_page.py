@@ -1536,13 +1536,26 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>B2B Prislista – Grossister</title>
+<title>B2B Förråd & Inventering – Grossistpriser</title>
 <style>
-  body {{ margin:0; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:44px; }}
-  .top {{ background:#0f172a; color:#fff; padding:14px 16px; position:sticky; top:0; z-index:20; }}
-  .top h1 {{ margin:0; font-size:18px; }}
+  body {{ margin:0; font-family: system-ui, -apple-system, sans-serif; background:#f1f5f9; color:#0f172a; padding-bottom:56px; top:0 !important; }}
+  .goog-te-banner-frame.skiptranslate, .goog-te-gadget-icon, #goog-gt-tt, .VIpgJd-ZVi9od-ORHb-OEVmcd {{ display:none !important; }}
+  .top {{ background:#0f172a; color:#fff; padding:12px 16px; position:sticky; top:0; z-index:30; display:flex; justify-content:space-between; align-items:center; gap:10px; }}
+  .top h1 {{ margin:0; font-size:17px; }}
   .top p {{ margin:3px 0 0; font-size:12px; color:#94a3b8; }}
-  .wrap {{ padding:12px; max-width:720px; margin:0 auto; }}
+  .lang-bar {{ display:flex; gap:4px; flex-shrink:0; }}
+  .lang-btn {{ border:1px solid #334155; background:#1e293b; color:#e2e8f0; border-radius:6px; padding:5px 7px; font-size:12px; font-weight:700; cursor:pointer; }}
+  .lang-btn.active {{ background:#0284c7; border-color:#38bdf8; color:#fff; }}
+  .wrap {{ padding:12px; max-width:740px; margin:0 auto; }}
+  .inv-bar {{ background:#fff; border:2px solid #0284c7; border-radius:12px; padding:11px 13px; margin-bottom:12px; box-shadow:0 2px 8px rgba(15,23,42,0.06); }}
+  .inv-top {{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }}
+  .inv-tot-main {{ font-size:17px; font-weight:800; color:#0f172a; }}
+  .inv-tot-sub {{ font-size:12px; color:#475569; font-weight:600; margin-top:2px; }}
+  .inv-btns {{ display:flex; gap:6px; flex-wrap:wrap; margin-top:9px; }}
+  .mini-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#0f172a; border-radius:8px; padding:7px 10px; font-size:12.5px; font-weight:700; cursor:pointer; }}
+  .mini-btn.primary {{ background:#0284c7; border-color:#0284c7; color:#fff; }}
+  .mini-btn.green {{ background:#16a34a; border-color:#16a34a; color:#fff; }}
+  .mini-btn.danger {{ background:#fef2f2; border-color:#fecaca; color:#b91c1c; }}
   .filters {{ display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }}
   .search {{ width:100%; box-sizing:border-box; padding:10px 12px; border:1px solid #cbd5e1; border-radius:8px; font-size:15px; background:#fff; }}
   .sec-lbl {{ font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.4px; margin-top:2px; }}
@@ -1550,18 +1563,28 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:6px 12px; font-size:13px; font-weight:700; white-space:nowrap; cursor:pointer; color:#1e293b; }}
   .chip.active {{ background:#ea580c; color:#fff; border-color:#ea580c; }}
   .chip.cat-chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
-  .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; gap:10px; align-items:flex-start; }}
+  .card {{ background:#fff; border-radius:12px; padding:12px; margin-bottom:10px; border:1px solid #cbd5e1; display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }}
   .card.multi {{ border-left:5px solid #0284c7; }}
+  .card.counted {{ border:2px solid #16a34a; border-left:6px solid #16a34a; background:#f0fdf4; }}
   .info {{ flex:1; min-width:0; }}
   .sup-tag {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
   .cat-tag {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; margin-right:4px; }}
   .multi-tag {{ display:inline-block; background:#dcfce7; color:#14532d; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
   .title {{ font-weight:800; font-size:15px; margin:5px 0 4px; color:#0f172a; }}
   .sup-list {{ display:flex; flex-direction:column; gap:3px; margin:4px 0; }}
-  .sup-row {{ display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:12.5px; background:#f8fafc; padding:4px 8px; border-radius:6px; border:1px solid #e2e8f0; }}
-  .sup-row.best {{ background:#f0fdf4; border-color:#bbf7d0; color:#14532d; font-weight:700; }}
+  .sup-row {{ display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:12.5px; background:#f8fafc; padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; cursor:pointer; }}
+  .sup-row.chosen {{ background:#eff6ff; border-color:#3b82f6; color:#1e3a8a; font-weight:700; }}
+  .sup-row.best {{ border-color:#86efac; }}
   .sub {{ font-size:12px; color:#475569; margin-top:3px; }}
-  .actions {{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; min-width:105px; }}
+  .inv-ctrl {{ display:flex; align-items:center; gap:6px; margin-top:8px; flex-wrap:wrap; }}
+  .inv-lbl {{ font-size:12.5px; font-weight:700; color:#0f172a; }}
+  .step-btn {{ width:34px; height:36px; border:1px solid #cbd5e1; background:#fff; border-radius:8px; font-size:18px; font-weight:800; cursor:pointer; color:#0f172a; line-height:1; }}
+  .qty-inp {{ width:76px; height:36px; box-sizing:border-box; border:1.5px solid #94a3b8; border-radius:8px; text-align:center; font-size:15px; font-weight:800; background:#fff; color:#0f172a; }}
+  .qty-inp:focus {{ outline:none; border-color:#0284c7; box-shadow:0 0 0 2px rgba(2,132,199,0.2); }}
+  .unit-pill {{ font-size:13px; font-weight:800; color:#334155; }}
+  .line-val {{ font-size:13px; font-weight:800; color:#15803d; background:#dcfce7; padding:4px 8px; border-radius:6px; display:none; }}
+  .line-val.show {{ display:inline-block; }}
+  .actions {{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; min-width:108px; }}
   .p-main {{ font-size:15px; font-weight:800; color:#0f172a; text-align:right; }}
   .p-avg {{ font-size:11px; color:#64748b; text-align:right; }}
   .hist-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:8px; padding:6px 9px; font-weight:600; font-size:12px; cursor:pointer; width:100%; }}
@@ -1570,21 +1593,72 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .hist-row {{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; padding:4px 0; border-bottom:1px dashed #e2e8f0; }}
   .hist-row:last-child {{ border-bottom:none; }}
   .hist-art {{ font-size:11px; color:#64748b; }}
+  .modal-box {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; margin-bottom:12px; display:none; }}
+  .modal-box.open {{ display:block; }}
+  .form-row {{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }}
+  .form-inp {{ flex:1; min-width:110px; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; }}
+  @media (max-width: 540px) {{
+    .card {{ flex-direction:column; }}
+    .actions {{ width:100%; flex-direction:row; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:4px; }}
+    .hist-btn {{ width:auto; padding:8px 12px; }}
+  }}
 </style>
 </head>
 <body>
 <div class="top">
-  <h1>📋 B2B Prislista (Grossister)</h1>
-  <p id="metaLbl">Laddar...</p>
+  <div>
+    <h1>📦 Förråd & B2B Inventering</h1>
+    <p id="metaLbl">Laddar...</p>
+  </div>
+  <div class="lang-bar notranslate">
+    <button class="lang-btn" id="langSv" onclick="setLang('sv')">🇸🇪 SV</button>
+    <button class="lang-btn" id="langZh" onclick="setLang('zh-CN')">🇨🇳 中文</button>
+    <button class="lang-btn" id="langHr" onclick="setLang('hr')">🇭🇷 HR</button>
+  </div>
 </div>
+<div id="google_translate_element" style="display:none"></div>
+
 <div class="wrap">
-  <div class="filters">
+  <div class="inv-bar">
+    <div class="inv-top">
+      <div>
+        <div class="inv-tot-main" id="invTotMain">📦 Förrådsvärde: 0,00 kr</div>
+        <div class="inv-tot-sub" id="invTotSub">0 inventerade varor • Skriv in mängd (kg / L / st) nedan</div>
+      </div>
+      <button id="btnVatMode" class="mini-btn" onclick="toggleVatMode()">Visar: Inkl. moms</button>
+    </div>
+    <div class="inv-btns">
+      <button id="btnOnlyStock" class="mini-btn primary" onclick="toggleOnlyStock()">📦 Visa förrådslista (0)</button>
+      <button class="mini-btn green" onclick="copyInventoryReport()">📤 Kopiera rapport</button>
+      <button class="mini-btn" onclick="exportInventoryCsv()">📥 Excel (CSV)</button>
+      <button class="mini-btn" onclick="toggleCustomForm()">➕ Egen vara</button>
+      <button class="mini-btn danger" onclick="clearInventory()">🗑️ Nollställ</button>
+    </div>
+  </div>
+
+  <div id="customForm" class="modal-box">
+    <strong style="font-size:14px">➕ Lägg till egen vara i förrådet</strong>
+    <div class="form-row">
+      <input id="cName" class="form-inp" type="text" placeholder="Varunamn (t.ex. Lax fryst)">
+      <input id="cQty" class="form-inp" style="max-width:90px" type="number" step="any" placeholder="Mängd">
+      <select id="cUnit" class="form-inp" style="max-width:80px">
+        <option value="kg">kg</option>
+        <option value="L">L</option>
+        <option value="st">st</option>
+      </select>
+      <input id="cPrice" class="form-inp" style="max-width:120px" type="number" step="any" placeholder="À-pris inkl. moms">
+      <button class="mini-btn green" onclick="addCustomItem()">Spara</button>
+    </div>
+  </div>
+
+  <div class="filters" id="filterArea">
     <input id="qInput" class="search" type="search" placeholder="Sök vara, artikel, kategori eller grossist..." oninput="renderB2B()">
     <div class="sec-lbl">Kategori</div>
     <div class="chips" id="catChips"></div>
     <div class="sec-lbl">Grossist</div>
     <div class="chips" id="supChips"></div>
   </div>
+
   <div id="listBox"></div>
 </div>
 <script>
@@ -1592,9 +1666,263 @@ const B2B = {json_blob};
 let activeCat = 'Alla';
 let activeSup = 'Alla';
 let openHist = {{}};
+let onlyStock = false;
+let showInclVat = true;
+
+let invQty = {{}};
+let chosenSup = {{}};
+let customItems = [];
+try {{ invQty = JSON.parse(localStorage.getItem('kt_b2b_inv_qty') || '{{}}'); }} catch(e) {{}}
+try {{ chosenSup = JSON.parse(localStorage.getItem('kt_b2b_chosen_sup') || '{{}}'); }} catch(e) {{}}
+try {{ customItems = JSON.parse(localStorage.getItem('kt_b2b_custom_items') || '[]'); }} catch(e) {{}}
+try {{
+  const savedVat = localStorage.getItem('kt_b2b_incl_vat');
+  if (savedVat !== null) showInclVat = savedVat === '1';
+}} catch(e) {{}}
 
 function esc(s) {{
-  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}}
+
+function fmtSv(n) {{
+  return Number(n || 0).toLocaleString('sv-SE', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+}}
+
+function allItems() {{
+  return [...customItems, ...(B2B.items || [])];
+}}
+
+function getUnitPrices(x) {{
+  const sups = x.suppliers || [];
+  let sObj = null;
+  if (chosenSup[x.id]) sObj = sups.find(s => s.grossist === chosenSup[x.id]);
+  if (!sObj && activeSup !== 'Alla') sObj = sups.find(s => s.grossist === activeSup);
+  if (!sObj && x.latest_supplier) sObj = sups.find(s => s.grossist === x.latest_supplier);
+  if (!sObj && sups.length) sObj = sups[0];
+  const gross = sObj ? Number(sObj.latest_gross) : Number(x.latest_gross || x.best_gross || 0);
+  const net = sObj ? Number(sObj.latest_net) : Number(x.latest_net || x.best_net || (gross / 1.06));
+  const avgG = sObj ? Number(sObj.avg_gross) : Number(x.avg_gross || gross);
+  const avgN = sObj ? Number(sObj.avg_net) : Number(x.avg_net || net);
+  const supName = sObj ? sObj.grossist : (x.latest_supplier || 'Egen vara');
+  return {{ gross, net, avgG, avgN, supName }};
+}}
+
+function saveInv() {{
+  try {{ localStorage.setItem('kt_b2b_inv_qty', JSON.stringify(invQty)); }} catch(e) {{}}
+  updateSummaryBar();
+}}
+
+function updateSummaryBar() {{
+  let cnt = 0;
+  let totGross = 0;
+  let totNet = 0;
+  allItems().forEach(x => {{
+    const q = Number(invQty[x.id] || 0);
+    if (q > 0) {{
+      cnt += 1;
+      const p = getUnitPrices(x);
+      totGross += q * p.gross;
+      totNet += q * p.net;
+    }}
+  }});
+  const mainVal = showInclVat ? totGross : totNet;
+  const otherVal = showInclVat ? totNet : totGross;
+  const mainLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
+  const otherLbl = showInclVat ? 'exkl. moms' : 'inkl. moms';
+  document.getElementById('invTotMain').textContent = `📦 Förrådsvärde: ${{fmtSv(mainVal)}} kr (${{mainLbl}})`;
+  document.getElementById('invTotSub').textContent =
+    `${{cnt}} varor i förrådet • ${{fmtSv(otherVal)}} kr ${{otherLbl}}`;
+  const btnStock = document.getElementById('btnOnlyStock');
+  btnStock.textContent = onlyStock ? `← Visa alla varor` : `📦 Visa förrådslista (${{cnt}})`;
+  document.getElementById('btnVatMode').textContent = showInclVat ? 'Visar: Inkl. moms' : 'Visar: Exkl. moms';
+}}
+
+function onQtyInput(id, rawVal) {{
+  const cleaned = String(rawVal || '').replace(',', '.');
+  const v = parseFloat(cleaned);
+  if (!isNaN(v) && v > 0) {{
+    invQty[id] = Math.round(v * 1000) / 1000;
+  }} else {{
+    delete invQty[id];
+  }}
+  saveInv();
+  updateCardInPlace(id);
+}}
+
+function stepQty(id, delta) {{
+  const cur = Number(invQty[id] || 0);
+  const next = Math.max(0, Math.round((cur + delta) * 1000) / 1000);
+  if (next > 0) invQty[id] = next;
+  else delete invQty[id];
+  const inp = document.getElementById('qinp_' + id);
+  if (inp) inp.value = next > 0 ? String(next) : '';
+  saveInv();
+  updateCardInPlace(id);
+  if (onlyStock && next === 0) renderB2B();
+}}
+
+function updateCardInPlace(id) {{
+  const x = allItems().find(it => it.id === id);
+  if (!x) return;
+  const q = Number(invQty[id] || 0);
+  const p = getUnitPrices(x);
+  const uPrice = showInclVat ? p.gross : p.net;
+  const cardEl = document.getElementById('card_' + id);
+  if (cardEl) cardEl.classList.toggle('counted', q > 0);
+  const lvEl = document.getElementById('lval_' + id);
+  if (lvEl) {{
+    if (q > 0) {{
+      lvEl.textContent = `= ${{fmtSv(q * uPrice)}} kr`;
+      lvEl.classList.add('show');
+    }} else {{
+      lvEl.textContent = '';
+      lvEl.classList.remove('show');
+    }}
+  }}
+}}
+
+function selectSupForVara(id, supName) {{
+  chosenSup[id] = supName;
+  try {{ localStorage.setItem('kt_b2b_chosen_sup', JSON.stringify(chosenSup)); }} catch(e) {{}}
+  updateSummaryBar();
+  renderB2B();
+}}
+
+function toggleVatMode() {{
+  showInclVat = !showInclVat;
+  try {{ localStorage.setItem('kt_b2b_incl_vat', showInclVat ? '1' : '0'); }} catch(e) {{}}
+  updateSummaryBar();
+  renderB2B();
+}}
+
+function toggleOnlyStock() {{
+  onlyStock = !onlyStock;
+  updateSummaryBar();
+  renderB2B();
+}}
+
+function toggleCustomForm() {{
+  document.getElementById('customForm').classList.toggle('open');
+}}
+
+function addCustomItem() {{
+  const name = (document.getElementById('cName').value || '').trim();
+  const q = parseFloat(String(document.getElementById('cQty').value || '0').replace(',', '.'));
+  const u = document.getElementById('cUnit').value || 'kg';
+  const pGross = parseFloat(String(document.getElementById('cPrice').value || '0').replace(',', '.'));
+  if (!name || isNaN(pGross) || pGross <= 0) {{
+    alert('Ange både varunamn och à-pris!');
+    return;
+  }}
+  const id = 'cust_' + Date.now();
+  const pNet = Math.round((pGross / 1.06) * 100) / 100;
+  const today = new Date().toISOString().slice(0, 10);
+  const newItem = {{
+    id,
+    vara: name,
+    category: 'Egna varor',
+    unit: u,
+    vat_rate: 6.0,
+    best_net: pNet,
+    best_gross: pGross,
+    best_supplier: 'Egen inmatning',
+    latest_net: pNet,
+    latest_gross: pGross,
+    latest_date: today,
+    latest_supplier: 'Egen inmatning',
+    avg_net: pNet,
+    avg_gross: pGross,
+    kop: 1,
+    suppliers: [{{ grossist: 'Egen inmatning', latest_net: pNet, latest_gross: pGross, avg_net: pNet, avg_gross: pGross, kop: 1, datum: today, artikel: name, forp: '' }}],
+    history: [{{ date: today, supplier: 'Egen inmatning', artikel: name, forp: '', price_net: pNet, price_gross: pGross, unit: u }}]
+  }};
+  customItems.unshift(newItem);
+  try {{ localStorage.setItem('kt_b2b_custom_items', JSON.stringify(customItems)); }} catch(e) {{}}
+  if (!isNaN(q) && q > 0) invQty[id] = q;
+  document.getElementById('cName').value = '';
+  document.getElementById('cQty').value = '';
+  document.getElementById('cPrice').value = '';
+  document.getElementById('customForm').classList.remove('open');
+  saveInv();
+  renderB2B();
+}}
+
+function deleteCustomItem(id) {{
+  customItems = customItems.filter(x => x.id !== id);
+  delete invQty[id];
+  try {{ localStorage.setItem('kt_b2b_custom_items', JSON.stringify(customItems)); }} catch(e) {{}}
+  saveInv();
+  renderB2B();
+}}
+
+function clearInventory() {{
+  if (!confirm('Vill du nollställa alla inmatade förrådsmängder?')) return;
+  invQty = {{}};
+  saveInv();
+  renderB2B();
+}}
+
+function copyInventoryReport() {{
+  const counted = allItems().filter(x => Number(invQty[x.id] || 0) > 0);
+  if (!counted.length) {{
+    alert('Inga varor har mängd > 0 i förrådet ännu.');
+    return;
+  }}
+  const today = new Date().toISOString().slice(0, 10);
+  let totG = 0, totN = 0;
+  const lines = [`📦 LAGERINVENTERING (${{today}})`, '----------------------------------------'];
+  counted.forEach(x => {{
+    const q = Number(invQty[x.id]);
+    const p = getUnitPrices(x);
+    const lG = q * p.gross;
+    const lN = q * p.net;
+    totG += lG;
+    totN += lN;
+    const uP = showInclVat ? p.gross : p.net;
+    const lV = showInclVat ? lG : lN;
+    lines.push(`• ${{x.vara}}: ${{q}} ${{x.unit}} × ${{fmtSv(uP)}} kr = ${{fmtSv(lV)}} kr (${{p.supName}})`);
+  }});
+  lines.push('----------------------------------------');
+  lines.push(`Totalt EXKL. moms: ${{fmtSv(totN)}} kr`);
+  lines.push(`Totalt INKL. moms: ${{fmtSv(totG)}} kr`);
+  const txt = lines.join('\\n');
+  if (navigator.clipboard && navigator.clipboard.writeText) {{
+    navigator.clipboard.writeText(txt).then(() => alert('Inventeringsrapport kopierad!')).catch(() => prompt('Kopiera texten:', txt));
+  }} else {{
+    prompt('Kopiera texten:', txt);
+  }}
+}}
+
+function exportInventoryCsv() {{
+  const counted = allItems().filter(x => Number(invQty[x.id] || 0) > 0);
+  if (!counted.length) {{
+    alert('Inga varor har mängd > 0 i förrådet ännu.');
+    return;
+  }}
+  const today = new Date().toISOString().slice(0, 10);
+  const rows = [['Vara', 'Kategori', 'Grossist', 'Mängd', 'Enhet', 'À-pris exkl moms', 'À-pris inkl moms', 'Värde exkl moms', 'Värde inkl moms']];
+  let totG = 0, totN = 0;
+  counted.forEach(x => {{
+    const q = Number(invQty[x.id]);
+    const p = getUnitPrices(x);
+    const lN = q * p.net;
+    const lG = q * p.gross;
+    totN += lN;
+    totG += lG;
+    rows.push([
+      x.vara, x.category || '', p.supName,
+      String(q).replace('.', ','), x.unit,
+      p.net.toFixed(2).replace('.', ','), p.gross.toFixed(2).replace('.', ','),
+      lN.toFixed(2).replace('.', ','), lG.toFixed(2).replace('.', ',')
+    ]);
+  }});
+  rows.push(['TOTALT', '', '', '', '', '', '', totN.toFixed(2).replace('.', ','), totG.toFixed(2).replace('.', ',')]);
+  const csv = '\\uFEFF' + rows.map(r => r.map(c => `"${{String(c).replace(/"/g, '""')}}"`).join(';')).join('\\r\\n');
+  const blob = new Blob([csv], {{ type: 'text/csv;charset=utf-8;' }});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `lagerinventering_${{today}}.csv`;
+  a.click();
 }}
 
 function toggleHist(id) {{
@@ -1613,7 +1941,10 @@ function matchesQuery(x, q) {{
 
 function renderB2B() {{
   const q = (document.getElementById('qInput').value || '').toLowerCase().trim();
-  const base = (B2B.items || []).filter(x => matchesQuery(x, q));
+  const base = allItems().filter(x => {{
+    if (onlyStock && !(Number(invQty[x.id] || 0) > 0)) return false;
+    return matchesQuery(x, q);
+  }});
 
   const catCounts = {{}};
   base.forEach(x => {{
@@ -1656,72 +1987,125 @@ function renderB2B() {{
     ? afterCat
     : afterCat.filter(x => (x.suppliers || []).some(s => s.grossist === activeSup));
 
+  const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
   document.getElementById('metaLbl').textContent =
-    `Uppdaterad: ${{B2B.generated_at || ''}} • ${{rows.length}} samlade varor (inkl. moms)`;
+    `Uppdaterad: ${{B2B.generated_at || ''}} • ${{rows.length}} varor (${{vatLbl}})`;
 
   const box = document.getElementById('listBox');
   if (!rows.length) {{
-    box.innerHTML = '<div class="card">Inga B2B-varor matchar sökningen eller filtret.</div>';
+    box.innerHTML = onlyStock
+      ? '<div class="card">Du har inte fyllt i några mängder i förrådet ännu. Klicka på "← Visa alla varor" ovan och skriv in hur många kg / L / st som finns!</div>'
+      : '<div class="card">Inga B2B-varor matchar sökningen eller filtret.</div>';
     return;
   }}
 
   box.innerHTML = rows.map(x => {{
     const supsList = x.suppliers || [];
-    const selSupObj = activeSup !== 'Alla' ? supsList.find(s => s.grossist === activeSup) : null;
-    const mainPrice = selSupObj ? selSupObj.latest_gross : x.best_gross;
-    const avgPrice = selSupObj ? selSupObj.avg_gross : x.avg_gross;
+    const p = getUnitPrices(x);
+    const mainPrice = showInclVat ? p.gross : p.net;
+    const avgPrice = showInclVat ? p.avgG : p.avgN;
     const isMulti = supsList.length > 1;
     const isH = !!openHist[x.id];
+    const curQ = Number(invQty[x.id] || 0);
+    const isCustom = String(x.id).startsWith('cust_');
     const histRows = activeSup === 'Alla'
       ? (x.history || [])
       : (x.history || []).filter(h => h.supplier === activeSup);
 
     let supHtml = '';
     if (isMulti && activeSup === 'Alla') {{
-      supHtml = `<div class="sup-list">` + supsList.map((s, idx) =>
-        `<div class="sup-row ${{idx === 0 ? 'best' : ''}}">` +
-          `<span>${{idx === 0 ? '🟢 ' : ''}}${{esc(s.grossist)}} <span style="font-weight:400;color:#64748b">(${{esc(s.datum)}})</span></span>` +
-          `<span>${{Number(s.latest_gross).toFixed(2)}} kr/${{esc(x.unit)}}</span>` +
-        `</div>`
-      ).join('') + `</div>`;
+      supHtml = `<div class="sup-list">` + supsList.map((s, idx) => {{
+        const sp = showInclVat ? s.latest_gross : s.latest_net;
+        const isChosen = p.supName === s.grossist;
+        return `<div class="sup-row ${{idx === 0 ? 'best' : ''}} ${{isChosen ? 'chosen' : ''}}" title="Klicka för att räkna med denna grossists pris" onclick="selectSupForVara('${{x.id}}', '${{esc(s.grossist)}}')">` +
+          `<span>${{isChosen ? '✓ ' : (idx === 0 ? '🟢 ' : '')}}<span class="notranslate">${{esc(s.grossist)}}</span> <span style="font-weight:400;color:#64748b">(${{esc(s.datum)}})</span></span>` +
+          `<span class="notranslate">${{fmtSv(sp)}} kr/${{esc(x.unit)}}</span>` +
+        `</div>`;
+      }}).join('') + `</div>`;
     }} else {{
-      const s = selSupObj || supsList[0] || {{}};
-      supHtml = `<div class="sub"><span class="sup-tag">${{esc(s.grossist || x.latest_supplier)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
+      const s = supsList.find(st => st.grossist === p.supName) || supsList[0] || {{}};
+      supHtml = `<div class="sub"><span class="sup-tag notranslate">${{esc(s.grossist || x.latest_supplier)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
     }}
 
     const histHtml = (isH && histRows.length)
-      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Prishistorik (${{esc(x.vara)}}, inkl. moms):</div>` +
-        histRows.map(h =>
-          `<div class="hist-row">` +
-            `<div><div>${{esc(h.date)}} • <b>${{esc(h.supplier)}}</b></div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
-            `<b style="white-space:nowrap">${{Number(h.price_gross).toFixed(2)}} kr/${{esc(h.unit)}}</b>` +
-          `</div>`
-        ).join('') +
+      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">Prishistorik (${{esc(x.vara)}}, ${{vatLbl}}):</div>` +
+        histRows.map(h => {{
+          const hp = showInclVat ? h.price_gross : h.price_net;
+          return `<div class="hist-row">` +
+            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b></div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
+            `<b class="notranslate" style="white-space:nowrap">${{fmtSv(hp)}} kr/${{esc(h.unit)}}</b>` +
+          `</div>`;
+        }}).join('') +
         `</div>`
       : '';
 
-    return `<div class="card ${{isMulti && activeSup === 'Alla' ? 'multi' : ''}}">
+    const delBtn = isCustom ? `<button class="mini-btn danger" style="padding:4px 8px;font-size:11px" onclick="deleteCustomItem('${{x.id}}')">Ta bort</button>` : '';
+
+    return `<div id="card_${{x.id}}" class="card ${{isMulti && activeSup === 'Alla' ? 'multi' : ''}} ${{curQ > 0 ? 'counted' : ''}}">
       <div class="info">
-        <div>
+        <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
           <span class="cat-tag">${{esc(x.category || 'Övrigt')}}</span>
           ${{isMulti ? `<span class="multi-tag">${{supsList.length}} grossister</span>` : ''}}
+          ${{delBtn}}
         </div>
         <div class="title">${{esc(x.vara)}}</div>
         ${{supHtml}}
+        <div class="inv-ctrl">
+          <span class="inv-lbl">I förråd:</span>
+          <button class="step-btn notranslate" onclick="stepQty('${{x.id}}', -1)">−</button>
+          <input id="qinp_${{x.id}}" class="qty-inp notranslate" type="number" step="any" min="0" inputmode="decimal" placeholder="0" value="${{curQ > 0 ? curQ : ''}}" oninput="onQtyInput('${{x.id}}', this.value)">
+          <span class="unit-pill notranslate">${{esc(x.unit)}}</span>
+          <button class="step-btn notranslate" onclick="stepQty('${{x.id}}', 1)">+</button>
+          <span id="lval_${{x.id}}" class="line-val notranslate ${{curQ > 0 ? 'show' : ''}}">${{curQ > 0 ? '= ' + fmtSv(curQ * mainPrice) + ' kr' : ''}}</span>
+        </div>
         ${{histHtml}}
       </div>
       <div class="actions">
         <div>
-          <div class="p-main">${{Number(mainPrice).toFixed(2)}} kr/${{esc(x.unit)}}</div>
-          <div class="p-avg">Snitt: ${{Number(avgPrice).toFixed(2)}} kr/${{esc(x.unit)}}</div>
+          <div class="p-main notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}}</div>
+          <div class="p-avg notranslate">Snitt: ${{fmtSv(avgPrice)}} kr/${{esc(x.unit)}}</div>
         </div>
         <button class="hist-btn ${{isH ? 'open' : ''}}" onclick="toggleHist('${{x.id}}')">📈 Historik (${{histRows.length}})</button>
       </div>
     </div>`;
   }}).join('');
 }}
+
+function setLang(lang) {{
+  if (lang === 'sv') {{
+    document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+    document.cookie = 'googtrans=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }} else {{
+    document.cookie = 'googtrans=/sv/' + lang + '; path=/';
+    document.cookie = 'googtrans=/sv/' + lang + '; path=/; domain=' + location.hostname;
+  }}
+  try {{ localStorage.setItem('kt_cloud_lang', lang); }} catch(e) {{}}
+  location.reload();
+}}
+
+function googleTranslateElementInit() {{
+  new google.translate.TranslateElement({{
+    pageLanguage: 'sv',
+    includedLanguages: 'zh-CN,hr',
+    autoDisplay: false
+  }}, 'google_translate_element');
+}}
+
+(function() {{
+  let curLang = 'sv';
+  try {{ curLang = localStorage.getItem('kt_cloud_lang') || 'sv'; }} catch(e) {{}}
+  const map = {{ 'sv': 'langSv', 'zh-CN': 'langZh', 'hr': 'langHr' }};
+  const el = document.getElementById(map[curLang] || 'langSv');
+  if (el) el.classList.add('active');
+  if (curLang !== 'sv') {{
+    document.cookie = 'googtrans=/sv/' + curLang + '; path=/';
+  }}
+}})();
+
+updateSummaryBar();
 renderB2B();
 </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>"""
 
