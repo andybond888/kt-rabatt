@@ -516,6 +516,10 @@ def build_html(payload: Dict[str, Any]) -> str:
   .price-qty {{ font-size:12px; font-weight:600; color:#475569; }}
   .price-unit {{ font-size:12px; font-weight:700; color:#0369a1; background:#f0f9ff; border:1px solid #bae6fd; padding:1px 7px; border-radius:999px; }}
   .ref-line {{ font-size:12px; color:#15803d; font-weight:600; margin-top:3px; }}
+  .date-row {{ margin-top:5px; }}
+  .date-pill {{ display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:6px; background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; }}
+  .date-pill.warn {{ background:#fef3c7; color:#b45309; border-color:#f59e0b; }}
+  .date-pill.urgent {{ background:#fee2e2; color:#dc2626; border-color:#ef4444; }}
   .pick-btn {{ border:2px solid #0284c7; background:#fff; color:#0284c7; border-radius:10px; padding:9px 10px; font-weight:700; font-size:13px; cursor:pointer; width:100%; }}
   .pick-btn.picked {{ background:#16a34a; border-color:#16a34a; color:#fff; }}
   .actions {{ display:flex; flex-direction:column; gap:6px; flex-shrink:0; min-width:86px; }}
@@ -1410,14 +1414,17 @@ function renderAll() {{
     const hemvagUrl = locs.length ? `https://www.google.com/maps/dir/?api=1&origin=${{encodeURIComponent(SKANSTULL_ORIGIN)}}&waypoints=${{encodeURIComponent(firstQuery)}}&destination=${{encodeURIComponent(DEFAULT_ORIGIN)}}` : '';
     const rtTime = ROUTE_TIMES[c.store_name] ? ` (${{ROUTE_TIMES[c.store_name]}})` : '';
     const locHtml = locs.length ? `${{locPills}}<a class="route-tag" href="${{hemvagUrl}}" target="_blank" rel="noopener" title="Skanstull → ${{c.store_name}} → Arrendatorsvägen">🚗 Till jobbet${{rtTime}}</a>` : '';
-    let validHtml = `Gäller t.o.m. ${{c.valid_until || 'söndag'}}`;
+    let validPill = `<span class="date-pill">📅 T.o.m. ${{c.valid_until || 'söndag'}}</span>`;
     if (c.valid_until && /^\\d{{4}}-\\d{{2}}-\\d{{2}}$/.test(c.valid_until)) {{
       const td = new Date(); td.setHours(0, 0, 0, 0);
       const ex = new Date(c.valid_until + 'T00:00:00');
       const dl = Math.round((ex - td) / 86400000);
-      if (dl <= 0) validHtml = `<span style="color:#dc2626;font-weight:800">⏰ Sista dagen idag (${{c.valid_until}})!</span>`;
-      else if (dl === 1) validHtml = `<span style="color:#dc2626;font-weight:700">⏰ Går ut imorgon (${{c.valid_until}})</span>`;
-      else if (dl === 2) validHtml = `<span style="color:#d97706;font-weight:700">⏳ Gäller t.o.m. ${{c.valid_until}} (2 dagar kvar)</span>`;
+      const daysSv = ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'];
+      const dStr = `${{daysSv[ex.getDay()]}} ${{ex.getDate()}}/${{ex.getMonth() + 1}}`;
+      if (dl <= 0) validPill = `<span class="date-pill urgent">⏰ Sista dagen idag (${{dStr}})!</span>`;
+      else if (dl === 1) validPill = `<span class="date-pill urgent">⏰ Går ut imorgon (${{dStr}})</span>`;
+      else if (dl === 2) validPill = `<span class="date-pill warn">⏳ T.o.m. ${{dStr}} (2 dagar kvar)</span>`;
+      else validPill = `<span class="date-pill">📅 T.o.m. ${{dStr}}</span>`;
     }}
     return `<div class="card ${{cls}} ${{isP ? 'done' : ''}}">
       ${{imgHtml}}
@@ -1425,9 +1432,10 @@ function renderAll() {{
         <div><span class="store-tag notranslate">${{c.store_name}}</span>${{locHtml}}<span class="cat-tag">${{c.category || 'Basvara'}}</span><span class="save-tag">${{c.verdict}}${{savePct}}</span></div>
         <div class="title">${{wrapBrands(c.heading)}}</div>
         ${{descShort ? `<div class="sub" style="color:#334155">${{wrapBrands(descShort)}}</div>` : ''}}
-        <div class="sub">${{c.canonical_name}} • ${{validHtml}}${{lim}}</div>
+        <div class="sub">${{c.canonical_name}}${{lim}}</div>
         <div class="price-line" id="prc_${{key}}">${{priceBlockHtml}}</div>
         <div class="ref-line">${{ourTxt}}</div>
+        <div class="date-row">${{validPill}}</div>
         ${{histHtml}}
       </div>
       <div class="actions">
