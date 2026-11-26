@@ -1711,8 +1711,8 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
     <input id="qInput" class="search" type="search" placeholder="Sök vara, artikel, kategori eller grossist..." oninput="renderB2B()">
     <div class="sec-lbl">Kategori</div>
     <div class="chips" id="catChips"></div>
-    <div class="sec-lbl">Grossist</div>
-    <div class="chips" id="supChips"></div>
+    <div class="sec-lbl">Grossister</div>
+    <div class="chips" id="supChips" role="group" aria-label="Grossistfilter"></div>
   </div>
 
   <div id="listBox"></div>
@@ -1738,7 +1738,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
 <script>
 const B2B = {json_blob};
 let activeCat = 'Alla';
-let activeSup = 'Alla';
+const activeSuppliers = new Set();
 let openHist = {{}};
 let onlyStock = false;
 let showInclVat = false;
@@ -1782,11 +1782,14 @@ function getUnitPrices(x) {{
   return inventoryItems[x.id]?.prices || getCatalogPrices(x);
 }}
 
-function getCatalogPrices(x) {{
+function visibleSuppliers(x) {{
   const sups = x.suppliers || [];
+  return activeSuppliers.size ? sups.filter(s => activeSuppliers.has(s.grossist)) : sups;
+}}
+
+function getCatalogPrices(x, sups = x.suppliers || []) {{
   let sObj = null;
   if (chosenSup[x.id]) sObj = sups.find(s => s.grossist === chosenSup[x.id]);
-  if (!sObj && activeSup !== 'Alla') sObj = sups.find(s => s.grossist === activeSup);
   if (!sObj && x.latest_supplier) sObj = sups.find(s => s.grossist === x.latest_supplier);
   if (!sObj && sups.length) sObj = sups[0];
   const gross = sObj ? Number(sObj.latest_gross) : Number(x.latest_gross || x.best_gross || 0);
@@ -1798,7 +1801,8 @@ function getCatalogPrices(x) {{
 }}
 
 function captureInventoryItem(x) {{
-  const prices = getCatalogPrices(x);
+  const visible = visibleSuppliers(x);
+  const prices = visible.length ? getCatalogPrices(x, visible) : getCatalogPrices(x);
   inventoryItems[x.id] = {{
     id: x.id, vara: x.vara, category: x.category, unit: x.unit,
     latest_supplier: prices.supName, latest_date: x.latest_date, prices,
@@ -2192,10 +2196,15 @@ function matchesQuery(x, q) {{
   return false;
 }}
 
-function purchaseCount(item, supplier) {{
-  if (supplier === 'Alla') return item.kop ?? (item.history || []).length;
-  const supplierInfo = (item.suppliers || []).find(s => s.grossist === supplier);
-  return supplierInfo?.kop ?? (item.history || []).filter(h => h.supplier === supplier).length;
+function purchaseCount(item, suppliers) {{
+  const history = item.history || [];
+  if (!suppliers.size) return item.kop ?? history.length;
+  let total = 0;
+  for (const supplier of suppliers) {{
+    const info = (item.suppliers || []).find(s => s.grossist === supplier);
+    total += info?.kop ?? history.filter(h => h.supplier === supplier).length;
+  }}
+  return total;
 }}
 
 function renderB2B() {{
@@ -2230,23 +2239,30 @@ function renderB2B() {{
       supCounts[s.grossist] = (supCounts[s.grossist] || 0) + 1;
     }});
   }});
-  if (activeSup !== 'Alla' && !supCounts[activeSup]) activeSup = 'Alla';
+  for (const supplier of activeSuppliers) supCounts[supplier] ??= 0;
   const sups = ['Alla', ...Object.keys(supCounts).sort((a, b) => supCounts[b] - supCounts[a])];
   const chipBox = document.getElementById('supChips');
   chipBox.innerHTML = '';
   sups.forEach(s => {{
     const b = document.createElement('button');
-    b.className = 'chip' + (s === activeSup ? ' active' : '');
+    const selected = s === 'Alla' ? !activeSuppliers.size : activeSuppliers.has(s);
+    b.className = 'chip' + (selected ? ' active' : '');
+    b.setAttribute('aria-pressed', String(selected));
     b.textContent = s === 'Alla' ? `Alla grossister (${{afterCat.length}})` : `${{s}} (${{supCounts[s]}})`;
-    b.onclick = () => {{ activeSup = s; renderB2B(); }};
+    b.onclick = () => {{
+      if (s === 'Alla') activeSuppliers.clear();
+      else if (activeSuppliers.has(s)) activeSuppliers.delete(s);
+      else activeSuppliers.add(s);
+      renderB2B();
+    }};
     chipBox.appendChild(b);
   }});
 
   const rows = afterCat.filter(x =>
-    activeSup === 'Alla' || (x.suppliers || []).some(s => s.grossist === activeSup)
+    !activeSuppliers.size || visibleSuppliers(x).length
   );
   rows.sort((a, b) =>
-    purchaseCount(b, activeSup) - purchaseCount(a, activeSup)
+    purchaseCount(b, activeSuppliers) - purchaseCount(a, activeSuppliers)
     || a.vara.localeCompare(b.vara, 'sv')
     || a.unit.localeCompare(b.unit, 'sv')
   );
@@ -2264,31 +2280,35 @@ function renderB2B() {{
   }}
 
   box.innerHTML = rows.map(x => {{
-    const supsList = x.suppliers || [];
-    const p = getUnitPrices(x);
+    const supsList = visibleSuppliers(x);
+    const inventoryPrice = getUnitPrices(x);
+    const p = !activeSuppliers.size || supsList.some(s => s.grossist === inventoryPrice.supName)
+      ? inventoryPrice
+      : getCatalogPrices(x, supsList);
     const mainPrice = showInclVat ? p.gross : p.net;
     const avgPrice = showInclVat ? p.avgG : p.avgN;
+    const inventoryUnitPrice = showInclVat ? inventoryPrice.gross : inventoryPrice.net;
     const isMulti = supsList.length > 1;
     const isH = !!openHist[x.id];
     const curQ = Number(invQty[x.id] || 0);
     const isCustom = String(x.id).startsWith('cust_');
     const chosenSupplier = chosenSup[x.id];
-    const historySupplier = activeSup === 'Alla' && supsList.some(s => s.grossist === chosenSupplier)
-      ? chosenSupplier
-      : activeSup;
-    const histRows = historySupplier === 'Alla'
-      ? (x.history || [])
-      : (x.history || []).filter(h => h.supplier === historySupplier);
-    const totalPurchases = purchaseCount(x, historySupplier);
+    const historySuppliers = supsList.some(s => s.grossist === chosenSupplier)
+      ? new Set([chosenSupplier])
+      : activeSuppliers;
+    const histRows = (x.history || []).filter(h =>
+      !historySuppliers.size || historySuppliers.has(h.supplier)
+    );
+    const totalPurchases = purchaseCount(x, historySuppliers);
     const histCount = totalPurchases > histRows.length
       ? `${{histRows.length}} av ${{totalPurchases}}`
       : String(histRows.length);
-    const histTitle = historySupplier === 'Alla'
-      ? 'Prishistorik'
-      : `Prishistorik för ${{esc(historySupplier)}}`;
+    const histTitle = historySuppliers.size === 1
+      ? `Prishistorik för ${{esc([...historySuppliers][0])}}`
+      : 'Prishistorik';
 
     let supHtml = '';
-    if (isMulti && activeSup === 'Alla') {{
+    if (isMulti) {{
       supHtml = `<div class="sup-list">` + supsList.map((s, idx) => {{
         const sp = showInclVat ? s.latest_gross : s.latest_net;
         const isChosen = p.supName === s.grossist;
@@ -2318,7 +2338,7 @@ function renderB2B() {{
 
     const delBtn = isCustom ? `<button class="mini-btn danger" style="padding:4px 8px;font-size:11px" onclick="deleteCustomItem('${{x.id}}')">Ta bort</button>` : '';
 
-    return `<div id="card_${{x.id}}" class="card ${{isMulti && activeSup === 'Alla' ? 'multi' : ''}} ${{curQ > 0 ? 'counted' : ''}}">
+    return `<div id="card_${{x.id}}" class="card ${{isMulti ? 'multi' : ''}} ${{curQ > 0 ? 'counted' : ''}}">
       <div class="info">
         <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
           <span class="cat-tag">${{esc(x.category || 'Övrigt')}}</span>
@@ -2333,7 +2353,7 @@ function renderB2B() {{
           <input id="qinp_${{x.id}}" class="qty-inp notranslate" type="number" step="any" min="0" inputmode="decimal" placeholder="0" value="${{curQ > 0 ? curQ : ''}}" oninput="onQtyInput('${{x.id}}', this.value)">
           <span class="unit-pill notranslate">${{esc(x.unit)}}</span>
           <button class="step-btn notranslate" onclick="stepQty('${{x.id}}', 1)">+</button>
-          <span id="lval_${{x.id}}" class="line-val notranslate ${{curQ > 0 ? 'show' : ''}}">${{curQ > 0 ? '= ' + fmtSv(curQ * mainPrice) + ' kr' : ''}}</span>
+          <span id="lval_${{x.id}}" class="line-val notranslate ${{curQ > 0 ? 'show' : ''}}">${{curQ > 0 ? '= ' + fmtSv(curQ * inventoryUnitPrice) + ' kr' : ''}}</span>
         </div>
         ${{histHtml}}
       </div>
