@@ -1605,7 +1605,16 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .doc-pdf-btn {{ display:inline-block; text-decoration:none; background:#16a34a; color:#fff; border-radius:8px; padding:6px 11px; font-size:12.5px; font-weight:800; white-space:nowrap; }}
   .doc-pdf-btn:hover {{ background:#15803d; }}
   .doc-close {{ border:none; background:#334155; color:#fff; border-radius:8px; padding:6px 11px; font-size:13px; font-weight:800; cursor:pointer; }}
-  .doc-body {{ padding:0; overflow-y:auto; overflow-x:auto; flex:1; }}
+  .doc-body {{ padding:0; overflow-y:auto; overflow-x:hidden; flex:1; }}
+  .doc-desk-wrap {{ display:block; overflow-x:auto; }}
+  .doc-mob-list {{ display:none; padding:8px 10px; }}
+  .doc-m-card {{ padding:9px 10px; border-bottom:1px solid #e2e8f0; border-radius:8px; margin-bottom:4px; background:#fff; }}
+  .doc-m-card.hl {{ background:#fef9c3; border:1.5px solid #facc15; }}
+  .doc-m-top {{ display:flex; justify-content:space-between; align-items:flex-start; gap:8px; font-size:13.5px; font-weight:700; color:#0f172a; }}
+  .doc-m-note {{ font-size:11px; color:#64748b; margin-top:2px; }}
+  .doc-m-grid {{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }}
+  .doc-m-pill {{ font-size:11.5px; background:#f1f5f9; color:#334155; padding:3px 7px; border-radius:5px; font-weight:600; }}
+  .doc-m-pill.blue {{ background:#e0f2fe; color:#0369a1; font-weight:700; }}
   .doc-tbl {{ width:100%; border-collapse:collapse; font-size:12.5px; }}
   .doc-tbl th {{ position:sticky; top:0; background:#f1f5f9; color:#334155; font-size:11px; text-transform:uppercase; letter-spacing:0.3px; padding:8px 10px; border-bottom:1.5px solid #cbd5e1; text-align:left; white-space:nowrap; z-index:2; }}
   .doc-tbl th.num, .doc-tbl td.num {{ text-align:right; white-space:nowrap; }}
@@ -1617,10 +1626,17 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .modal-box.open {{ display:block; }}
   .form-row {{ display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }}
   .form-inp {{ flex:1; min-width:110px; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; font-size:14px; }}
-  @media (max-width: 540px) {{
+  @media (max-width: 680px) {{
     .card {{ flex-direction:column; }}
     .actions {{ width:100%; flex-direction:row; justify-content:space-between; align-items:center; border-top:1px solid #e2e8f0; padding-top:8px; margin-top:4px; }}
     .hist-btn {{ width:auto; padding:8px 12px; }}
+    .doc-overlay {{ padding:0; align-items:flex-end; }}
+    .doc-dialog {{ max-width:100%; max-height:93vh; border-radius:14px 14px 0 0; }}
+    .doc-head {{ flex-direction:column; align-items:stretch; gap:8px; padding:11px 12px; }}
+    .doc-head-btns {{ width:100%; justify-content:space-between; }}
+    .doc-desk-wrap {{ display:none; }}
+    .doc-mob-list {{ display:block; }}
+    .doc-foot {{ font-size:12px; padding:9px 12px; }}
   }}
 </style>
 </head>
@@ -2000,7 +2016,8 @@ function openInvoiceModal(docId, lineId) {{
   renderInvoiceModalBody();
   document.getElementById('docOverlay').classList.add('open');
   setTimeout(() => {{
-    const hlEl = document.getElementById('dln_' + lineId);
+    const isMob = window.innerWidth <= 680;
+    const hlEl = document.getElementById((isMob ? 'dln_mob_' : 'dln_') + lineId);
     if (hlEl) hlEl.scrollIntoView({{ block: 'center', behavior: 'smooth' }});
   }}, 60);
 }}
@@ -2012,7 +2029,9 @@ function renderInvoiceModalBody() {{
   const vLbl = docInclVat ? 'inkl.' : 'exkl.';
   document.getElementById('docVatBtn').textContent = docInclVat ? '💰 Visar: Inkl. moms' : '💰 Visar: Exkl. moms';
   const bodyEl = document.getElementById('docBody');
-  const rowsHtml = doc.lines.map(ln => {{
+  const rowsHtml = [];
+  const mobHtml = [];
+  doc.lines.forEach(ln => {{
     const isHl = Number(ln.line_id) === Number(curLineId);
     const bQty = ln.qty_billed != null ? ln.qty_billed : 1;
     const bUnit = ln.unit_billed || ln.unit || 'st';
@@ -2023,20 +2042,39 @@ function renderInvoiceModalBody() {{
     const tPrice = docInclVat ? ln.total_gross : ln.total_net;
     const vatPct = ln.vat_rate != null ? Number(ln.vat_rate) : 6;
     const qtyFmt = Number(bQty).toLocaleString('sv-SE', {{ maximumFractionDigits: 3 }});
-    return `<tr id="dln_${{ln.line_id}}" class="${{isHl ? 'hl' : ''}}">` +
-      `<td><div>${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
-        `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div></td>` +
-      `<td class="num notranslate">${{qtyFmt}}</td>` +
-      `<td class="cnt notranslate">${{esc(bUnit)}}</td>` +
-      `<td class="num notranslate" style="color:#0369a1;font-weight:700">${{fmtSv(uPrice)}} kr/${{esc(ln.unit)}}</td>` +
-      `<td class="num notranslate">${{fmtSv(bPrice)}} kr</td>` +
-      `<td class="cnt notranslate">${{vatPct}}%</td>` +
-      `<td class="num notranslate" style="font-weight:700">${{fmtSv(tPrice)}} kr</td>` +
-    `</tr>`;
-  }}).join('');
-  bodyEl.innerHTML = `<table class="doc-tbl">` +
-    `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Pris/kg (${{vLbl}})</th><th class="num">Enhetspris (${{vLbl}})</th><th class="cnt">Moms</th><th class="num">Belopp (${{vLbl}})</th></tr></thead>` +
-    `<tbody>${{rowsHtml}}</tbody></table>`;
+    rowsHtml.push(
+      `<tr id="dln_${{ln.line_id}}" class="${{isHl ? 'hl' : ''}}">` +
+        `<td><div>${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
+          `<div style="font-size:11px;color:#64748b">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div></td>` +
+        `<td class="num notranslate">${{qtyFmt}}</td>` +
+        `<td class="cnt notranslate">${{esc(bUnit)}}</td>` +
+        `<td class="num notranslate" style="color:#0369a1;font-weight:700">${{fmtSv(uPrice)}} kr/${{esc(ln.unit)}}</td>` +
+        `<td class="num notranslate">${{fmtSv(bPrice)}} kr</td>` +
+        `<td class="cnt notranslate">${{vatPct}}%</td>` +
+        `<td class="num notranslate" style="font-weight:700">${{fmtSv(tPrice)}} kr</td>` +
+      `</tr>`
+    );
+    mobHtml.push(
+      `<div id="dln_mob_${{ln.line_id}}" class="doc-m-card ${{isHl ? 'hl' : ''}}">` +
+        `<div class="doc-m-top">` +
+          `<div style="min-width:0">${{isHl ? '👉 ' : ''}}${{esc(ln.desc)}}</div>` +
+          `<div class="notranslate" style="white-space:nowrap">${{fmtSv(tPrice)}} kr</div>` +
+        `</div>` +
+        `<div class="doc-m-note">${{esc(ln.qty_str)}}${{ln.disc > 0 ? ' • Rabatt: -' + fmtSv(ln.disc) + ' kr' : ''}}</div>` +
+        `<div class="doc-m-grid notranslate">` +
+          `<span class="doc-m-pill">Antal: ${{qtyFmt}} ${{esc(bUnit)}}</span>` +
+          `<span class="doc-m-pill blue">Jfr: ${{fmtSv(uPrice)}} kr/${{esc(ln.unit)}}</span>` +
+          `<span class="doc-m-pill">À-pris: ${{fmtSv(bPrice)}} kr</span>` +
+          `<span class="doc-m-pill">Moms: ${{vatPct}}%</span>` +
+        `</div>` +
+      `</div>`
+    );
+  }});
+  bodyEl.innerHTML =
+    `<div class="doc-desk-wrap"><table class="doc-tbl">` +
+      `<thead><tr><th>Artikel</th><th class="num">Antal</th><th class="cnt">Enhet</th><th class="num">Pris/kg (${{vLbl}})</th><th class="num">Enhetspris (${{vLbl}})</th><th class="cnt">Moms</th><th class="num">Belopp (${{vLbl}})</th></tr></thead>` +
+      `<tbody>${{rowsHtml.join('')}}</tbody></table></div>` +
+    `<div class="doc-mob-list">${{mobHtml.join('')}}</div>`;
   document.getElementById('docFoot').innerHTML =
     `<span>Netto (exkl. moms): <b class="notranslate">${{fmtSv(doc.net_total)}} kr</b></span>` +
     `<span>Moms: <b class="notranslate">${{fmtSv(doc.vat_total)}} kr</b></span>` +
