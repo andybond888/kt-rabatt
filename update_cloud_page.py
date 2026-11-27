@@ -1586,6 +1586,9 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   .qty-inp {{ width:76px; height:36px; box-sizing:border-box; border:1.5px solid #94a3b8; border-radius:8px; text-align:center; font-size:15px; font-weight:800; background:#fff; color:#0f172a; }}
   .qty-inp:focus {{ outline:none; border-color:#0284c7; box-shadow:0 0 0 2px rgba(2,132,199,0.2); }}
   .unit-pill {{ font-size:13px; font-weight:800; color:#334155; }}
+  .unit-toggle {{ border:1px solid #cbd5e1; background:#f1f5f9; color:#0f172a; border-radius:8px; padding:6px 9px; font-size:12.5px; font-weight:800; cursor:pointer; white-space:nowrap; }}
+  .unit-toggle:hover {{ background:#e2e8f0; border-color:#94a3b8; }}
+  .pack-sub {{ font-size:11.5px; font-weight:700; color:#475569; }}
   .line-val {{ font-size:13px; font-weight:800; color:#15803d; background:#dcfce7; padding:4px 8px; border-radius:6px; display:none; }}
   .line-val.show {{ display:inline-block; }}
   .actions {{ display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0; min-width:108px; }}
@@ -1697,10 +1700,17 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
     <div class="form-row">
       <input id="cName" class="form-inp" type="text" placeholder="Varunamn (t.ex. Lax fryst)">
       <input id="cQty" class="form-inp" style="max-width:90px" type="number" step="any" placeholder="Mängd">
-      <select id="cUnit" class="form-inp" style="max-width:80px">
+      <select id="cUnit" class="form-inp" style="max-width:95px">
         <option value="kg">kg</option>
         <option value="L">L</option>
         <option value="st">st</option>
+        <option value="säck">säck</option>
+        <option value="burk">burk</option>
+        <option value="flaska">flaska</option>
+        <option value="dunk">dunk</option>
+        <option value="påse">påse</option>
+        <option value="låda">låda</option>
+        <option value="förp">förp</option>
       </select>
       <input id="cPrice" class="form-inp" style="max-width:120px" type="number" step="any" placeholder="À-pris exkl. moms">
       <button class="mini-btn green" onclick="addCustomItem()">Spara</button>
@@ -1751,6 +1761,7 @@ const monthPattern = /^[0-9]{{4}}-(0[1-9]|1[0-2])$/;
 const requestedMonth = new URLSearchParams(location.search).get('month') || '';
 let inventoryMonth = monthPattern.test(requestedMonth) ? requestedMonth : currentMonth;
 let invQty = {{}};
+let invUnitMode = {{}};
 let chosenSup = {{}};
 let customItems = [];
 let inventoryItems = {{}};
@@ -1800,11 +1811,37 @@ function getCatalogPrices(x, sups = x.suppliers || []) {{
   return {{ gross, net, avgG, avgN, supName }};
 }}
 
+function hasPack(x) {{
+  return Boolean(x && Number(x.pack_qty) > 0 && x.pack_unit);
+}}
+
+function isPackMode(x) {{
+  return hasPack(x) && invUnitMode[x.id] !== 'base';
+}}
+
+function getDisplayQty(x, baseQty) {{
+  const q = Number(baseQty || 0);
+  if (!isPackMode(x)) return q;
+  return Math.round((q / Number(x.pack_qty)) * 1000) / 1000;
+}}
+
+function toBaseQty(x, displayQty) {{
+  const q = Number(displayQty || 0);
+  if (!isPackMode(x)) return Math.round(q * 1000) / 1000;
+  return Math.round((q * Number(x.pack_qty)) * 10000) / 10000;
+}}
+
+function fmtQtySv(n) {{
+  const r = Math.round((Number(n || 0) + 1e-9) * 1000) / 1000;
+  return String(r).replace('.', ',');
+}}
+
 function captureInventoryItem(x) {{
   const visible = visibleSuppliers(x);
   const prices = visible.length ? getCatalogPrices(x, visible) : getCatalogPrices(x);
   inventoryItems[x.id] = {{
     id: x.id, vara: x.vara, category: x.category, unit: x.unit,
+    pack_qty: x.pack_qty || null, pack_unit: x.pack_unit || null,
     latest_supplier: prices.supName, latest_date: x.latest_date, prices,
     suppliers: [{{ grossist: prices.supName, latest_net: prices.net, latest_gross: prices.gross }}]
   }};
@@ -1818,7 +1855,7 @@ function inventoryStatus(message, error = false) {{
 
 function loadInventory() {{
   const saved = JSON.parse(localStorage.getItem(inventoryPrefix + inventoryMonth));
-  ({{ invQty = {{}}, chosenSup = {{}}, customItems = [], inventoryItems = {{}} }} = saved || {{}});
+  ({{ invQty = {{}}, invUnitMode = {{}}, chosenSup = {{}}, customItems = [], inventoryItems = {{}} }} = saved || {{}});
   return saved;
 }}
 
@@ -1838,6 +1875,7 @@ function migrateInventory() {{
 function showInventoryMonth() {{
   document.getElementById('invMonth').value = inventoryMonth;
   invQty = {{}};
+  invUnitMode = {{}};
   chosenSup = {{}};
   customItems = [];
   inventoryItems = {{}};
@@ -1864,7 +1902,7 @@ function changeInventoryMonth(input) {{
 }}
 
 function saveInventory(month) {{
-  localStorage.setItem(inventoryPrefix + month, JSON.stringify({{ invQty, chosenSup, customItems, inventoryItems }}));
+  localStorage.setItem(inventoryPrefix + month, JSON.stringify({{ invQty, invUnitMode, chosenSup, customItems, inventoryItems }}));
 }}
 
 function saveInv() {{
@@ -1916,22 +1954,35 @@ function updateSummaryBar() {{
 }}
 
 function onQtyInput(id, rawVal) {{
+  const x = allItems().find(it => it.id === id);
   const cleaned = String(rawVal || '').replace(',', '.');
   const v = parseFloat(cleaned);
-  setInventoryQty(id, Number.isFinite(v) ? Math.round(v * 1000) / 1000 : 0);
+  const baseV = Number.isFinite(v) && v > 0 ? toBaseQty(x, v) : 0;
+  setInventoryQty(id, baseV);
   saveInv();
   updateCardInPlace(id);
 }}
 
 function stepQty(id, delta) {{
-  const cur = Number(invQty[id] || 0);
-  const next = Math.max(0, Math.round((cur + delta) * 1000) / 1000);
-  setInventoryQty(id, next);
+  const x = allItems().find(it => it.id === id);
+  const curBase = Number(invQty[id] || 0);
+  const curDisp = getDisplayQty(x, curBase);
+  const nextDisp = Math.max(0, Math.round((curDisp + delta) * 1000) / 1000);
+  const nextBase = nextDisp > 0 ? toBaseQty(x, nextDisp) : 0;
+  setInventoryQty(id, nextBase);
   const inp = document.getElementById('qinp_' + id);
-  if (inp) inp.value = next > 0 ? String(next) : '';
+  if (inp) inp.value = nextDisp > 0 ? String(nextDisp) : '';
   saveInv();
   updateCardInPlace(id);
-  if (onlyStock && next === 0) renderB2B();
+  if (onlyStock && nextBase === 0) renderB2B();
+}}
+
+function toggleUnitMode(id) {{
+  const x = allItems().find(it => it.id === id);
+  if (!hasPack(x)) return;
+  invUnitMode[id] = isPackMode(x) ? 'base' : 'pack';
+  saveInv();
+  renderB2B();
 }}
 
 function updateCardInPlace(id) {{
@@ -1942,6 +1993,15 @@ function updateCardInPlace(id) {{
   const uPrice = showInclVat ? p.gross : p.net;
   const cardEl = document.getElementById('card_' + id);
   if (cardEl) cardEl.classList.toggle('counted', q > 0);
+  const peqEl = document.getElementById('peq_' + id);
+  if (peqEl && hasPack(x)) {{
+    if (isPackMode(x)) {{
+      peqEl.textContent = q > 0 ? `= ${{fmtQtySv(q)}} ${{x.unit}}` : `(à ${{fmtQtySv(x.pack_qty)}} ${{x.unit}})`;
+    }} else {{
+      const packs = Math.round((q / Number(x.pack_qty)) * 100) / 100;
+      peqEl.textContent = q > 0 ? `= ${{fmtQtySv(packs)}} ${{x.pack_unit}}` : `(1 ${{x.pack_unit}} = ${{fmtQtySv(x.pack_qty)}} ${{x.unit}})`;
+    }}
+  }}
   const lvEl = document.getElementById('lval_' + id);
   if (lvEl) {{
     if (q > 0) {{
@@ -2035,6 +2095,14 @@ function clearInventory() {{
   renderB2B();
 }}
 
+function formatQtySummary(x, baseQty) {{
+  if (hasPack(x)) {{
+    const packs = Math.round((baseQty / Number(x.pack_qty)) * 100) / 100;
+    return `${{fmtQtySv(packs)}} ${{x.pack_unit}} (${{fmtQtySv(baseQty)}} ${{x.unit}})`;
+  }}
+  return `${{fmtQtySv(baseQty)}} ${{x.unit}}`;
+}}
+
 function copyInventoryReport() {{
   const counted = allItems().filter(x => Number(invQty[x.id] || 0) > 0);
   if (!counted.length) {{
@@ -2052,7 +2120,7 @@ function copyInventoryReport() {{
     totN += lN;
     const uP = showInclVat ? p.gross : p.net;
     const lV = showInclVat ? lG : lN;
-    lines.push(`• ${{x.vara}}: ${{q}} ${{x.unit}} × ${{fmtSv(uP)}} kr = ${{fmtSv(lV)}} kr (${{p.supName}})`);
+    lines.push(`• ${{x.vara}}: ${{formatQtySummary(x, q)}} × ${{fmtSv(uP)}} kr/${{x.unit}} = ${{fmtSv(lV)}} kr (${{p.supName}})`);
   }});
   lines.push('----------------------------------------');
   lines.push(`Totalt EXKL. moms: ${{fmtSv(totN)}} kr`);
@@ -2071,7 +2139,7 @@ function exportInventoryCsv() {{
     alert('Inga varor har mängd > 0 i förrådet ännu.');
     return;
   }}
-  const rows = [['Vara', 'Kategori', 'Grossist', 'Mängd', 'Enhet', 'À-pris exkl moms', 'À-pris inkl moms', 'Värde exkl moms', 'Värde inkl moms']];
+  const rows = [['Vara', 'Kategori', 'Grossist', 'Antal förp', 'Förpackning', 'Mängd', 'Enhet', 'À-pris exkl moms', 'À-pris inkl moms', 'Värde exkl moms', 'Värde inkl moms']];
   let totG = 0, totN = 0;
   counted.forEach(x => {{
     const q = Number(invQty[x.id]);
@@ -2080,14 +2148,17 @@ function exportInventoryCsv() {{
     const lG = q * p.gross;
     totN += lN;
     totG += lG;
+    const packCnt = hasPack(x) ? String(Math.round((q / Number(x.pack_qty)) * 100) / 100).replace('.', ',') : '';
+    const packLbl = hasPack(x) ? `${{x.pack_unit}} (${{fmtQtySv(x.pack_qty)}} ${{x.unit}})` : '';
     rows.push([
       x.vara, x.category || '', p.supName,
+      packCnt, packLbl,
       String(q).replace('.', ','), x.unit,
       p.net.toFixed(2).replace('.', ','), p.gross.toFixed(2).replace('.', ','),
       lN.toFixed(2).replace('.', ','), lG.toFixed(2).replace('.', ',')
     ]);
   }});
-  rows.push(['TOTALT', '', '', '', '', '', '', totN.toFixed(2).replace('.', ','), totG.toFixed(2).replace('.', ',')]);
+  rows.push(['TOTALT', '', '', '', '', '', '', '', '', totN.toFixed(2).replace('.', ','), totG.toFixed(2).replace('.', ',')]);
   const csv = '\\uFEFF' + rows.map(r => r.map(c => `"${{String(c).replace(/"/g, '""')}}"`).join(';')).join('\\r\\n');
   const blob = new Blob([csv], {{ type: 'text/csv;charset=utf-8;' }});
   const a = document.createElement('a');
@@ -2337,6 +2408,21 @@ function renderB2B() {{
       : '';
 
     const delBtn = isCustom ? `<button class="mini-btn danger" style="padding:4px 8px;font-size:11px" onclick="deleteCustomItem('${{x.id}}')">Ta bort</button>` : '';
+    const packMode = isPackMode(x);
+    const dispQ = getDisplayQty(x, curQ);
+    const activeUnit = packMode ? x.pack_unit : x.unit;
+    const otherUnit = packMode ? x.unit : x.pack_unit;
+    const unitCtrlHtml = hasPack(x)
+      ? `<button class="unit-toggle notranslate" onclick="toggleUnitMode('${{x.id}}')" title="Byt räknenhet (${{esc(activeUnit)}} ↔ ${{esc(otherUnit)}})">${{esc(activeUnit)}} ⇄ ${{esc(otherUnit)}}</button>` +
+        `<span id="peq_${{x.id}}" class="pack-sub notranslate">${{
+          packMode
+            ? (curQ > 0 ? '= ' + fmtQtySv(curQ) + ' ' + esc(x.unit) : '(à ' + fmtQtySv(x.pack_qty) + ' ' + esc(x.unit) + ')')
+            : (curQ > 0 ? '= ' + fmtQtySv(Math.round((curQ / Number(x.pack_qty)) * 100) / 100) + ' ' + esc(x.pack_unit) : '(1 ' + esc(x.pack_unit) + ' = ' + fmtQtySv(x.pack_qty) + ' ' + esc(x.unit) + ')')
+        }}</span>`
+      : `<span class="unit-pill notranslate">${{esc(x.unit)}}</span>`;
+    const priceMainHtml = packMode
+      ? `<div class="p-main notranslate">${{fmtSv(mainPrice * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}</div><div class="p-avg notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}} • ${{fmtQtySv(x.pack_qty)}} ${{esc(x.unit)}}/${{esc(x.pack_unit)}}</div>`
+      : `<div class="p-main notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}}</div><div class="p-avg notranslate">Snitt: ${{fmtSv(avgPrice)}} kr/${{esc(x.unit)}}</div>`;
 
     return `<div id="card_${{x.id}}" class="card ${{isMulti ? 'multi' : ''}} ${{curQ > 0 ? 'counted' : ''}}">
       <div class="info">
@@ -2350,8 +2436,8 @@ function renderB2B() {{
         <div class="inv-ctrl">
           <span class="inv-lbl">I förråd:</span>
           <button class="step-btn notranslate" onclick="stepQty('${{x.id}}', -1)">−</button>
-          <input id="qinp_${{x.id}}" class="qty-inp notranslate" type="number" step="any" min="0" inputmode="decimal" placeholder="0" value="${{curQ > 0 ? curQ : ''}}" oninput="onQtyInput('${{x.id}}', this.value)">
-          <span class="unit-pill notranslate">${{esc(x.unit)}}</span>
+          <input id="qinp_${{x.id}}" class="qty-inp notranslate" type="number" step="any" min="0" inputmode="decimal" placeholder="0" value="${{dispQ > 0 ? dispQ : ''}}" oninput="onQtyInput('${{x.id}}', this.value)">
+          ${{unitCtrlHtml}}
           <button class="step-btn notranslate" onclick="stepQty('${{x.id}}', 1)">+</button>
           <span id="lval_${{x.id}}" class="line-val notranslate ${{curQ > 0 ? 'show' : ''}}">${{curQ > 0 ? '= ' + fmtSv(curQ * inventoryUnitPrice) + ' kr' : ''}}</span>
         </div>
@@ -2359,8 +2445,7 @@ function renderB2B() {{
       </div>
       <div class="actions">
         <div>
-          <div class="p-main notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}}</div>
-          <div class="p-avg notranslate">Snitt: ${{fmtSv(avgPrice)}} kr/${{esc(x.unit)}}</div>
+          ${{priceMainHtml}}
         </div>
         <button class="hist-btn ${{isH ? 'open' : ''}}" onclick="toggleHist('${{x.id}}')">📈 Historik (${{histCount}})</button>
       </div>
