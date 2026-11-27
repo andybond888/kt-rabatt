@@ -2992,57 +2992,57 @@
       "category": "Förbrukning & Emballage",
       "unit": "st",
       "yield_pct": 100.0,
-      "our_best_price": 127.0,
-      "record_price": 127.0,
-      "ref_source": "grossist",
+      "our_best_price": 350.0,
+      "record_price": 297.5,
+      "ref_source": "riktpris",
       "history": [
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 127.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 167.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 349.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 245.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 245.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 371.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 343.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 409.0,
-          "unit": "st"
+          "unit": "fp"
         }
       ]
     },
@@ -3059,7 +3059,7 @@
           "date": "2026-10-14",
           "supplier": "AB Tingstad Papper",
           "price_net": 211.0,
-          "unit": "st"
+          "unit": "fp"
         },
         {
           "date": "2026-09-27",
@@ -3071,7 +3071,7 @@
           "date": "2026-08-17",
           "supplier": "AB Tingstad Papper",
           "price_net": 211.0,
-          "unit": "st"
+          "unit": "fp"
         }
       ]
     },
