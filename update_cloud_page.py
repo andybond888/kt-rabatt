@@ -2763,10 +2763,21 @@ function renderSpend() {{
     return '📦 Förbrukning & Övrigt';
   }};
 
+  const getSubCat = (x) => {{
+    const c = x.category || 'Övrigt';
+    if (c !== 'Kött & Fågel') return c;
+    const v = (x.vara || '').toLowerCase();
+    if (/anka|duck/.test(v)) return '🦆 Anka';
+    if (/kyckling|chicken/.test(v)) return '🐔 Kyckling';
+    if (/fläsk|skink|bacon|sidfläsk|spareribs|serrano|gris|broskben|falukorv|cevapcicci/.test(v)) return '🐷 Fläsk & Chark';
+    return '🐄 Nötkött';
+  }};
+
   const mainMap = {{}};
   filtered.forEach(o => {{
-    const subCat = o.x.category || 'Övrigt';
-    const mg = getMainGroup(subCat);
+    const origCat = o.x.category || 'Övrigt';
+    const mg = getMainGroup(origCat);
+    const subCat = getSubCat(o.x);
     if (!mainMap[mg]) mainMap[mg] = {{ name: mg, kr: 0, kop: 0, itemCount: 0, subs: {{}} }};
     if (!mainMap[mg].subs[subCat]) mainMap[mg].subs[subCat] = {{ cat: subCat, kr: 0, kop: 0, items: [] }};
     mainMap[mg].kr += o.st.kr;
