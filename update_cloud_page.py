@@ -1718,7 +1718,14 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
   </div>
 
   <div class="filters" id="filterArea">
-    <input id="qInput" class="search" type="search" placeholder="Sök vara, artikel, kategori eller grossist..." oninput="renderB2B()">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input id="qInput" class="search" style="flex:1;min-width:180px" type="search" placeholder="Sök vara, artikel, kategori eller grossist..." oninput="renderB2B()">
+      <select id="b2bSort" class="form-inp" style="max-width:210px;height:40px;font-weight:700" onchange="setSortMode(this.value)">
+        <option value="kop">Sortera: Flest köp</option>
+        <option value="spend_desc">💰 Högsta ack. inköp (kr)</option>
+        <option value="name">Sortera: Namn (A–Ö)</option>
+      </select>
+    </div>
     <div class="sec-lbl">Kategori</div>
     <div class="chips" id="catChips"></div>
     <div class="sec-lbl">Grossister</div>
@@ -1766,6 +1773,7 @@ let histShowAck = {{}};
 let histSups = {{}};
 let histMonth = {{}};
 let chosenSup = {{}};
+let sortMode = 'kop';
 let customItems = [];
 let inventoryItems = {{}};
 try {{
@@ -2298,6 +2306,26 @@ function matchesQuery(x, q) {{
   return false;
 }}
 
+function setSortMode(mode) {{
+  sortMode = mode || 'kop';
+  renderB2B();
+}}
+
+function accumulatedSpend(x, supFilter) {{
+  if (!supFilter || !supFilter.size) {{
+    if (showInclVat && Number(x.total_gross) > 0) return Number(x.total_gross);
+    if (!showInclVat && Number(x.total_net) > 0) return Number(x.total_net);
+  }}
+  let tot = 0;
+  (x.history || []).forEach(h => {{
+    if (supFilter && supFilter.size && !supFilter.has(h.supplier)) return;
+    const hp = showInclVat ? h.price_gross : h.price_net;
+    const lTot = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
+    tot += Number(lTot || 0);
+  }});
+  return Math.round(tot * 100) / 100;
+}}
+
 function purchaseCount(item, suppliers) {{
   const history = item.history || [];
   if (!suppliers.size) return item.kop ?? history.length;
@@ -2363,11 +2391,19 @@ function renderB2B() {{
   const rows = afterCat.filter(x =>
     !activeSuppliers.size || visibleSuppliers(x).length
   );
-  rows.sort((a, b) =>
-    purchaseCount(b, activeSuppliers) - purchaseCount(a, activeSuppliers)
-    || a.vara.localeCompare(b.vara, 'sv')
-    || a.unit.localeCompare(b.unit, 'sv')
-  );
+  rows.sort((a, b) => {{
+    if (sortMode === 'spend_desc') {{
+      return accumulatedSpend(b, activeSuppliers) - accumulatedSpend(a, activeSuppliers)
+        || purchaseCount(b, activeSuppliers) - purchaseCount(a, activeSuppliers)
+        || a.vara.localeCompare(b.vara, 'sv');
+    }}
+    if (sortMode === 'name') {{
+      return a.vara.localeCompare(b.vara, 'sv') || a.unit.localeCompare(b.unit, 'sv');
+    }}
+    return purchaseCount(b, activeSuppliers) - purchaseCount(a, activeSuppliers)
+      || a.vara.localeCompare(b.vara, 'sv')
+      || a.unit.localeCompare(b.unit, 'sv');
+  }});
 
   const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
   document.getElementById('metaLbl').textContent =
@@ -2516,11 +2552,17 @@ function renderB2B() {{
       ? `<div class="p-main notranslate">${{fmtSv(mainPrice * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}</div><div class="p-avg notranslate">à ${{fmtQtySv(x.pack_qty)}} ${{esc(x.unit)}}</div>`
       : `<div class="p-main notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}}</div><div class="p-avg notranslate">Snitt: ${{fmtSv(avgPrice)}} kr/${{esc(x.unit)}}</div>`;
 
+    const spendTot = sortMode === 'spend_desc' ? accumulatedSpend(x, activeSuppliers) : 0;
+    const spendTagHtml = (sortMode === 'spend_desc' && spendTot > 0)
+      ? `<span class="multi-tag notranslate" style="background:#fef3c7;color:#92400e">💰 ${{fmtSv(spendTot)}} kr</span>`
+      : '';
+
     return `<div id="card_${{x.id}}" class="card ${{isMulti ? 'multi' : ''}} ${{curQ > 0 ? 'counted' : ''}}">
       <div class="info">
         <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">
           <span class="cat-tag">${{esc(x.category || 'Övrigt')}}</span>
           ${{isMulti ? `<span class="multi-tag">${{supsList.length}} grossister</span>` : ''}}
+          ${{spendTagHtml}}
           ${{delBtn}}
         </div>
         <div class="title">${{esc(x.vara)}}</div>
