@@ -2751,13 +2751,16 @@ function renderSpend() {{
     return;
   }}
 
-  // Nivå 1: Huvudrubriker (Mat, Dryck & Alkohol, Förbrukning & Emballage) -> Nivå 2: Underkategorier -> Nivå 3: Varor
-  const DRINK_CATS = new Set(['Alkohol', 'Läsk', 'Vatten']);
-  const PACK_CATS = new Set(['Förbrukning & Emballage']);
+  // Nivå 1: Huvudrubriker -> Nivå 2: Underkategorier -> Nivå 3: Varor
   const getMainGroup = (cat) => {{
-    if (DRINK_CATS.has(cat)) return '🥤 Dryck & Alkohol';
-    if (PACK_CATS.has(cat)) return '📦 Förbrukning & Emballage';
-    return '🍽️ Mat';
+    if (cat === 'Kött & Fågel' || cat === 'Fisk & Skaldjur') return '🥩 Kött, Fågel & Fisk';
+    if (cat === 'Alkohol') return '🍺 Alkohol';
+    if (cat === 'Läsk' || cat === 'Vatten') return '🥤 Läsk & Vatten';
+    if (cat === 'Olja & Bas' || cat === 'Ris' || cat === 'Nudlar' || cat === 'Sjögräs' || cat === 'Bröd & Bakning') return '🍚 Torrvaror, Olja & Ris';
+    if (cat === 'Frukt & Grönt' || cat === 'Mejeri & Ägg') return '🥬 Frukt, Grönt & Mejeri';
+    if (cat === 'Såser & Konserver' || cat === 'Kryddor & Buljong') return '🥫 Såser, Konserver & Kryddor';
+    if (cat === 'Fryst & Halvfabrikat') return '❄️ Fryst & Halvfabrikat';
+    return '📦 Förbrukning & Övrigt';
   }};
 
   const mainMap = {{}};
