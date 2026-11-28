@@ -2751,46 +2751,22 @@ function renderSpend() {{
     return;
   }}
 
-  // Nivå 1: Huvudrubriker -> Nivå 2: Detaljerade underkategorier -> Nivå 3: Varor
-  const getMainAndSub = (x) => {{
-    const cat = x.category || 'Övrigt';
-    const v = (x.vara || '').toLowerCase();
-    if (cat === 'Kött & Fågel') {{
-      if (/anka|duck/.test(v)) return ['🥩 Kött, Fågel & Fisk', 'Anka'];
-      if (/kyckling|chicken/.test(v)) return ['🥩 Kött, Fågel & Fisk', 'Kyckling'];
-      if (/fläsk|sidfläsk|skinkinnanlår|sparerib|broskben|gris|serrano|falukorv/.test(v)) return ['🥩 Kött, Fågel & Fisk', 'Fläsk & Chark'];
-      return ['🥩 Kött, Fågel & Fisk', 'Nötkött & Övrigt kött'];
-    }}
-    if (cat === 'Fisk & Skaldjur') {{
-      if (/räk|vannamei|bläckfisk|squid|cuttlefish|sepia|krabba|havskräft/.test(v)) return ['🥩 Kött, Fågel & Fisk', 'Räkor & Bläckfisk'];
-      return ['🥩 Kött, Fågel & Fisk', 'Fisk & Rom'];
-    }}
-    if (cat === 'Alkohol') return ['🍺 Alkohol', 'Alkohol'];
-    if (cat === 'Läsk' || cat === 'Vatten') return ['🥤 Läsk & Vatten', cat];
-    if (cat === 'Olja & Bas' || cat === 'Ris' || cat === 'Nudlar' || cat === 'Sjögräs' || cat === 'Bröd & Bakning') {{
-      return ['🍚 Torrvaror, Olja & Ris', cat];
-    }}
-    if (cat === 'Mejeri & Ägg') return ['🥬 Frukt, Grönt & Mejeri', 'Mejeri & Ägg'];
-    if (cat === 'Frukt & Grönt') {{
-      if (/avokado|banan|melon|apelsin|citron/.test(v)) return ['🥬 Frukt, Grönt & Mejeri', 'Frukt & Melon'];
-      if (/potatis|lök|morötter|ingefära|vitlök/.test(v)) return ['🥬 Frukt, Grönt & Mejeri', 'Potatis, Lök & Rotfrukter'];
-      if (/basilika|koriander|persilja|rawit|spansk peppar|peppar röd/.test(v)) return ['🥬 Frukt, Grönt & Mejeri', 'Örter & Chili'];
-      return ['🥬 Frukt, Grönt & Mejeri', 'Grönsaker'];
-    }}
-    if (cat === 'Kryddor & Buljong') return ['🥫 Såser, Konserver & Kryddor', 'Kryddor & Buljong'];
-    if (cat === 'Såser & Konserver') {{
-      if (/soja|fisksås|ostronsås|hoisin|vinäger|vinegar|ättik/.test(v)) return ['🥫 Såser, Konserver & Kryddor', 'Soja, Fisksås & Vinäger'];
-      if (/curry|sambal|chili|tom yum|sriracha|barbecue|broad bean|hot pot|wasabi|black bean|miso/.test(v)) return ['🥫 Såser, Konserver & Kryddor', 'Curry, Chili & Pastasåser'];
-      if (/majonnäs|såsbas|ketchup|senap|sylt/.test(v)) return ['🥫 Såser, Konserver & Kryddor', 'Majonnäs, Ketchup & Sylt'];
-      return ['🥫 Såser, Konserver & Kryddor', 'Konserver & Inlagt'];
-    }}
-    if (cat === 'Fryst & Halvfabrikat') return ['❄️ Fryst & Halvfabrikat', 'Fryst & Halvfabrikat'];
-    return ['📦 Förbrukning & Övrigt', cat];
+  // Nivå 1: Huvudrubriker -> Nivå 2: Underkategorier -> Nivå 3: Varor
+  const getMainGroup = (cat) => {{
+    if (cat === 'Kött & Fågel' || cat === 'Fisk & Skaldjur') return '🥩 Kött, Fågel & Fisk';
+    if (cat === 'Alkohol') return '🍺 Alkohol';
+    if (cat === 'Läsk' || cat === 'Vatten') return '🥤 Läsk & Vatten';
+    if (cat === 'Olja & Bas' || cat === 'Ris' || cat === 'Nudlar' || cat === 'Sjögräs' || cat === 'Bröd & Bakning') return '🍚 Torrvaror, Olja & Ris';
+    if (cat === 'Frukt & Grönt' || cat === 'Mejeri & Ägg') return '🥬 Frukt, Grönt & Mejeri';
+    if (cat === 'Såser & Konserver' || cat === 'Kryddor & Buljong') return '🥫 Såser, Konserver & Kryddor';
+    if (cat === 'Fryst & Halvfabrikat') return '❄️ Fryst & Halvfabrikat';
+    return '📦 Förbrukning & Övrigt';
   }};
 
   const mainMap = {{}};
   filtered.forEach(o => {{
-    const [mg, subCat] = getMainAndSub(o.x);
+    const subCat = o.x.category || 'Övrigt';
+    const mg = getMainGroup(subCat);
     if (!mainMap[mg]) mainMap[mg] = {{ name: mg, kr: 0, kop: 0, itemCount: 0, subs: {{}} }};
     if (!mainMap[mg].subs[subCat]) mainMap[mg].subs[subCat] = {{ cat: subCat, kr: 0, kop: 0, items: [] }};
     mainMap[mg].kr += o.st.kr;
