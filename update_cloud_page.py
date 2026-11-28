@@ -2393,19 +2393,36 @@ function renderB2B() {{
       supHtml = `<div class="sub"><span class="sup-tag notranslate">${{esc(p.supName)}}</span> ${{s.artikel && s.artikel !== x.vara ? esc(s.artikel) + ' • ' : ''}}${{s.forp ? esc(s.forp) + ' • ' : ''}}Senast: ${{esc(s.datum || x.latest_date)}}</div>`;
     }}
 
-    const histHtml = isH
-      ? `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">${{histTitle}} (${{vatLbl}})</div>` +
-        histRows.map(h => {{
+    let histHtml = '';
+    if (isH) {{
+      const cumTotals = new Array(histRows.length).fill(0);
+      let runQ = 0;
+      for (let i = histRows.length - 1; i >= 0; i--) {{
+        runQ += Number(histRows[i].qty || 0);
+        cumTotals[i] = Math.round(runQ * 1000) / 1000;
+      }}
+      const totalHistQ = (!historySuppliers.size && x.total_qty && histRows.length >= (x.kop || 0))
+        ? Number(x.total_qty)
+        : (cumTotals.length ? cumTotals[0] : 0);
+      const totalHistLbl = totalHistQ > 0 ? ` • Totalt inköpt: ${{esc(formatQtySummary(x, totalHistQ))}}` : '';
+      histHtml = `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></div>` +
+        histRows.map((h, idx) => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
           const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
           const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
+          const rq = Number(h.qty || 0);
+          const cq = cumTotals[idx] || 0;
+          const qtyBadge = rq > 0
+            ? `<div class="hist-art notranslate" style="color:#0f172a;font-weight:700;margin-top:2px">+${{esc(formatQtySummary(x, rq))}} <span style="color:#0369a1">• Ack: ${{esc(formatQtySummary(x, cq))}}</span></div>`
+            : '';
+          const packHp = hasPack(x) ? `${{fmtSv(hp * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}} <span style="font-weight:400;color:#64748b">(${{fmtSv(hp)}}/${{esc(h.unit)}})</span>` : `${{fmtSv(hp)}} kr/${{esc(h.unit)}}`;
           return `<div class="hist-row" ${{clickAttr}}>` +
-            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div></div>` +
-            `<b class="notranslate" style="white-space:nowrap">${{fmtSv(hp)}} kr/${{esc(h.unit)}}</b>` +
+            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div>${{qtyBadge}}</div>` +
+            `<b class="notranslate" style="white-space:nowrap;text-align:right">${{packHp}}</b>` +
           `</div>`;
         }}).join('') + (histRows.length ? '' : '<div>Inga tillgängliga historikrader.</div>') +
-        `</div>`
-      : '';
+        `</div>`;
+    }}
 
     const delBtn = isCustom ? `<button class="mini-btn danger" style="padding:4px 8px;font-size:11px" onclick="deleteCustomItem('${{x.id}}')">Ta bort</button>` : '';
     const packMode = isPackMode(x);
