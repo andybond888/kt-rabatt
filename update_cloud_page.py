@@ -1665,6 +1665,7 @@ def build_b2b_html(payload: Dict[str, Any]) -> str:
     <p id="metaLbl">Laddar...</p>
   </div>
   <div class="lang-bar notranslate">
+    <a class="lang-btn" href="../inkop/" style="text-decoration:none;background:#0284c7;border-color:#38bdf8">📊 Ack. inköp</a>
     <button class="lang-btn" id="langSv" onclick="setLang('sv')">🇸🇪 SV</button>
     <button class="lang-btn" id="langZh" onclick="setLang('zh-CN')">🇨🇳 中文</button>
     <button class="lang-btn" id="langHr" onclick="setLang('hr')">🇭🇷 HR</button>
@@ -2631,6 +2632,291 @@ window.addEventListener('storage', e => {{
 </html>"""
 
 
+def build_inkop_html(b2b_payload: Dict[str, Any]) -> str:
+    json_blob = json.dumps(b2b_payload, ensure_ascii=False).replace("</", "<\\/")
+    return f"""<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ackumulerade Inköp & Priser</title>
+<style>
+  body {{ font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:#f1f5f9; color:#0f172a; }}
+  .top {{ position:sticky; top:0; z-index:20; background:#0f172a; color:#fff; padding:12px 14px; box-shadow:0 2px 10px rgba(0,0,0,0.2); display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }}
+  .top h1 {{ margin:0; font-size:17px; }}
+  .top p {{ margin:2px 0 0; font-size:12px; color:#cbd5e1; }}
+  .lang-bar {{ display:flex; gap:5px; align-items:center; flex-wrap:wrap; }}
+  .lang-btn {{ border:1px solid #334155; background:#1e293b; color:#e2e8f0; border-radius:8px; padding:5px 9px; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none; }}
+  .lang-btn.active {{ background:#ea580c; color:#fff; border-color:#ea580c; }}
+  .wrap {{ max-width:960px; margin:0 auto; padding:12px; }}
+  .sum-box {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:12px 14px; margin-bottom:10px; box-shadow:0 1px 4px rgba(0,0,0,0.06); }}
+  .sum-top {{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; }}
+  .sum-main {{ font-size:20px; font-weight:800; color:#0f172a; }}
+  .sum-sub {{ font-size:12.5px; color:#475569; margin-top:2px; }}
+  .mini-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#0f172a; border-radius:8px; padding:6px 11px; font-size:12.5px; font-weight:700; cursor:pointer; }}
+  .mini-btn.active {{ background:#0f172a; color:#fff; border-color:#0f172a; }}
+  .cat-sum-grid {{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; padding-top:10px; border-top:1px dashed #e2e8f0; }}
+  .cat-pill {{ border:1px solid #cbd5e1; background:#f8fafc; border-radius:8px; padding:5px 9px; font-size:12px; cursor:pointer; color:#1e293b; display:flex; gap:6px; align-items:center; }}
+  .cat-pill.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
+  .cat-pill b {{ font-weight:800; }}
+  .filters {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:10px 12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px; }}
+  .row-flex {{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }}
+  .search {{ flex:1; min-width:180px; box-sizing:border-box; padding:9px 12px; border:1px solid #cbd5e1; border-radius:9px; font-size:14px; }}
+  .sel {{ height:38px; padding:6px 10px; border:1px solid #cbd5e1; border-radius:9px; font-size:13px; font-weight:700; background:#fff; }}
+  .sec-lbl {{ font-size:11px; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.4px; }}
+  .chips {{ display:flex; flex-wrap:wrap; gap:5px; }}
+  .chip {{ border:1px solid #cbd5e1; background:#fff; border-radius:999px; padding:5px 11px; font-size:12.5px; font-weight:700; cursor:pointer; color:#1e293b; }}
+  .chip.active {{ background:#ea580c; color:#fff; border-color:#ea580c; }}
+  .chip.cat-chip.active {{ background:#0284c7; color:#fff; border-color:#0284c7; }}
+  .chip.m-chip.active {{ background:#0f172a; color:#fff; border-color:#0f172a; }}
+  .card {{ background:#fff; border:1px solid #cbd5e1; border-radius:12px; padding:12px; margin-bottom:8px; }}
+  .card-top {{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }}
+  .rank {{ display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:800; padding:2px 7px; border-radius:6px; margin-right:5px; }}
+  .cat-tag {{ display:inline-block; background:#e0f2fe; color:#0369a1; font-size:11px; font-weight:700; padding:2px 7px; border-radius:5px; }}
+  .title {{ font-weight:800; font-size:15px; margin:4px 0 3px; color:#0f172a; }}
+  .meta {{ font-size:12.5px; color:#475569; }}
+  .spend-col {{ text-align:right; flex-shrink:0; }}
+  .spend-kr {{ font-size:16px; font-weight:800; color:#0f172a; }}
+  .spend-pct {{ font-size:11.5px; color:#64748b; }}
+  .bar-bg {{ height:6px; background:#e2e8f0; border-radius:999px; overflow:hidden; margin-top:8px; }}
+  .bar-fill {{ height:100%; background:#0284c7; border-radius:999px; }}
+  .hist-btn {{ border:1px solid #cbd5e1; background:#f8fafc; color:#334155; border-radius:7px; padding:4px 9px; font-size:12px; font-weight:700; cursor:pointer; margin-top:8px; }}
+  .hist-btn.open {{ background:#0f172a; color:#fff; border-color:#0f172a; }}
+  .hist-box {{ margin-top:8px; padding:8px 10px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; font-size:12px; }}
+  .hist-row {{ display:flex; justify-content:space-between; gap:8px; padding:5px 0; border-bottom:1px dashed #e2e8f0; }}
+  .hist-row:last-child {{ border-bottom:none; }}
+</style>
+</head>
+<body>
+<div class="top">
+  <div>
+    <h1>📊 Ackumulerade Inköp & Priser</h1>
+    <p id="metaLbl">Laddar...</p>
+  </div>
+  <div class="lang-bar notranslate">
+    <a class="lang-btn" href="../b2b/" style="background:#16a34a;border-color:#22c55e;color:#fff">📦 Till Förråd</a>
+    <button class="lang-btn" id="langSv" onclick="setLang('sv')">🇸🇪 SV</button>
+    <button class="lang-btn" id="langZh" onclick="setLang('zh-CN')">🇨🇳 中文</button>
+    <button class="lang-btn" id="langHr" onclick="setLang('hr')">🇭🇷 HR</button>
+  </div>
+</div>
+<div id="google_translate_element" style="display:none"></div>
+
+<div class="wrap">
+  <div class="sum-box">
+    <div class="sum-top">
+      <div>
+        <div class="sum-main notranslate" id="sumMain">0,00 kr</div>
+        <div class="sum-sub" id="sumSub">Beräknar...</div>
+      </div>
+      <button id="btnVat" class="mini-btn" onclick="toggleVat()">Visar: Exkl. moms</button>
+    </div>
+    <div class="cat-sum-grid" id="catSumGrid"></div>
+  </div>
+
+  <div class="filters">
+    <div class="row-flex">
+      <input id="qInput" class="search" type="search" placeholder="Sök vara, kategori eller grossist..." oninput="renderInkop()">
+      <select id="sortSel" class="sel" onchange="sortMode=this.value;renderInkop()">
+        <option value="kr_desc">💰 Högsta ack. pris (kr)</option>
+        <option value="qty_desc">📦 Största mängd</option>
+        <option value="kop_desc">🔢 Flest köp</option>
+        <option value="name_asc">🔤 Namn (A–Ö)</option>
+      </select>
+    </div>
+    <div class="sec-lbl">Månad</div>
+    <div class="chips" id="monthChips"></div>
+    <div class="sec-lbl">Kategori</div>
+    <div class="chips" id="catChips"></div>
+    <div class="sec-lbl">Grossister (välj en eller flera)</div>
+    <div class="chips" id="supChips"></div>
+  </div>
+
+  <div id="listBox"></div>
+</div>
+
+<script>
+const B2B = {json_blob};
+let showInclVat = false;
+let activeCat = 'Alla';
+let activeMonth = '';
+const activeSups = new Set();
+let sortMode = 'kr_desc';
+let openHist = {{}};
+
+try {{
+  const sv = localStorage.getItem('kt_b2b_vat_v2');
+  if (sv !== null) showInclVat = sv === '1';
+}} catch(e) {{}}
+
+function esc(s) {{
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}}
+function fmtSv(n) {{
+  const r = Math.round((Number(n || 0) + 1e-9) * 100) / 100;
+  return r.toLocaleString('sv-SE', {{ minimumFractionDigits: 2, maximumFractionDigits: 2 }});
+}}
+function fmtQ(n) {{
+  const r = Math.round((Number(n || 0) + 1e-9) * 100) / 100;
+  return String(r).replace('.', ',');
+}}
+
+function toggleVat() {{
+  showInclVat = !showInclVat;
+  try {{ localStorage.setItem('kt_b2b_vat_v2', showInclVat ? '1' : '0'); }} catch(e) {{}}
+  renderInkop();
+}}
+
+function itemStats(x) {{
+  const useWhole = !activeSups.size && !activeMonth && Number(x.kop || 0) <= (x.history || []).length;
+  const rows = (x.history || []).filter(h =>
+    (!activeSups.size || activeSups.has(h.supplier)) &&
+    (!activeMonth || String(h.date || '').startsWith(activeMonth))
+  );
+  let kr = 0, qty = 0;
+  rows.forEach(h => {{
+    const hp = showInclVat ? h.price_gross : h.price_net;
+    const lt = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
+    kr += Number(lt || 0);
+    qty += Number(h.qty || 0);
+  }});
+  if (!activeSups.size && !activeMonth) {{
+    const totKr = showInclVat ? Number(x.total_gross || 0) : Number(x.total_net || 0);
+    if (totKr > 0) kr = totKr;
+    if (Number(x.total_qty || 0) > 0) qty = Number(x.total_qty);
+  }}
+  const kop = (!activeSups.size && !activeMonth) ? Number(x.kop || rows.length) : rows.length;
+  return {{ kr: Math.round(kr * 100) / 100, qty: Math.round(qty * 1000) / 1000, kop, rows }};
+}}
+
+function renderInkop() {{
+  const items = B2B.items || [];
+  const q = (document.getElementById('qInput').value || '').trim().toLowerCase();
+  const vatLbl = showInclVat ? 'inkl. moms' : 'exkl. moms';
+  document.getElementById('btnVat').textContent = showInclVat ? 'Visar: Inkl. moms' : 'Visar: Exkl. moms';
+
+  // Månader & Grossister
+  const months = [...new Set(items.flatMap(x => (x.history || []).map(h => String(h.date || '').slice(0, 7))).filter(Boolean))].sort().reverse();
+  document.getElementById('monthChips').innerHTML =
+    `<button class="chip m-chip ${{!activeMonth ? 'active' : ''}}" onclick="activeMonth='';renderInkop()">Alla månader</button>` +
+    months.map(m => `<button class="chip m-chip notranslate ${{activeMonth === m ? 'active' : ''}}" onclick="activeMonth=(activeMonth==='${{m}}'?'':'${{m}}');renderInkop()">${{m}}</button>`).join('');
+
+  const sups = [...new Set(items.flatMap(x => (x.suppliers || []).map(s => s.grossist)))].sort();
+  document.getElementById('supChips').innerHTML =
+    `<button class="chip ${{!activeSups.size ? 'active' : ''}}" onclick="activeSups.clear();renderInkop()">Alla</button>` +
+    sups.map(s => `<button class="chip notranslate ${{activeSups.has(s) ? 'active' : ''}}" onclick="activeSups.has('${{esc(s)}}')?activeSups.delete('${{esc(s)}}'):activeSups.add('${{esc(s)}}');renderInkop()">${{esc(s)}}</button>`).join('');
+
+  // Beräkna statistik per vara (före kategorifilter så vi kan visa kategorisummor)
+  const enriched = items.map(x => ({{ x, st: itemStats(x) }})).filter(o => o.st.kop > 0 && o.st.kr > 0);
+  const searched = q
+    ? enriched.filter(o => {{
+        const hay = `${{o.x.vara}} ${{o.x.category}} ${{(o.x.suppliers || []).map(s => s.grossist + ' ' + s.artikel).join(' ')}}`.toLowerCase();
+        return hay.includes(q);
+      }})
+    : enriched;
+
+  // Kategorisummor
+  const catMap = {{}};
+  searched.forEach(o => {{
+    const c = o.x.category || 'Övrigt';
+    catMap[c] = (catMap[c] || 0) + o.st.kr;
+  }});
+  const catsSorted = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
+  document.getElementById('catChips').innerHTML =
+    `<button class="chip cat-chip ${{activeCat === 'Alla' ? 'active' : ''}}" onclick="activeCat='Alla';renderInkop()">Alla</button>` +
+    catsSorted.map(([c]) => `<button class="chip cat-chip ${{activeCat === c ? 'active' : ''}}" onclick="activeCat='${{esc(c)}}';renderInkop()">${{esc(c)}}</button>`).join('');
+
+  document.getElementById('catSumGrid').innerHTML = catsSorted.map(([c, val]) =>
+    `<button class="cat-pill ${{activeCat === c ? 'active' : ''}}" onclick="activeCat=(activeCat==='${{esc(c)}}'?'Alla':'${{esc(c)}}');renderInkop()"><span>${{esc(c)}}</span><b>${{fmtSv(val)}} kr</b></button>`
+  ).join('');
+
+  const filtered = activeCat === 'Alla' ? searched : searched.filter(o => (o.x.category || 'Övrigt') === activeCat);
+  filtered.sort((a, b) => {{
+    if (sortMode === 'qty_desc') return b.st.qty - a.st.qty || b.st.kr - a.st.kr;
+    if (sortMode === 'kop_desc') return b.st.kop - a.st.kop || b.st.kr - a.st.kr;
+    if (sortMode === 'name_asc') return a.x.vara.localeCompare(b.x.vara, 'sv');
+    return b.st.kr - a.st.kr || b.st.kop - a.st.kop;
+  }});
+
+  const grandKr = filtered.reduce((acc, o) => acc + o.st.kr, 0);
+  const grandKop = filtered.reduce((acc, o) => acc + o.st.kop, 0);
+  document.getElementById('sumMain').textContent = `${{fmtSv(grandKr)}} kr (${{vatLbl}})`;
+  document.getElementById('sumSub').textContent = `${{filtered.length}} varor • ${{grandKop}} inköpsrader${{activeMonth ? ' • ' + activeMonth : ''}}${{activeCat !== 'Alla' ? ' • ' + activeCat : ''}}`;
+  document.getElementById('metaLbl').textContent = `Uppdaterad: ${{B2B.generated_at || ''}} • ${{filtered.length}} varor`;
+
+  const maxKr = filtered.length ? Math.max(...filtered.map(o => o.st.kr)) : 1;
+  const box = document.getElementById('listBox');
+  if (!filtered.length) {{
+    box.innerHTML = '<div class="card">Inga inköp matchar valt filter.</div>';
+    return;
+  }}
+
+  box.innerHTML = filtered.map((o, idx) => {{
+    const x = o.x;
+    const st = o.st;
+    const hasP = Number(x.pack_qty) > 0 && x.pack_unit;
+    const qtyTxt = hasP
+      ? `${{fmtQ(st.qty / Number(x.pack_qty))}} ${{esc(x.pack_unit)}} (${{fmtQ(st.qty)}} ${{esc(x.unit)}})`
+      : `${{fmtQ(st.qty)}} ${{esc(x.unit)}}`;
+    const avgUnitKr = st.qty > 0 ? st.kr / st.qty : 0;
+    const avgTxt = hasP
+      ? `Snitt: ${{fmtSv(avgUnitKr * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}} (${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}})`
+      : `Snitt: ${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}}`;
+    const pct = grandKr > 0 ? (st.kr / grandKr) * 100 : 0;
+    const barW = maxKr > 0 ? Math.max(2, (st.kr / maxKr) * 100) : 0;
+    const isH = !!openHist[x.id];
+    const supsTxt = [...new Set(st.rows.map(r => r.supplier))].join(', ') || x.latest_supplier || '';
+
+    const histHtml = isH
+      ? `<div class="hist-box">` + st.rows.map(h => {{
+          const hp = showInclVat ? h.price_gross : h.price_net;
+          const lt = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
+          const rq = Number(h.qty || 0);
+          const rQtyTxt = hasP ? `${{fmtQ(rq / Number(x.pack_qty))}} ${{esc(x.pack_unit)}} (${{fmtQ(rq)}} ${{esc(x.unit)}})` : `${{fmtQ(rq)}} ${{esc(x.unit)}}`;
+          return `<div class="hist-row"><div><b>${{esc(h.date)}}</b> • <span class="notranslate">${{esc(h.supplier)}}</span><div style="color:#64748b">${{esc(h.artikel)}} • <b>${{rQtyTxt}}</b></div></div><div class="notranslate" style="text-align:right;white-space:nowrap"><b>${{fmtSv(lt)}} kr</b></div></div>`;
+        }}).join('') + `</div>`
+      : '';
+
+    return `<div class="card">
+      <div class="card-top">
+        <div style="min-width:0;flex:1">
+          <div><span class="rank">#${{idx + 1}}</span><span class="cat-tag">${{esc(x.category || 'Övrigt')}}</span></div>
+          <div class="title">${{esc(x.vara)}}</div>
+          <div class="meta notranslate"><b>${{qtyTxt}}</b> • ${{st.kop}} köp • ${{avgTxt}}</div>
+          <div class="meta notranslate" style="font-size:11.5px;color:#64748b">${{esc(supsTxt)}}</div>
+        </div>
+        <div class="spend-col notranslate">
+          <div class="spend-kr">${{fmtSv(st.kr)}} kr</div>
+          <div class="spend-pct">${{pct.toFixed(1).replace('.', ',')}}% av total</div>
+        </div>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" style="width:${{barW.toFixed(1)}}%"></div></div>
+      <button class="hist-btn ${{isH ? 'open' : ''}}" onclick="openHist['${{x.id}}']=!openHist['${{x.id}}'];renderInkop()">📈 Visa ${{st.rows.length}} köp</button>
+      ${{histHtml}}
+    </div>`;
+  }}).join('');
+}}
+
+function setLang(lang) {{
+  if (lang === 'sv') {{
+    document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  }} else {{
+    document.cookie = 'googtrans=/sv/' + lang + '; path=/';
+  }}
+  try {{ localStorage.setItem('kt_cloud_lang', lang); }} catch(e) {{}}
+  location.reload();
+}}
+function googleTranslateElementInit() {{
+  new google.translate.TranslateElement({{ pageLanguage: 'sv', includedLanguages: 'zh-CN,hr', autoDisplay: false }}, 'google_translate_element');
+}}
+renderInkop();
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>"""
+
+
 def main() -> None:
     cfg = json.loads(BASELINES_FILE.read_text(encoding="utf-8"))
     now_sv = swedish_now()
@@ -2661,6 +2947,9 @@ def main() -> None:
         b2b_dir = slug_dir / "b2b"
         b2b_dir.mkdir(parents=True, exist_ok=True)
         (b2b_dir / "index.html").write_text(build_b2b_html(b2b_payload), encoding="utf-8")
+        inkop_dir = slug_dir / "inkop"
+        inkop_dir.mkdir(parents=True, exist_ok=True)
+        (inkop_dir / "index.html").write_text(build_inkop_html(b2b_payload), encoding="utf-8")
         src_docs = BASELINES_FILE.parent / "b2b_docs"
         if src_docs.exists():
             dst_docs = b2b_dir / "docs"
