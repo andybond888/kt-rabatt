@@ -1764,6 +1764,7 @@ let invQty = {{}};
 let invUnitMode = {{}};
 let histShowAck = {{}};
 let histSups = {{}};
+let histMonth = {{}};
 let chosenSup = {{}};
 let customItems = [];
 let inventoryItems = {{}};
@@ -2003,6 +2004,11 @@ function toggleHistSup(id, supName) {{
     cur.add(supName);
   }}
   histSups[id] = [...cur];
+  renderB2B();
+}}
+
+function toggleHistMonth(id, ym) {{
+  histMonth[id] = (histMonth[id] === ym || !ym) ? '' : ym;
   renderB2B();
 }}
 
@@ -2392,9 +2398,14 @@ function renderB2B() {{
     const historySuppliers = histSups[x.id]
       ? new Set(histSups[x.id])
       : activeSuppliers;
-    const histRows = (x.history || []).filter(h =>
+    const supFilteredHist = (x.history || []).filter(h =>
       !historySuppliers.size || historySuppliers.has(h.supplier)
     );
+    const allHistMonths = [...new Set(supFilteredHist.map(h => String(h.date || '').slice(0, 7)).filter(Boolean))].sort().reverse();
+    const activeMonth = allHistMonths.includes(histMonth[x.id]) ? histMonth[x.id] : '';
+    const histRows = activeMonth
+      ? supFilteredHist.filter(h => String(h.date || '').startsWith(activeMonth))
+      : supFilteredHist;
     const totalPurchases = purchaseCount(x, historySuppliers);
     const histCount = totalPurchases > histRows.length
       ? `${{histRows.length}} av ${{totalPurchases}}`
@@ -2435,18 +2446,24 @@ function renderB2B() {{
         }}
         return `${{fmtQtySv(baseQ)}} ${{x.unit}}`;
       }};
-      const totalHistQ = (!historySuppliers.size && x.total_qty && histRows.length >= (x.kop || 0))
+      const totalHistQ = (!historySuppliers.size && !activeMonth && x.total_qty && histRows.length >= (x.kop || 0))
         ? Number(x.total_qty)
         : (cumTotals.length ? cumTotals[0] : 0);
       const totalHistLbl = (showAck && totalHistQ > 0) ? ` • Totalt: ${{esc(fmtSingleUnit(totalHistQ))}}` : '';
       const ackBtn = `<button class="mini-btn" style="padding:2px 7px;font-size:11px;margin-left:6px" onclick="toggleHistAck('${{x.id}}')">${{showAck ? 'Dölj ack.' : '📊 Visa ack.'}}</button>`;
       const supPillsHtml = allCardSups.length > 1
-        ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 6px">` + allCardSups.map(sn => {{
+        ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 4px">` + allCardSups.map(sn => {{
             const on = !historySuppliers.size || historySuppliers.has(sn);
             return `<button class="chip notranslate ${{on ? 'cat-chip active' : ''}}" style="padding:2px 8px;font-size:11px" onclick="toggleHistSup('${{x.id}}', '${{esc(sn)}}')">${{on ? '✓ ' : ''}}${{esc(sn)}}</button>`;
           }}).join('') + `</div>`
         : '';
-      histHtml = `<div class="hist-box"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:4px;"><span>${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></span>${{ackBtn}}</div>${{supPillsHtml}}` +
+      const monthPillsHtml = allHistMonths.length > 1
+        ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 6px">` +
+          `<button class="chip notranslate ${{!activeMonth ? 'active' : ''}}" style="padding:2px 8px;font-size:11px" onclick="toggleHistMonth('${{x.id}}', '')">Alla mån</button>` +
+          allHistMonths.map(ym => `<button class="chip notranslate ${{activeMonth === ym ? 'active' : ''}}" style="padding:2px 8px;font-size:11px" onclick="toggleHistMonth('${{x.id}}', '${{ym}}')">${{ym}}</button>`).join('') +
+          `</div>`
+        : '';
+      histHtml = `<div class="hist-box"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:4px;"><span>${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></span>${{ackBtn}}</div>${{supPillsHtml}}${{monthPillsHtml}}` +
         histRows.map((h, idx) => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
           const lineTot = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
