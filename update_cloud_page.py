@@ -2434,10 +2434,17 @@ function renderB2B() {{
       const showAck = !!histShowAck[x.id];
       const packModeH = isPackMode(x);
       const cumTotals = new Array(histRows.length).fill(0);
+      const cumPrices = new Array(histRows.length).fill(0);
       let runQ = 0;
+      let runKr = 0;
       for (let i = histRows.length - 1; i >= 0; i--) {{
-        runQ += Number(histRows[i].qty || 0);
+        const h = histRows[i];
+        const hp = showInclVat ? h.price_gross : h.price_net;
+        const lTot = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
+        runQ += Number(h.qty || 0);
+        runKr += Number(lTot || 0);
         cumTotals[i] = Math.round(runQ * 1000) / 1000;
+        cumPrices[i] = Math.round(runKr * 100) / 100;
       }}
       const fmtSingleUnit = (baseQ) => {{
         if (packModeH) {{
@@ -2449,7 +2456,10 @@ function renderB2B() {{
       const totalHistQ = (!historySuppliers.size && !activeMonth && x.total_qty && histRows.length >= (x.kop || 0))
         ? Number(x.total_qty)
         : (cumTotals.length ? cumTotals[0] : 0);
-      const totalHistLbl = (showAck && totalHistQ > 0) ? ` • Totalt: ${{esc(fmtSingleUnit(totalHistQ))}}` : '';
+      const totalHistKr = cumPrices.length ? cumPrices[0] : 0;
+      const totalHistLbl = (showAck && totalHistQ > 0)
+        ? ` • Totalt: ${{esc(fmtSingleUnit(totalHistQ))}}${{totalHistKr > 0 ? ' • ' + fmtSv(totalHistKr) + ' kr' : ''}}`
+        : '';
       const ackBtn = `<button class="mini-btn" style="padding:2px 7px;font-size:11px;margin-left:6px" onclick="toggleHistAck('${{x.id}}')">${{showAck ? 'Dölj ack.' : '📊 Visa ack.'}}</button>`;
       const supPillsHtml = allCardSups.length > 1
         ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 4px">` + allCardSups.map(sn => {{
@@ -2471,8 +2481,9 @@ function renderB2B() {{
           const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
           const rq = Number(h.qty || 0);
           const cq = cumTotals[idx] || 0;
+          const ckr = cumPrices[idx] || 0;
           const qtyText = rq > 0
-            ? (showAck ? `${{esc(fmtSingleUnit(rq))}} • Ack: ${{esc(fmtSingleUnit(cq))}}` : `${{esc(fmtSingleUnit(rq))}}`)
+            ? (showAck ? `${{esc(fmtSingleUnit(rq))}} • Ack: ${{esc(fmtSingleUnit(cq))}}${{ckr > 0 ? ' (' + fmtSv(ckr) + ' kr)' : ''}}` : `${{esc(fmtSingleUnit(rq))}}`)
             : '';
           const unitSub = packModeH
             ? `${{fmtSv(hp * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}`
