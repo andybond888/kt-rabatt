@@ -1763,6 +1763,7 @@ let inventoryMonth = monthPattern.test(requestedMonth) ? requestedMonth : curren
 let invQty = {{}};
 let invUnitMode = {{}};
 let histShowAck = {{}};
+let histSups = {{}};
 let chosenSup = {{}};
 let customItems = [];
 let inventoryItems = {{}};
@@ -1988,6 +1989,20 @@ function toggleUnitMode(id) {{
 
 function toggleHistAck(id) {{
   histShowAck[id] = !histShowAck[id];
+  renderB2B();
+}}
+
+function toggleHistSup(id, supName) {{
+  const x = allItems().find(it => it.id === id);
+  if (!x) return;
+  const allSups = [...new Set((x.history || []).map(h => h.supplier).concat((x.suppliers || []).map(s => s.grossist)))];
+  let cur = histSups[id] ? new Set(histSups[id]) : new Set(activeSuppliers.size ? [...activeSuppliers].filter(s => allSups.includes(s)) : allSups);
+  if (cur.has(supName)) {{
+    if (cur.size > 1) cur.delete(supName);
+  }} else {{
+    cur.add(supName);
+  }}
+  histSups[id] = [...cur];
   renderB2B();
 }}
 
@@ -2373,9 +2388,9 @@ function renderB2B() {{
     const isH = !!openHist[x.id];
     const curQ = Number(invQty[x.id] || 0);
     const isCustom = String(x.id).startsWith('cust_');
-    const chosenSupplier = chosenSup[x.id];
-    const historySuppliers = supsList.some(s => s.grossist === chosenSupplier)
-      ? new Set([chosenSupplier])
+    const allCardSups = [...new Set((x.history || []).map(h => h.supplier).concat(supsList.map(s => s.grossist)))];
+    const historySuppliers = histSups[x.id]
+      ? new Set(histSups[x.id])
       : activeSuppliers;
     const histRows = (x.history || []).filter(h =>
       !historySuppliers.size || historySuppliers.has(h.supplier)
@@ -2425,7 +2440,13 @@ function renderB2B() {{
         : (cumTotals.length ? cumTotals[0] : 0);
       const totalHistLbl = (showAck && totalHistQ > 0) ? ` • Totalt: ${{esc(fmtSingleUnit(totalHistQ))}}` : '';
       const ackBtn = `<button class="mini-btn" style="padding:2px 7px;font-size:11px;margin-left:6px" onclick="toggleHistAck('${{x.id}}')">${{showAck ? 'Dölj ack.' : '📊 Visa ack.'}}</button>`;
-      histHtml = `<div class="hist-box"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:4px;"><span>${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></span>${{ackBtn}}</div>` +
+      const supPillsHtml = allCardSups.length > 1
+        ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 6px">` + allCardSups.map(sn => {{
+            const on = !historySuppliers.size || historySuppliers.has(sn);
+            return `<button class="chip notranslate ${{on ? 'cat-chip active' : ''}}" style="padding:2px 8px;font-size:11px" onclick="toggleHistSup('${{x.id}}', '${{esc(sn)}}')">${{on ? '✓ ' : ''}}${{esc(sn)}}</button>`;
+          }}).join('') + `</div>`
+        : '';
+      histHtml = `<div class="hist-box"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:4px;"><span>${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></span>${{ackBtn}}</div>${{supPillsHtml}}` +
         histRows.map((h, idx) => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
           const lineTot = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
