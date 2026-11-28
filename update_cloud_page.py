@@ -1762,6 +1762,7 @@ const requestedMonth = new URLSearchParams(location.search).get('month') || '';
 let inventoryMonth = monthPattern.test(requestedMonth) ? requestedMonth : currentMonth;
 let invQty = {{}};
 let invUnitMode = {{}};
+let histShowAck = {{}};
 let chosenSup = {{}};
 let customItems = [];
 let inventoryItems = {{}};
@@ -1985,6 +1986,11 @@ function toggleUnitMode(id) {{
   renderB2B();
 }}
 
+function toggleHistAck(id) {{
+  histShowAck[id] = !histShowAck[id];
+  renderB2B();
+}}
+
 function updateCardInPlace(id) {{
   const x = allItems().find(it => it.id === id);
   if (!x) return;
@@ -1995,11 +2001,15 @@ function updateCardInPlace(id) {{
   if (cardEl) cardEl.classList.toggle('counted', q > 0);
   const peqEl = document.getElementById('peq_' + id);
   if (peqEl && hasPack(x)) {{
-    if (isPackMode(x)) {{
-      peqEl.textContent = q > 0 ? `= ${{fmtQtySv(q)}} ${{x.unit}}` : `(à ${{fmtQtySv(x.pack_qty)}} ${{x.unit}})`;
+    if (q > 0) {{
+      if (isPackMode(x)) {{
+        peqEl.textContent = `= ${{fmtQtySv(q)}} ${{x.unit}}`;
+      }} else {{
+        const packs = Math.round((q / Number(x.pack_qty)) * 100) / 100;
+        peqEl.textContent = `= ${{fmtQtySv(packs)}} ${{x.pack_unit}}`;
+      }}
     }} else {{
-      const packs = Math.round((q / Number(x.pack_qty)) * 100) / 100;
-      peqEl.textContent = q > 0 ? `= ${{fmtQtySv(packs)}} ${{x.pack_unit}}` : `(1 ${{x.pack_unit}} = ${{fmtQtySv(x.pack_qty)}} ${{x.unit}})`;
+      peqEl.textContent = '';
     }}
   }}
   const lvEl = document.getElementById('lval_' + id);
@@ -2395,17 +2405,27 @@ function renderB2B() {{
 
     let histHtml = '';
     if (isH) {{
+      const showAck = !!histShowAck[x.id];
+      const packModeH = isPackMode(x);
       const cumTotals = new Array(histRows.length).fill(0);
       let runQ = 0;
       for (let i = histRows.length - 1; i >= 0; i--) {{
         runQ += Number(histRows[i].qty || 0);
         cumTotals[i] = Math.round(runQ * 1000) / 1000;
       }}
+      const fmtSingleUnit = (baseQ) => {{
+        if (packModeH) {{
+          const pk = Math.round((baseQ / Number(x.pack_qty)) * 100) / 100;
+          return `${{fmtQtySv(pk)}} ${{x.pack_unit}}`;
+        }}
+        return `${{fmtQtySv(baseQ)}} ${{x.unit}}`;
+      }};
       const totalHistQ = (!historySuppliers.size && x.total_qty && histRows.length >= (x.kop || 0))
         ? Number(x.total_qty)
         : (cumTotals.length ? cumTotals[0] : 0);
-      const totalHistLbl = totalHistQ > 0 ? ` • Totalt inköpt: ${{esc(formatQtySummary(x, totalHistQ))}}` : '';
-      histHtml = `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></div>` +
+      const totalHistLbl = (showAck && totalHistQ > 0) ? ` • Totalt: ${{esc(fmtSingleUnit(totalHistQ))}}` : '';
+      const ackBtn = `<button class="mini-btn" style="padding:2px 7px;font-size:11px;margin-left:6px" onclick="toggleHistAck('${{x.id}}')">${{showAck ? 'Dölj ack.' : '📊 Visa ack.'}}</button>`;
+      histHtml = `<div class="hist-box"><div style="display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:4px;"><span>${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></span>${{ackBtn}}</div>` +
         histRows.map((h, idx) => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
           const lineTot = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
@@ -2413,17 +2433,17 @@ function renderB2B() {{
           const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
           const rq = Number(h.qty || 0);
           const cq = cumTotals[idx] || 0;
-          const qtyBadge = rq > 0
-            ? `<div class="hist-art notranslate" style="color:#0f172a;font-weight:700;margin-top:2px">+${{esc(formatQtySummary(x, rq))}} <span style="color:#0369a1">• Ack: ${{esc(formatQtySummary(x, cq))}}</span></div>`
+          const qtyText = rq > 0
+            ? (showAck ? `${{esc(fmtSingleUnit(rq))}} • Ack: ${{esc(fmtSingleUnit(cq))}}` : `${{esc(fmtSingleUnit(rq))}}`)
             : '';
-          const unitSub = hasPack(x)
-            ? `${{fmtSv(hp * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}} • ${{fmtSv(hp)}} kr/${{esc(h.unit)}}`
+          const unitSub = packModeH
+            ? `${{fmtSv(hp * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}`
             : `${{fmtSv(hp)}} kr/${{esc(h.unit)}}`;
           const priceHtml = lineTot > 0
             ? `<div style="text-align:right;white-space:nowrap"><b class="notranslate" style="font-size:13px;color:#0f172a">${{fmtSv(lineTot)}} kr</b><div class="hist-art notranslate">${{unitSub}}</div></div>`
             : `<b class="notranslate" style="white-space:nowrap;text-align:right">${{unitSub}}</b>`;
           return `<div class="hist-row" ${{clickAttr}}>` +
-            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div>${{qtyBadge}}</div>` +
+            `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{qtyText ? ' • <b style="color:#0f172a">' + qtyText + '</b>' : ''}}</div></div>` +
             priceHtml +
           `</div>`;
         }}).join('') + (histRows.length ? '' : '<div>Inga tillgängliga historikrader.</div>') +
@@ -2438,13 +2458,13 @@ function renderB2B() {{
     const unitCtrlHtml = hasPack(x)
       ? `<button class="unit-toggle notranslate" onclick="toggleUnitMode('${{x.id}}')" title="Byt räknenhet (${{esc(activeUnit)}} ↔ ${{esc(otherUnit)}})">${{esc(activeUnit)}} ⇄ ${{esc(otherUnit)}}</button>` +
         `<span id="peq_${{x.id}}" class="pack-sub notranslate">${{
-          packMode
-            ? (curQ > 0 ? '= ' + fmtQtySv(curQ) + ' ' + esc(x.unit) : '(à ' + fmtQtySv(x.pack_qty) + ' ' + esc(x.unit) + ')')
-            : (curQ > 0 ? '= ' + fmtQtySv(Math.round((curQ / Number(x.pack_qty)) * 100) / 100) + ' ' + esc(x.pack_unit) : '(1 ' + esc(x.pack_unit) + ' = ' + fmtQtySv(x.pack_qty) + ' ' + esc(x.unit) + ')')
+          curQ > 0
+            ? (packMode ? '= ' + fmtQtySv(curQ) + ' ' + esc(x.unit) : '= ' + fmtQtySv(Math.round((curQ / Number(x.pack_qty)) * 100) / 100) + ' ' + esc(x.pack_unit))
+            : ''
         }}</span>`
       : `<span class="unit-pill notranslate">${{esc(x.unit)}}</span>`;
     const priceMainHtml = packMode
-      ? `<div class="p-main notranslate">${{fmtSv(mainPrice * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}</div><div class="p-avg notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}} • ${{fmtQtySv(x.pack_qty)}} ${{esc(x.unit)}}/${{esc(x.pack_unit)}}</div>`
+      ? `<div class="p-main notranslate">${{fmtSv(mainPrice * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}</div><div class="p-avg notranslate">à ${{fmtQtySv(x.pack_qty)}} ${{esc(x.unit)}}</div>`
       : `<div class="p-main notranslate">${{fmtSv(mainPrice)}} kr/${{esc(x.unit)}}</div><div class="p-avg notranslate">Snitt: ${{fmtSv(avgPrice)}} kr/${{esc(x.unit)}}</div>`;
 
     return `<div id="card_${{x.id}}" class="card ${{isMulti ? 'multi' : ''}} ${{curQ > 0 ? 'counted' : ''}}">
