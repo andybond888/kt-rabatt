@@ -2661,6 +2661,7 @@ let spMonth = '';
 const spSups = new Set();
 let spSortMode = 'kr_desc';
 let spOpenHist = {{}};
+let spOpenCats = {{}};
 
 function switchB2bTab(tab) {{
   curB2bTab = tab === 'spend' ? 'spend' : 'inv';
@@ -2743,58 +2744,92 @@ function renderSpend() {{
   document.getElementById('spSumMain').textContent = `📊 Totalt inköpt: ${{fmtSv(grandKr)}} kr (${{vatLbl}})`;
   document.getElementById('spSumSub').textContent = `${{filtered.length}} varor • ${{grandKop}} inköpsrader${{spMonth ? ' • ' + spMonth : ''}}${{spCat !== 'Alla' ? ' • ' + spCat : ''}}`;
 
-  const maxKr = filtered.length ? Math.max(...filtered.map(o => o.st.kr)) : 1;
   const box = document.getElementById('spListBox');
   if (!filtered.length) {{
     box.innerHTML = '<div class="card">Inga inköp matchar valt filter.</div>';
     return;
   }}
 
-  box.innerHTML = filtered.map((o, idx) => {{
-    const x = o.x;
-    const st = o.st;
-    const qtyTxt = hasPack(x)
-      ? `${{fmtQtySv(Math.round((st.qty / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(st.qty)}} ${{esc(x.unit)}})`
-      : `${{fmtQtySv(st.qty)}} ${{esc(x.unit)}}`;
-    const avgUnitKr = st.qty > 0 ? st.kr / st.qty : 0;
-    const avgTxt = hasPack(x)
-      ? `Snitt: ${{fmtSv(avgUnitKr * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}} (${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}})`
-      : `Snitt: ${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}}`;
-    const pct = grandKr > 0 ? (st.kr / grandKr) * 100 : 0;
-    const barW = maxKr > 0 ? Math.max(2, (st.kr / maxKr) * 100) : 0;
-    const isH = !!spOpenHist[x.id];
-    const supsTxt = [...new Set(st.rows.map(r => r.supplier))].join(', ') || x.latest_supplier || '';
+  // Gruppera per kategori och sortera kategorierna efter högsta totalbelopp (kr)
+  const byCat = {{}};
+  filtered.forEach(o => {{
+    const c = o.x.category || 'Övrigt';
+    if (!byCat[c]) byCat[c] = {{ cat: c, kr: 0, kop: 0, items: [] }};
+    byCat[c].kr += o.st.kr;
+    byCat[c].kop += o.st.kop;
+    byCat[c].items.push(o);
+  }});
+  const catGroups = Object.values(byCat).sort((a, b) => b.kr - a.kr);
+  const maxCatKr = catGroups.length ? Math.max(...catGroups.map(g => g.kr)) : 1;
 
-    const histHtml = isH
-      ? `<div class="hist-box">` + st.rows.map(h => {{
-          const hp = showInclVat ? h.price_gross : h.price_net;
-          const lt = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
-          const rq = Number(h.qty || 0);
-          const rQtyTxt = hasPack(x)
-            ? `${{fmtQtySv(Math.round((rq / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(rq)}} ${{esc(x.unit)}})`
-            : `${{fmtQtySv(rq)}} ${{esc(x.unit)}}`;
-          const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
-          const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
-          return `<div class="hist-row" ${{clickAttr}}><div><div><b>${{esc(h.date)}}</b> • <span class="notranslate">${{esc(h.supplier)}}</span>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}} • <b>${{rQtyTxt}}</b></div></div><b class="notranslate" style="white-space:nowrap">${{fmtSv(lt)}} kr</b></div>`;
-        }}).join('') + `</div>`
+  box.innerHTML = catGroups.map((grp, cIdx) => {{
+    const catPct = grandKr > 0 ? (grp.kr / grandKr) * 100 : 0;
+    const catBarW = maxCatKr > 0 ? Math.max(2, (grp.kr / maxCatKr) * 100) : 0;
+    const isCatOpen = spCat !== 'Alla' || !!spOpenCats[grp.cat] || Boolean(q);
+    const shownItems = isCatOpen ? grp.items : grp.items.slice(0, 3);
+
+    const itemsHtml = shownItems.map((o, idx) => {{
+      const x = o.x;
+      const st = o.st;
+      const qtyTxt = hasPack(x)
+        ? `${{fmtQtySv(Math.round((st.qty / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(st.qty)}} ${{esc(x.unit)}})`
+        : `${{fmtQtySv(st.qty)}} ${{esc(x.unit)}}`;
+      const avgUnitKr = st.qty > 0 ? st.kr / st.qty : 0;
+      const avgTxt = hasPack(x)
+        ? `Snitt: ${{fmtSv(avgUnitKr * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}`
+        : `Snitt: ${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}}`;
+      const itemPct = grp.kr > 0 ? (st.kr / grp.kr) * 100 : 0;
+      const isH = !!spOpenHist[x.id];
+
+      const histHtml = isH
+        ? `<div class="hist-box" style="margin-top:6px">` + st.rows.map(h => {{
+            const hp = showInclVat ? h.price_gross : h.price_net;
+            const lt = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
+            const rq = Number(h.qty || 0);
+            const rQtyTxt = hasPack(x)
+              ? `${{fmtQtySv(Math.round((rq / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(rq)}} ${{esc(x.unit)}})`
+              : `${{fmtQtySv(rq)}} ${{esc(x.unit)}}`;
+            const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
+            const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
+            return `<div class="hist-row" ${{clickAttr}}><div><div><b>${{esc(h.date)}}</b> • <span class="notranslate">${{esc(h.supplier)}}</span>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}} • <b>${{rQtyTxt}}</b></div></div><b class="notranslate" style="white-space:nowrap">${{fmtSv(lt)}} kr</b></div>`;
+          }}).join('') + `</div>`
+        : '';
+
+      return `<div style="padding:8px 0;border-top:1px dashed #e2e8f0">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+          <div style="min-width:0;flex:1">
+            <div style="font-weight:700;font-size:13.5px;color:#0f172a">${{idx + 1}}. ${{esc(x.vara)}}</div>
+            <div class="sub notranslate" style="margin-top:2px"><b>${{qtyTxt}}</b> • ${{st.kop}} köp • ${{avgTxt}}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0" class="notranslate">
+            <div style="font-weight:800;font-size:14px;color:#0f172a">${{fmtSv(st.kr)}} kr</div>
+            <div style="font-size:11px;color:#64748b">${{itemPct.toFixed(1).replace('.', ',')}}% av kategorin</div>
+          </div>
+        </div>
+        <button class="mini-btn" style="padding:2px 8px;font-size:11px;margin-top:4px" onclick="spOpenHist['${{x.id}}']=!spOpenHist['${{x.id}}'];renderSpend()">${{isH ? 'Dölj köp' : '📈 Visa ' + st.rows.length + ' köp'}}</button>
+        ${{histHtml}}
+      </div>`;
+    }}).join('');
+
+    const toggleCatBtn = grp.items.length > 3 && spCat === 'Alla' && !q
+      ? `<button class="hist-btn ${{isCatOpen ? 'open' : ''}}" style="width:100%;margin-top:6px" onclick="spOpenCats['${{esc(grp.cat)}}']=!spOpenCats['${{esc(grp.cat)}}'];renderSpend()">${{isCatOpen ? '▲ Visa färre' : '▼ Visa alla ' + grp.items.length + ' varor i ' + esc(grp.cat)}}</button>`
       : '';
 
-    return `<div class="card" style="display:block">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
-        <div style="min-width:0;flex:1">
-          <div><span class="rank-badge">#${{idx + 1}}</span><span class="cat-tag">${{esc(x.category || 'Övrigt')}}</span></div>
-          <div class="title">${{esc(x.vara)}}</div>
-          <div class="sub notranslate"><b>${{qtyTxt}}</b> • ${{st.kop}} köp • ${{avgTxt}}</div>
-          <div class="sub notranslate" style="font-size:11.5px;color:#64748b">${{esc(supsTxt)}}</div>
+    return `<div class="card" style="display:block;border-left:5px solid #0284c7">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+        <div>
+          <span class="rank-badge">#${{cIdx + 1}}</span>
+          <span style="font-size:16px;font-weight:800;color:#0f172a">${{esc(grp.cat)}}</span>
+          <div class="sub" style="margin-top:2px">${{grp.items.length}} varor • ${{grp.kop}} köp</div>
         </div>
         <div style="text-align:right;flex-shrink:0" class="notranslate">
-          <div class="p-main">${{fmtSv(st.kr)}} kr</div>
-          <div class="p-avg">${{pct.toFixed(1).replace('.', ',')}}% av total</div>
+          <div class="p-main" style="font-size:17px">${{fmtSv(grp.kr)}} kr</div>
+          <div class="p-avg">${{catPct.toFixed(1).replace('.', ',')}}% av total</div>
         </div>
       </div>
-      <div class="spend-bar-bg"><div class="spend-bar-fill" style="width:${{barW.toFixed(1)}}%"></div></div>
-      <button class="hist-btn ${{isH ? 'open' : ''}}" style="width:auto;margin-top:8px" onclick="spOpenHist['${{x.id}}']=!spOpenHist['${{x.id}}'];renderSpend()">📈 Visa ${{st.rows.length}} köp</button>
-      ${{histHtml}}
+      <div class="spend-bar-bg" style="margin-bottom:8px"><div class="spend-bar-fill" style="width:${{catBarW.toFixed(1)}}%"></div></div>
+      <div>${{itemsHtml}}</div>
+      ${{toggleCatBtn}}
     </div>`;
   }}).join('');
 }}
