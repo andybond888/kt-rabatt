@@ -4156,6 +4156,12 @@
           "unit": "st"
         },
         {
+          "date": "2026-08-13",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 30.88,
+          "unit": "st"
+        },
+        {
           "date": "2026-08-04",
           "supplier": "Axfood Snabbgross AB",
           "price_net": 19.9,
@@ -4192,6 +4198,12 @@
         },
         {
           "date": "2026-09-03",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 27.2,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-13",
           "supplier": "Spendrups Bryggeri AB",
           "price_net": 27.2,
           "unit": "st"
@@ -4239,6 +4251,12 @@
         },
         {
           "date": "2026-09-03",
+          "supplier": "Spendrups Bryggeri AB",
+          "price_net": 26.77,
+          "unit": "st"
+        },
+        {
+          "date": "2026-08-13",
           "supplier": "Spendrups Bryggeri AB",
           "price_net": 26.77,
           "unit": "st"
