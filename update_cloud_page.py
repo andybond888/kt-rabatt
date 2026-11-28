@@ -2662,6 +2662,7 @@ const spSups = new Set();
 let spSortMode = 'kr_desc';
 let spOpenHist = {{}};
 let spOpenCats = {{}};
+let spOpenMain = {{}};
 
 function switchB2bTab(tab) {{
   curB2bTab = tab === 'spend' ? 'spend' : 'inv';
@@ -2750,86 +2751,122 @@ function renderSpend() {{
     return;
   }}
 
-  // Gruppera per kategori och sortera kategorierna efter högsta totalbelopp (kr)
-  const byCat = {{}};
+  // Nivå 1: Huvudrubriker (Mat, Dryck & Alkohol, Förbrukning & Emballage) -> Nivå 2: Underkategorier -> Nivå 3: Varor
+  const DRINK_CATS = new Set(['Alkohol', 'Läsk', 'Vatten']);
+  const PACK_CATS = new Set(['Förbrukning & Emballage']);
+  const getMainGroup = (cat) => {{
+    if (DRINK_CATS.has(cat)) return '🥤 Dryck & Alkohol';
+    if (PACK_CATS.has(cat)) return '📦 Förbrukning & Emballage';
+    return '🍽️ Mat';
+  }};
+
+  const mainMap = {{}};
   filtered.forEach(o => {{
-    const c = o.x.category || 'Övrigt';
-    if (!byCat[c]) byCat[c] = {{ cat: c, kr: 0, kop: 0, items: [] }};
-    byCat[c].kr += o.st.kr;
-    byCat[c].kop += o.st.kop;
-    byCat[c].items.push(o);
+    const subCat = o.x.category || 'Övrigt';
+    const mg = getMainGroup(subCat);
+    if (!mainMap[mg]) mainMap[mg] = {{ name: mg, kr: 0, kop: 0, itemCount: 0, subs: {{}} }};
+    if (!mainMap[mg].subs[subCat]) mainMap[mg].subs[subCat] = {{ cat: subCat, kr: 0, kop: 0, items: [] }};
+    mainMap[mg].kr += o.st.kr;
+    mainMap[mg].kop += o.st.kop;
+    mainMap[mg].itemCount += 1;
+    mainMap[mg].subs[subCat].kr += o.st.kr;
+    mainMap[mg].subs[subCat].kop += o.st.kop;
+    mainMap[mg].subs[subCat].items.push(o);
   }});
-  const catGroups = Object.values(byCat).sort((a, b) => b.kr - a.kr);
-  const maxCatKr = catGroups.length ? Math.max(...catGroups.map(g => g.kr)) : 1;
+  const mainGroups = Object.values(mainMap).sort((a, b) => b.kr - a.kr);
+  const maxMainKr = mainGroups.length ? Math.max(...mainGroups.map(g => g.kr)) : 1;
 
-  box.innerHTML = catGroups.map((grp, cIdx) => {{
-    const catPct = grandKr > 0 ? (grp.kr / grandKr) * 100 : 0;
-    const catBarW = maxCatKr > 0 ? Math.max(2, (grp.kr / maxCatKr) * 100) : 0;
-    const isCatOpen = spCat !== 'Alla' || !!spOpenCats[grp.cat] || Boolean(q);
-    const shownItems = isCatOpen ? grp.items : grp.items.slice(0, 3);
+  box.innerHTML = mainGroups.map((mg, mIdx) => {{
+    const mgPct = grandKr > 0 ? (mg.kr / grandKr) * 100 : 0;
+    const mgBarW = maxMainKr > 0 ? Math.max(2, (mg.kr / maxMainKr) * 100) : 0;
+    const isMainOpen = !!spOpenMain[mg.name] || spCat !== 'Alla' || Boolean(q);
 
-    const itemsHtml = shownItems.map((o, idx) => {{
-      const x = o.x;
-      const st = o.st;
-      const qtyTxt = hasPack(x)
-        ? `${{fmtQtySv(Math.round((st.qty / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(st.qty)}} ${{esc(x.unit)}})`
-        : `${{fmtQtySv(st.qty)}} ${{esc(x.unit)}}`;
-      const avgUnitKr = st.qty > 0 ? st.kr / st.qty : 0;
-      const avgTxt = hasPack(x)
-        ? `Snitt: ${{fmtSv(avgUnitKr * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}`
-        : `Snitt: ${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}}`;
-      const itemPct = grp.kr > 0 ? (st.kr / grp.kr) * 100 : 0;
-      const isH = !!spOpenHist[x.id];
+    let subsHtml = '';
+    if (isMainOpen) {{
+      const subGroups = Object.values(mg.subs).sort((a, b) => b.kr - a.kr);
+      const maxSubKr = subGroups.length ? Math.max(...subGroups.map(s => s.kr)) : 1;
+      subsHtml = `<div style="margin-top:10px;display:flex;flex-direction:column;gap:8px">` + subGroups.map(grp => {{
+        const subPct = mg.kr > 0 ? (grp.kr / mg.kr) * 100 : 0;
+        const subBarW = maxSubKr > 0 ? Math.max(2, (grp.kr / maxSubKr) * 100) : 0;
+        const isSubOpen = !!spOpenCats[grp.cat] || spCat !== 'Alla' || Boolean(q);
 
-      const histHtml = isH
-        ? `<div class="hist-box" style="margin-top:6px">` + st.rows.map(h => {{
-            const hp = showInclVat ? h.price_gross : h.price_net;
-            const lt = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
-            const rq = Number(h.qty || 0);
-            const rQtyTxt = hasPack(x)
-              ? `${{fmtQtySv(Math.round((rq / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(rq)}} ${{esc(x.unit)}})`
-              : `${{fmtQtySv(rq)}} ${{esc(x.unit)}}`;
-            const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
-            const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
-            return `<div class="hist-row" ${{clickAttr}}><div><div><b>${{esc(h.date)}}</b> • <span class="notranslate">${{esc(h.supplier)}}</span>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}} • <b>${{rQtyTxt}}</b></div></div><b class="notranslate" style="white-space:nowrap">${{fmtSv(lt)}} kr</b></div>`;
-          }}).join('') + `</div>`
-        : '';
+        let itemsHtml = '';
+        if (isSubOpen) {{
+          itemsHtml = `<div style="margin-top:8px">` + grp.items.map((o, idx) => {{
+            const x = o.x;
+            const st = o.st;
+            const qtyTxt = hasPack(x)
+              ? `${{fmtQtySv(Math.round((st.qty / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(st.qty)}} ${{esc(x.unit)}})`
+              : `${{fmtQtySv(st.qty)}} ${{esc(x.unit)}}`;
+            const avgUnitKr = st.qty > 0 ? st.kr / st.qty : 0;
+            const avgTxt = hasPack(x)
+              ? `Snitt: ${{fmtSv(avgUnitKr * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}}`
+              : `Snitt: ${{fmtSv(avgUnitKr)}} kr/${{esc(x.unit)}}`;
+            const itemPct = grp.kr > 0 ? (st.kr / grp.kr) * 100 : 0;
+            const isH = !!spOpenHist[x.id];
 
-      return `<div style="padding:8px 0;border-top:1px dashed #e2e8f0">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
-          <div style="min-width:0;flex:1">
-            <div style="font-weight:700;font-size:13.5px;color:#0f172a">${{idx + 1}}. ${{esc(x.vara)}}</div>
-            <div class="sub notranslate" style="margin-top:2px"><b>${{qtyTxt}}</b> • ${{st.kop}} köp • ${{avgTxt}}</div>
+            const histHtml = isH
+              ? `<div class="hist-box" style="margin-top:6px">` + st.rows.map(h => {{
+                  const hp = showInclVat ? h.price_gross : h.price_net;
+                  const lt = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
+                  const rq = Number(h.qty || 0);
+                  const rQtyTxt = hasPack(x)
+                    ? `${{fmtQtySv(Math.round((rq / Number(x.pack_qty)) * 100) / 100)}} ${{esc(x.pack_unit)}} (${{fmtQtySv(rq)}} ${{esc(x.unit)}})`
+                    : `${{fmtQtySv(rq)}} ${{esc(x.unit)}}`;
+                  const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
+                  const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
+                  return `<div class="hist-row" ${{clickAttr}}><div><div><b>${{esc(h.date)}}</b> • <span class="notranslate">${{esc(h.supplier)}}</span>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}} • <b>${{rQtyTxt}}</b></div></div><b class="notranslate" style="white-space:nowrap">${{fmtSv(lt)}} kr</b></div>`;
+                }}).join('') + `</div>`
+              : '';
+
+            return `<div style="padding:7px 0;border-top:1px dashed #e2e8f0">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+                <div style="min-width:0;flex:1">
+                  <div style="font-weight:700;font-size:13.5px;color:#0f172a">${{idx + 1}}. ${{esc(x.vara)}}</div>
+                  <div class="sub notranslate" style="margin-top:2px"><b>${{qtyTxt}}</b> • ${{st.kop}} köp • ${{avgTxt}}</div>
+                </div>
+                <div style="text-align:right;flex-shrink:0" class="notranslate">
+                  <div style="font-weight:800;font-size:13.5px;color:#0f172a">${{fmtSv(st.kr)}} kr</div>
+                  <div style="font-size:11px;color:#64748b">${{itemPct.toFixed(1).replace('.', ',')}}% av ${{esc(grp.cat)}}</div>
+                </div>
+              </div>
+              <button class="mini-btn" style="padding:2px 8px;font-size:11px;margin-top:4px" onclick="spOpenHist['${{x.id}}']=!spOpenHist['${{x.id}}'];renderSpend()">${{isH ? 'Dölj köp' : '📈 Visa ' + st.rows.length + ' köp'}}</button>
+              ${{histHtml}}
+            </div>`;
+          }}).join('') + `</div>`;
+        }}
+
+        return `<div style="background:#f8fafc;border:1px solid #cbd5e1;border-left:4px solid #0284c7;border-radius:10px;padding:10px 12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer" onclick="spOpenCats['${{esc(grp.cat)}}']=!spOpenCats['${{esc(grp.cat)}}'];renderSpend()">
+            <div>
+              <div style="font-weight:800;font-size:14.5px;color:#0f172a">${{isSubOpen ? '▼' : '▶'}} ${{esc(grp.cat)}}</div>
+              <div class="sub" style="margin-top:1px">${{grp.items.length}} varor • ${{grp.kop}} köp</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0" class="notranslate">
+              <div style="font-weight:800;font-size:15px;color:#0f172a">${{fmtSv(grp.kr)}} kr</div>
+              <div style="font-size:11px;color:#64748b">${{subPct.toFixed(1).replace('.', ',')}}%</div>
+            </div>
           </div>
-          <div style="text-align:right;flex-shrink:0" class="notranslate">
-            <div style="font-weight:800;font-size:14px;color:#0f172a">${{fmtSv(st.kr)}} kr</div>
-            <div style="font-size:11px;color:#64748b">${{itemPct.toFixed(1).replace('.', ',')}}% av kategorin</div>
-          </div>
-        </div>
-        <button class="mini-btn" style="padding:2px 8px;font-size:11px;margin-top:4px" onclick="spOpenHist['${{x.id}}']=!spOpenHist['${{x.id}}'];renderSpend()">${{isH ? 'Dölj köp' : '📈 Visa ' + st.rows.length + ' köp'}}</button>
-        ${{histHtml}}
-      </div>`;
-    }}).join('');
+          <div class="spend-bar-bg" style="margin-top:6px"><div class="spend-bar-fill" style="width:${{subBarW.toFixed(1)}}%"></div></div>
+          ${{itemsHtml}}
+        </div>`;
+      }}).join('') + `</div>`;
+    }}
 
-    const toggleCatBtn = grp.items.length > 3 && spCat === 'Alla' && !q
-      ? `<button class="hist-btn ${{isCatOpen ? 'open' : ''}}" style="width:100%;margin-top:6px" onclick="spOpenCats['${{esc(grp.cat)}}']=!spOpenCats['${{esc(grp.cat)}}'];renderSpend()">${{isCatOpen ? '▲ Visa färre' : '▼ Visa alla ' + grp.items.length + ' varor i ' + esc(grp.cat)}}</button>`
-      : '';
-
-    return `<div class="card" style="display:block;border-left:5px solid #0284c7">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+    return `<div class="card" style="display:block;border-left:6px solid #0f172a">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer" onclick="spOpenMain['${{esc(mg.name)}}']=!spOpenMain['${{esc(mg.name)}}'];renderSpend()">
         <div>
-          <span class="rank-badge">#${{cIdx + 1}}</span>
-          <span style="font-size:16px;font-weight:800;color:#0f172a">${{esc(grp.cat)}}</span>
-          <div class="sub" style="margin-top:2px">${{grp.items.length}} varor • ${{grp.kop}} köp</div>
+          <span class="rank-badge">#${{mIdx + 1}}</span>
+          <span style="font-size:17px;font-weight:800;color:#0f172a">${{isMainOpen ? '▼' : '▶'}} ${{esc(mg.name)}}</span>
+          <div class="sub" style="margin-top:2px">${{Object.keys(mg.subs).length}} underkategorier • ${{mg.itemCount}} varor • ${{mg.kop}} köp</div>
         </div>
         <div style="text-align:right;flex-shrink:0" class="notranslate">
-          <div class="p-main" style="font-size:17px">${{fmtSv(grp.kr)}} kr</div>
-          <div class="p-avg">${{catPct.toFixed(1).replace('.', ',')}}% av total</div>
+          <div class="p-main" style="font-size:18px">${{fmtSv(mg.kr)}} kr</div>
+          <div class="p-avg">${{mgPct.toFixed(1).replace('.', ',')}}% av total</div>
         </div>
       </div>
-      <div class="spend-bar-bg" style="margin-bottom:8px"><div class="spend-bar-fill" style="width:${{catBarW.toFixed(1)}}%"></div></div>
-      <div>${{itemsHtml}}</div>
-      ${{toggleCatBtn}}
+      <div class="spend-bar-bg" style="margin-top:8px"><div class="spend-bar-fill" style="width:${{mgBarW.toFixed(1)}}%;background:#0f172a"></div></div>
+      ${{subsHtml}}
     </div>`;
   }}).join('');
 }}
