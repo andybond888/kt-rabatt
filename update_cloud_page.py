@@ -2408,6 +2408,7 @@ function renderB2B() {{
       histHtml = `<div class="hist-box"><div style="font-weight:700;margin-bottom:4px;">${{histTitle}} (${{vatLbl}})<span class="notranslate" style="color:#0369a1">${{totalHistLbl}}</span></div>` +
         histRows.map((h, idx) => {{
           const hp = showInclVat ? h.price_gross : h.price_net;
+          const lineTot = showInclVat ? (h.line_gross ?? (Number(h.qty || 0) * hp)) : (h.line_net ?? (Number(h.qty || 0) * hp));
           const clickAttr = h.doc_id ? `onclick="openInvoiceModal(${{h.doc_id}}, ${{h.line_id || 0}})"` : '';
           const linkPill = h.doc_id ? `<span class="inv-link-pill">📄 Faktura →</span>` : '';
           const rq = Number(h.qty || 0);
@@ -2415,10 +2416,15 @@ function renderB2B() {{
           const qtyBadge = rq > 0
             ? `<div class="hist-art notranslate" style="color:#0f172a;font-weight:700;margin-top:2px">+${{esc(formatQtySummary(x, rq))}} <span style="color:#0369a1">• Ack: ${{esc(formatQtySummary(x, cq))}}</span></div>`
             : '';
-          const packHp = hasPack(x) ? `${{fmtSv(hp * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}} <span style="font-weight:400;color:#64748b">(${{fmtSv(hp)}}/${{esc(h.unit)}})</span>` : `${{fmtSv(hp)}} kr/${{esc(h.unit)}}`;
+          const unitSub = hasPack(x)
+            ? `${{fmtSv(hp * Number(x.pack_qty))}} kr/${{esc(x.pack_unit)}} • ${{fmtSv(hp)}} kr/${{esc(h.unit)}}`
+            : `${{fmtSv(hp)}} kr/${{esc(h.unit)}}`;
+          const priceHtml = lineTot > 0
+            ? `<div style="text-align:right;white-space:nowrap"><b class="notranslate" style="font-size:13px;color:#0f172a">${{fmtSv(lineTot)}} kr</b><div class="hist-art notranslate">${{unitSub}}</div></div>`
+            : `<b class="notranslate" style="white-space:nowrap;text-align:right">${{unitSub}}</b>`;
           return `<div class="hist-row" ${{clickAttr}}>` +
             `<div><div>${{esc(h.date)}} • <b class="notranslate">${{esc(h.supplier)}}</b>${{linkPill}}</div><div class="hist-art">${{esc(h.artikel)}}${{h.forp ? ' (' + esc(h.forp) + ')' : ''}}</div>${{qtyBadge}}</div>` +
-            `<b class="notranslate" style="white-space:nowrap;text-align:right">${{packHp}}</b>` +
+            priceHtml +
           `</div>`;
         }}).join('') + (histRows.length ? '' : '<div>Inga tillgängliga historikrader.</div>') +
         `</div>`;
