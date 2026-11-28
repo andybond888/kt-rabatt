@@ -2765,12 +2765,46 @@ function renderSpend() {{
 
   const getSubCat = (x) => {{
     const c = x.category || 'Övrigt';
-    if (c !== 'Kött & Fågel') return c;
     const v = (x.vara || '').toLowerCase();
-    if (/anka|duck/.test(v)) return '🦆 Anka';
-    if (/kyckling|chicken/.test(v)) return '🐔 Kyckling';
-    if (/fläsk|skink|bacon|sidfläsk|spareribs|serrano|gris|broskben|falukorv|cevapcicci/.test(v)) return '🐷 Fläsk & Chark';
-    return '🐄 Nötkött';
+    if (c === 'Kött & Fågel') {{
+      if (/anka|duck/.test(v)) return '🦆 Anka';
+      if (/kyckling|chicken/.test(v)) return '🐔 Kyckling';
+      if (/fläsk|skink|bacon|sidfläsk|spareribs|serrano|gris|broskben|falukorv|cevapcicci/.test(v)) return '🐷 Fläsk & Chark';
+      return '🐄 Nötkött';
+    }}
+    if (c === 'Fisk & Skaldjur') {{
+      if (/bläckfisk|squid|sepia|masago/.test(v)) return '🦑 Bläckfisk & Rom';
+      if (/räk|shrimp|krabba|havskräfta|scallop|oyster/.test(v)) return '🦐 Räkor & Skaldjur';
+      return '🐟 Lax & Fisk';
+    }}
+    if (c === 'Alkohol') {{
+      if (/vin\b|vino|prosecco/.test(v)) return '🍷 Vin & Prosecco';
+      if (/vodka|likör|jäg/.test(v)) return '🥃 Sprit & Likör';
+      return '🍺 Öl & Cider';
+    }}
+    if (c === 'Frukt & Grönt') {{
+      if (/apelsin|banan|citron|avokado|melon|cantaloupe|piel de sapo/.test(v)) return '🍉 Frukt & Melon';
+      if (/potatis|lök|purjolök|vitlök|morot|morötter|rättika|ingefära/.test(v)) return '🥔 Potatis, Lök & Rotfrukter';
+      if (/basilika|koriander|persilja|chili|rawit|spansk peppar|kål|spetskål|pak choi|broccoli|blomkål/.test(v)) return '🌶️ Örter, Chili & Kål';
+      return '🍅 Grönsaker & Svamp';
+    }}
+    if (c === 'Såser & Konserver') {{
+      if (/soja|soy|fisk|fish sauce|ostron|oyster|hoisin/.test(v)) return '🥢 Soja, Fisk- & Ostronsås';
+      if (/curry|chili|sriracha|sambal|tom yum|miso|hot pot|broad bean|barbecue|black bean/.test(v)) return '🌶️ Curry, Chili- & Wokpastor';
+      if (/kokosmjölk|bambuskott|baby corn|majskorn|persik|pineapple|cornichon|gurka|pickled|inari|tomatpur/.test(v)) return '🥥 Kokosmjölk & Konserver';
+      return '🍶 Vinäger, Mayo & Övriga såser';
+    }}
+    if (c === 'Fryst & Halvfabrikat') {{
+      if (/gyoza|dumpling|ha kauw|wonton|vårrull|spring roll|mantou/.test(v)) return '🥟 Dumplings, Gyoza & Vårrullar';
+      return '🍟 Pommes, Fiskbollar & Övrigt';
+    }}
+    if (c === 'Förbrukning & Emballage') {{
+      if (/microform|sushiform|delibägare|dressingbägare|soppbägare|take away|lock/.test(v)) return '🥡 Takeaway-lådor, Lock & Bägare';
+      if (/kasse|påse|planpase|sopsäck|kanister/.test(v)) return '🛍️ Påsar & Kassar';
+      if (/servett|serv |handduk|torkrulle|torkpapper|rengöring|svamp|stålbollar|sprayflaska|bakpapper|matfilm|handsk/.test(v)) return '🧻 Papper, Handskar & Städ';
+      return '✏️ Tillbehör & Kontor';
+    }}
+    return c;
   }};
 
   const mainMap = {{}};
